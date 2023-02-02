@@ -4,11 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>test_JiHyun.jsp</title>
 </head>
 <body>
-<h2>test01.jsp</h2>
-
-
+ <h2>first commit</h2>
 </body>
 </html>
