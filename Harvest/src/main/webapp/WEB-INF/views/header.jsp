@@ -10,13 +10,10 @@
 <body>
 	<header>
 		<input type="checkbox" id="hamburgerBtn">
-		<nav>
+		<nav class="nav_menu">
 			<div>
 				<a href="#"><img src="resources/harVest_img/harvest_logo.png" width="100"></a>
-				<div class="serch_box">
-					<input type="text" placeholder="검색어를 입력하세요">
-					<button type="submit"><img src="resources/harVest_img/search_icon.png" width="20"></button>
-				</div>
+				<button class="project_btn">프로젝트 올리기</button>
 			</div>
 			<div class="menu_link">
 				<label class="hamburger_btn" for="hamburgerBtn">
@@ -31,13 +28,18 @@
 					<div class="menu_name"><a href="#">마감임박</a></div>
 					<div class="menu_name"><a href="#">공개예정</a></div>
 				</div>
+				<div class="serch_box">
+					<input type="text" placeholder="검색어를 입력하세요">
+					<button type="submit"><img src="resources/harVest_img/search_icon.png" width="20"></button>
+				</div>
 				<div class="mypage_box">
-					<button>프로젝트 올리기</button>
 					<a href="#"><img src="resources/harVest_img/mypage.png" width="30"></a>
 				</div>
 			</div>
 		</nav>
-		<div class="category_cont"></div>
+		<div class="category_cont">
+		
+		</div>
 	</header>
 </body>
 </html>
