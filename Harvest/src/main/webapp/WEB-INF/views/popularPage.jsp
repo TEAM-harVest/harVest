@@ -88,13 +88,14 @@
 	<div class="container">
 	    <section>
 	       <div class="btn-group show">
-	         <button class="btn btn-outline-secondary rounded dropdown-toggle w-sm ml-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+	         <button class="btn btn-outline-secondary rounded dropdown-toggle w-sm ml-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	            달성률
 	         </button>
-	         <span></span>
 	         <button class="btn btn-outline-secondary rounded w-sm ml-3" type="button" id="Button">
 	            에디터 추천
 	         </button>
+           </div>
+           <div class="container">주문 내역 총 <b style="color: red; white-space: nowrap;">10</b> 건</div>
 	         <div class="dropdown-menu form show" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
 	            <a class="dropdown-item" href="#"><small class="text-danger">전체보기</small></a>
 	            <a class="dropdown-item" href="#"><small>75% 이하</small></a>
@@ -108,7 +109,7 @@
 	               <button type="submit" class="btn btn-primary btn-sm btn-block">입력값 적용</button>
 	            </form>
 	         </div>
-	      </div>
+	      
 	    </section>
 	</div>
 	<!-- !!! 카테고리 메뉴항목 배열로 4줄씩 가져오기 -->
