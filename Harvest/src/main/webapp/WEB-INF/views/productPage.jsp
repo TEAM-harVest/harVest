@@ -7,13 +7,14 @@
 <title>productPage.jsp</title>
 <script src="resources/harVest_js/header_scroll.js"></script>
 <link href="resources/harVest_css/productPage.css" rel="stylesheet">
-<link href="resources/harVest_css/header_scroll.js" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
 	<!-- 상품 이미지 및 간략 정보 -->
-	<div id="prodContent">
+	<input type="checkbox" id="fundingBtn" style="display:none;">
+	<div id="productContent">
 		<div class="prod_title">
 			<button>카테고리</button>
 			<h1>제목을 적어주세요</h1>
@@ -51,35 +52,38 @@
 				<div class="project_info">
 					<div class="info_price">
 						<span>모인 금액</span>
-						<h2>금액을 입력하세요</h2>
+						<h2>22,003,000원</h2>
 					</div>
 					<div class="info_time">
 						<span>남은 시간</span>
-						<h2>금액을 입력하세요</h2>
+						<h2>29일</h2>
 					</div>
 					<div class="info_support">
 						<span>후원자</span>
-						<h2>금액을 입력하세요</h2>
+						<h2>292명</h2>
 					</div>
 				</div>
 				<div class="project_summary">
 					<div>
 						<div>목표 금액</div>
-						<div>금액을 입력하세요</div>
+						<div>30,000,000원</div>
+						<div>78%</div>
 					</div>
 					<div>
 						<div>펀딩 기간</div>
-						<div>기간을 입력하세요</div>
+						<div>2023.02.03 ~ 2023.03.05</div>
+						<div>29일 남음</div>
 					</div>
 					<div>
 						<div>결제 일시</div>
-						<div>결제 일시를 입력하세요</div>
+						<div>목표금액 달성시 2023.03.06에 결제 진행</div>
+						<div>목표 달성</div>
 					</div>
 				</div>
 				<div class="project_btn">
-					<button>좋아요</button>
+					<label><input type="checkbox" id="likeBtn"> 좋아요</label><!-- input checkbox로 바꾸기!!! -->
 					<button>공유</button>
-					<button>후원하기</button>
+					<label for="fundingBtn">후원하기</label>
 				</div>
 			</div>
 		</div>
@@ -91,16 +95,16 @@
 				<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">프로젝트 계획</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">업데이트</button>
+				<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">진행사항</button>
 		  	</li>
 			<li class="nav-item" role="presentation">
 				<button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">커뮤니티</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false">추천</button>
+				<button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false">공지</button>
 			</li>
 		</ul>
-		<div>
+		<div class="fundingInfo">
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
 				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
@@ -151,7 +155,7 @@
 		<div>test</div>
 	</div>
 	<!-- 상세 페이지 및 창작자 소개, 금액 -->
-	<div></div>
+	<div class=""></div>
 	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>

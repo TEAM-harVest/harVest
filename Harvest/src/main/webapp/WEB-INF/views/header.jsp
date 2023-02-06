@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="resources/harVest_css/header.css" rel="stylesheet">
+<link href="resources/harVest_css/header.css" media="screen and (min-width:992px)" rel="stylesheet">
+<link href="resources/harVest_css/header_middle.css" media="screen and (min-width:768px)" rel="stylesheet">
 </head>
 <body>
 	<header>
