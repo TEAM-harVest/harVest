@@ -3349,6 +3349,24 @@ input[type="button"].btn-block {
   width: 100%;
 }
 
+/* 버튼 css 추가 */
+.btn-ch {/* 숨긴 체크박스를 대신하여 레이블을 버튼처럼 이용 */
+ color: #212529;
+  text-decoration: none;
+  }
+ 
+.chck {display: none;} /* 체크박스는 숨김(체크 기능만) */
+
+.box {display: none; /* 내용 숨김 */
+  padding: 10px;
+  width: 50%; height: auto; }
+  
+.chck:checked+.box { 
+ /* 체크박스가 체크되면 내용 보임 */
+ display: block;}
+ 
+
+
 .fade {
   -webkit-transition: opacity 0.15s linear;
   transition: opacity 0.15s linear;
@@ -3411,6 +3429,29 @@ input[type="button"].btn-block {
 }
 
 .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 10rem;
+  padding: 0.5rem 0;
+  margin: 0.125rem 0 0;
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0rem;
+}
+
+/* 추가한 드롭다운 메뉴*/
+.dropdown-menu1 {
+  display:grid;
+  grid-template-columns: repeat(5, 1fr);
   position: absolute;
   top: 100%;
   left: 0;
@@ -3614,6 +3655,11 @@ input[type="button"].btn-block {
 }
 
 .dropdown-menu.show {
+  display: block;
+}
+
+/*추가한 드롭메뉴*/
+.dropdown-menu1.show {
   display: block;
 }
 
