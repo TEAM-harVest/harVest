@@ -3,8 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-  		<settings>
-		      <!-- Underscore -> CamelCase ex) MAX_SPEED -> maxSpeed -->
-		      <setting name="mapUnderscoreToCamelCase" value="true"/>	
-	    </settings>
+  	<settings>
+		<!-- Underscore -> CamelCase ex) MAX_SPEED -> maxSpeed -->
+		<setting name="mapUnderscoreToCamelCase" value="true"/>	
+	</settings>
 </configuration>
