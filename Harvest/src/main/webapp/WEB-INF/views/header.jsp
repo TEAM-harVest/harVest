@@ -5,7 +5,7 @@
     <nav class="navbar navbar-light bg-white">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="resources/harVest_img/harvest_logo.png">
+                <img src="${pageContext.request.contextPath }/resources/harVest_img/harvest_logo.png">
             </a>
             <div class="socials">
                 <a href="javascript:void(0)">프로젝트 올리기</a>
@@ -16,7 +16,7 @@
     <!-- End Of First Navigation -->
 
     <!-- Page Second Navigation -->
-    <nav class="navbar custom-navbar navbar-expand-md navbar-light bg-white sticky-top">
+    <nav class="navbar custom-navbar navbar-expand-md navbar-light bg-white sticky-top shadow">
         <div class="container">
             <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
