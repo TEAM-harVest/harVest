@@ -33,10 +33,10 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-//		return "mainPage";
+		return "mainPage";
 //		return "popularPage";
 //		return "loginPage";
-		return "joinPage";
+//		return "joinPage";
 	}
 	
 }

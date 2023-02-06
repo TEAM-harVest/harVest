@@ -14,81 +14,16 @@
     <!-- Bootstrap + JoeBLog main styles -->
 	<link rel="stylesheet" href="resources/assets/css/joeblog.css">
 	<style>
-  /* Make the image fully responsive */
-  .carousel-inner img {
-    width: 100%;
-    height: 100%;
-  }
-  </style>
+	 /* Make the image fully responsive */
+	 .carousel-inner img {width: 100%; height: 100%;}
+	</style>
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
-    
-    <!-- page First Navigation -->
-    <nav class="navbar navbar-light bg-white">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="resources/harVest_img/harvest_logo.png">
-            </a>
-            <div class="socials">
-                <a href="javascript:void(0)">프로젝트 올리기</a>
-                <a href="javascript:void(0)">로그인</a>
-            </div>
-        </div>
-    </nav>
-    <!-- End Of First Navigation -->
 
-    <!-- Page Second Navigation -->
-    <nav class="navbar custom-navbar navbar-expand-md navbar-light bg-white sticky-top">
-        <div class="container">
-            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                       카테고리
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="#">1</a>
-                          <a class="dropdown-item" href="#">2</a>
-                          <a class="dropdown-item" href="#">3</a>
-                      </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">홈</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="no-sidebar.html">인기</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="single-post.html">신규</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="single-post.html">마감임박</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">공개예정</a>
-                    </li>
-                </ul>
-                <div class="navbar-nav ml-auto">
-                	<div class="input-group">
-						<input type="text" class="form-control form-control-sm" placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
-						<button class="btn btn-outline-secondary btn-sm" type="button" id="button-addon2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-						<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-					</svg></button>
-					</div>
-					
-                </div>
-            </div>
-        </div>
-    </nav>
-    <!-- End Of Page Second Navigation -->
+	<!-- page-header -->
+  	<jsp:include page="../views/header.jsp"></jsp:include>
     
-    <!-- page-header -->
-<!--     <header class="page-header"></header> -->
-    <!-- end of page header -->
-
+    <!-- 본문 내용 -->
     <div class="container">
         <section>
             <div class="feature-posts">
@@ -265,91 +200,12 @@
 					</div>  
                 <!-- 인기 프로젝트 끝 -->  
 
-
-                <h6 class="sidebar-title mt-5 mb-4">Instagram</h6>
-                <div class="row px-3">
-                    <div class="col-4 p-1 figure">
-                        <a href="#" class="figure-img">
-                            <img src="resources/assets/imgs/insta-1.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="col-4 p-1 figure">
-                        <a href="#" class="figure-img">
-                            <img src="resources/assets/imgs/insta-2.jpg" alt="" class="w-100 m-0">
-                        </a>
-                    </div>  
-                    <div class="col-4 p-1 figure">
-                        <a href="#" class="figure-img">
-                            <img src="resources/assets/imgs/insta-3.jpg" alt="" class="w-100">
-                        </a>
-                    </div>
-                    <div class="col-4 p-1 figure">
-                        <a href="#" class="figure-img">
-                            <img src="resources/assets/imgs/insta-4.jpg" alt="" class="w-100 m-0">
-                        </a>
-                    </div>  
-                    <div class="col-4 p-1 figure">
-                        <a href="#" class="figure-img">
-                            <img src="resources/assets/imgs/insta-5.jpg" alt="" class="w-100">
-                        </a>
-                    </div>
-                    <div class="col-4 p-1 figure">
-                        <a href="#" class="figure-img">
-                            <img src="resources/assets/imgs/insta-6.jpg" alt="" class="w-100 m-0">
-                        </a>
-                    </div>                          
-                </div>  
-
-                <figure class="figure mt-5">
-                    <a href="single-post.html" class="figure-img">
-                        <img src="resources/assets/imgs/img-4.jpg" alt="" class="w-100">
-                        <figcaption class="figcaption">Laboriosam</figcaption>
-                    </a>
-                </figure>
-
-                <h6 class="sidebar-title mt-5 mb-4">Popular Posts</h6>
-                <div class="card mb-4">
-                    <a href="single-post.html" class="overlay-link"></a>
-                    <div class="card-header p-0">                                   
-                        <div class="blog-media">
-                            <img src="resources/assets/imgs/blog-6.jpg" alt="" class="w-100">
-                            <a href="#" class="badge badge-primary">#Lorem</a>      
-                        </div>  
-                    </div>
-                    <div class="card-body px-0">
-                        <h5 class="card-title mb-2">Corporis Placeat</h5>   
-                        <small class="small text-muted"><i class="ti-calendar pr-1"></i> January 24 2019
-                        </small>
-                        <p class="my-2">consectetur adipisicing Cum veritatis minus iustorpo cupiditate voluptas ...</p>
-                    </div>      
-                </div>
             </div>
         </div>
     </div>
 
     <!-- Page Footer -->
-    <footer class="page-footer">
-        <div class="container">
-            <div class="row align-items-center justify-content-between border-top">
-                <div class="col-md-7 text-center text-md-left">
-                <p class="mb-0 mt-4 small">
-                회사명 텀블벅(주) 주소 서울 서초구 서초대로 398, 19층 (서초동, BNK디지털)
-                사업자등록번호 123-45-67890
-                통신판매업 신고번호 대표번호 02-0000-0000 Tumblbug Inc.</p>
-                </div>
-                <div class="col-md-5 text-center text-md-right">
-                    <div class="socials">
-                        <a href="javascript:void(0)" class="font-weight-bold text-muted mr-4"><i class="ti-facebook pr-1"></i></a>
-                        <a href="javascript:void(0)" class="font-weight-bold text-muted mr-4"><i class="ti-twitter pr-1"></i></a>
-                        <a href="javascript:void(0)" class="font-weight-bold text-muted mr-4"><i class="ti-pinterest-alt pr-1"></i></a>
-                        <a href="javascript:void(0)" class="font-weight-bold text-muted mr-4"><i class="ti-instagram pr-1"></i></a>
-                        <a href="javascript:void(0)" class="font-weight-bold text-muted mr-4"><i class="ti-youtube pr-1"></i></a>
-                    </div>
-                </div>  
-            </div>
-        </div>      
-    </footer>
-    <!-- End of Page Footer -->
+    <jsp:include page="../views/footer.jsp"></jsp:include>
 
 	<!-- core  -->
     <script src="resources/assets/vendors/jquery/jquery-3.4.1.js"></script>
