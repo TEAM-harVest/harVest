@@ -21,36 +21,28 @@
     
     <!-- 본문 내용 -->
 
-	<!-- 로그인 폼 -->
+	<!-- 비밀번호 찾기 폼 -->
 	<div class="container text-center">
-	    <section>
-	       <div class="btn-group show">
+		<section>
+			<div class="btn-group show">
 				<div class="col-md-12 text-left">
-                    <h4 class="mb-4">로그인</h4>
-		            <form action="#" method="post" name="login">
+                    <h4 class="mb-4">비밀번호 재설정</h4>
+		            <form action="#" method="post" name="rePassword">
 		                <div class="form-group">
-		                    <input type="email" name="email" class="form-control" id="email" aria-describedby="" placeholder="이메일">
-		                </div>
+                            <label for="exampleInputEmail1">이메일 계정</label>
+                            <input type="email" name="email" class="form-control form-control-sm" id="email" placeholder="가입하신 이메일 계정을 입력해주세요">
+                        </div>
+                        <p class="text-muted">
+	                    	가입 시 사용하신 이메일을 입력하시면 새 비밀번호를 생성할 수 있는 링크를 보내드립니다.<br>
+	                    	구글/네이버/카카오 계정으로 가입하신 경우, 구글/네이버/카카오 계정에 쓰이는 이메일을 입력해주세요.
+                   		</p>
 		                <div class="form-group">
-		                    <input type="password" name="pass" id="pass" class="form-control" aria-describedby="" placeholder="비밀번호">
-		                </div>
-		                <div class="form-group">
-		                    <button type="submit" class="btn btn-block mybtn btn-brown tx-tfm">로그인</button>
+		                    <button type="submit" class="btn btn-block mybtn btn-brown tx-tfm">비밀번호 재설정</button>
 		                </div>
 		            </form>
-		            <hr>
-		            <div class="col-md-12 text-center">
-			            <a href="#"><img src="${pageContext.request.contextPath }/resources/assets/imgs/naver.jpg" class="ml-2 mr-2 mb-4 mt-2 thumb-sm rounded-circle" alt=""></a>
-			            <a href="#"><img src="${pageContext.request.contextPath }/resources/assets/imgs/google.jpg" class="ml-2 mr-2 mb-4 mt-2 thumb-sm rounded-circle" alt=""></a>
-			            <a href="#"><img src="${pageContext.request.contextPath }/resources/assets/imgs/kakao.jpg" class="ml-2 mr-2 mb-4 mt-2 thumb-sm rounded-circle" alt=""></a>
-		            </div>
-		            <p class="text-muted">
-			            아직 harvest 계정이 없으신가요? <a class="text-danger" href="#">회원가입</a><br>
-			            혹시 비밀번호가 기억나지 않으신가요? <a class="text-danger" href="#">비밀번호 재설정</a>
-		            </p>
-	            </div> 
-	       </div>
-	    </section>
+	            </div>
+			</div>
+		</section>
 	</div>
 	<!-- 로그인 폼 끝 -->
 
