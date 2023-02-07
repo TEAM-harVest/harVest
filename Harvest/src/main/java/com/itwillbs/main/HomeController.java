@@ -38,7 +38,8 @@ public class HomeController {
 //		return "loginPage";
 //		return "joinPage";
 //		return "myPage";
-		return "mySettingPage";
+//		return "mySettingPage";
+		return "rePasswordPage";
 	}
 	
 }
