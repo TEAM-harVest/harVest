@@ -25,24 +25,29 @@
 	<div class="container text-center">
 	    <section>
 	       <div class="btn-group show">
-				<div class="col-md-12 text-center">
-                    <h2 class="mb-4">로그인</h2>
+				<div class="col-md-12 text-left">
+                    <h4 class="mb-4">로그인</h4>
 		            <form action="#" method="post" name="login">
 		                <div class="form-group">
-		                    <input type="text" name="id" class="form-control" id="id" aria-describedby="" placeholder="아이디">
+		                    <input type="email" name="email" class="form-control" id="email" aria-describedby="" placeholder="이메일">
 		                </div>
 		                <div class="form-group">
 		                    <input type="password" name="pass" id="pass" class="form-control" aria-describedby="" placeholder="비밀번호">
 		                </div>
-		                
-		                <div class="col-md-12 mb-3">
-		                    <button type="submit" class="btn btn-block mybtn btn-primary tx-tfm">로그인</button>
+		                <div class="form-group">
+		                    <button type="submit" class="btn btn-block mybtn btn-brown tx-tfm">로그인</button>
 		                </div>
 		            </form>
-		            <div class="col-md-12 mb-3">
-	                    <input type="button" value="회원가입" class="btn btn-block mybtn btn-primary tx-tfm"
-						onclick="location.href='../views/joinPage.jsp'">
-	                </div>
+		            <hr>
+		            <div class="col-md-12 text-center">
+			            <a href="#"><img src="${pageContext.request.contextPath }/resources/assets/imgs/naver.jpg" class="ml-2 mr-2 mb-4 mt-2 thumb-sm rounded-circle" alt=""></a>
+			            <a href="#"><img src="${pageContext.request.contextPath }/resources/assets/imgs/google.jpg" class="ml-2 mr-2 mb-4 mt-2 thumb-sm rounded-circle" alt=""></a>
+			            <a href="#"><img src="${pageContext.request.contextPath }/resources/assets/imgs/kakao.jpg" class="ml-2 mr-2 mb-4 mt-2 thumb-sm rounded-circle" alt=""></a>
+		            </div>
+		            <p class="text-muted">
+			            아직 harvest 계정이 없으신가요? <a class="text-danger" href="#">회원가입</a><br>
+			            혹시 비밀번호가 기억나지 않으신가요? <a class="text-danger" href="#">비밀번호 재설정</a>
+		            </p>
 	            </div> 
 	       </div>
 	    </section>
