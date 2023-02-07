@@ -4655,9 +4655,9 @@ input[type="button"].btn-block {
 
 .navbar-brand {
   display: inline-block;
-  padding-top: 0.3125rem;
-  padding-bottom: 0.3125rem;
-  margin-right: 10px;
+/*   padding-top: 0.3125rem; */
+/*   padding-bottom: 0.3125rem; */
+/*   margin-right: 10px; */
   font-size: 1.25rem;
   line-height: inherit;
   white-space: nowrap;
@@ -11239,7 +11239,7 @@ hr {
 
 .blog-media .badge {
   position: absolute;
-  left: 0;
+  right: 0;
   top: 0px;
   padding: 7px;
   z-index: 10;
@@ -11569,7 +11569,7 @@ textarea.form-control {
 }
 
 .navbar .navbar-brand img {
-  width: 120px;
+  width: 100px;
 }
 
 .pagination .page-item {
@@ -11842,4 +11842,38 @@ section .section-secondary-title {
   font-size: 17px;
   opacity: .7;
   margin-bottom: 15px;
+}
+
+/* heart btn 추가*/
+.like_input {
+	display: none;
+}
+
+.like_btn {
+	position:absolute;
+	top:0;
+	right:0;
+	cursor: pointer;
+}
+span[class^="heart"] {
+	position:absolute;
+	right:5px;
+	color: red;
+}
+.heart_fill {
+	visibility:hidden;
+	color: red;
+}
+#likeBtn:checked ~ .heart_fill{
+	visibility: visible;
+	animation: heart 3 linear .4s;
+}
+#likeBtn:checked ~ .heart{
+	visibility: hidden;
+}
+
+@keyframes heart {
+	100% {
+		transform: scale(1.1);
+	}
 }
