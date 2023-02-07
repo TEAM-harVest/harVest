@@ -35,6 +35,7 @@
   --danger: #ff0000;
   --light: #f8f9fa;
   --dark: #343a40;
+  --brown: #C8BAA8;
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
@@ -2768,6 +2769,19 @@ textarea.form-control {
 a.btn.disabled,
 fieldset:disabled a.btn {
   pointer-events: none;
+}
+
+/*추가 브라운*/
+.btn-brown {
+  color: #FFFFFF;
+  background-color: #C8BAA8;
+  border-color: #C8BAA8;
+}
+
+.btn-brown:hover {
+  color: #FFFFFF;
+  background-color: #C1AC8F;
+  border-color: #C1AC8F;
 }
 
 .btn-primary {
@@ -11604,16 +11618,16 @@ textarea.form-control {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
   background: #fff;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #acf3e2;
+  background: #e2cbbe;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #c2f6ea;
+  background: #e2cbbe;
 }
 
 .table.v-align-center th, .table.v-align-center td {
