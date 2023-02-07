@@ -9,10 +9,10 @@
     <meta name="author" content="Devcrud">
     <title>harVest</title>
     <!-- font icons -->
-    <link rel="stylesheet" href="resources/assets/vendors/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/vendors/themify-icons/css/themify-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- Bootstrap + JoeBLog main styles -->
-	<link rel="stylesheet" href="resources/assets/css/joeblog.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/joeblog.css">
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
 
@@ -67,7 +67,7 @@
 						<div class="card text-left mb-5">
 							<div class="card-header p-0">
 								<div class="blog-media">
-									<img src="resources/assets/imgs/blog-3.jpg" alt=""
+									<img src="${pageContext.request.contextPath }/resources/assets/imgs/blog-3.jpg" alt=""
 										class="w-100"> <a href="#"
 										class="badge badge-primary text-right">♡</a>
 								</div>
@@ -90,7 +90,7 @@
 						<div class="card text-left mb-5">
 							<div class="card-header p-0">
 								<div class="blog-media">
-									<img src="resources/assets/imgs/blog-4.jpg" alt=""
+									<img src="${pageContext.request.contextPath }/resources/assets/imgs/blog-4.jpg" alt=""
 										class="w-100"> <a href="#"
 										class="badge badge-primary text-right">♡</a>
 								</div>
@@ -113,7 +113,7 @@
 						<div class="card text-left mb-5">
 							<div class="card-header p-0">
 								<div class="blog-media">
-									<img src="resources/assets/imgs/blog-5.jpg" alt=""
+									<img src="${pageContext.request.contextPath }/resources/assets/imgs/blog-5.jpg" alt=""
 										class="w-100"> <a href="#"
 										class="badge badge-primary text-right">♡</a>
 								</div>

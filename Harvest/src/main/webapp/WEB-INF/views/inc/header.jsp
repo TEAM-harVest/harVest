@@ -31,13 +31,6 @@
                           <a class="dropdown-item" href="#">1</a>
                           <a class="dropdown-item" href="#">2</a>
                           <a class="dropdown-item" href="#">3</a>
-                          <a class="dropdown-item" href="#">4</a>
-                          <a class="dropdown-item" href="#">5</a>
-                          <a class="dropdown-item" href="#">6</a>
-                          <a class="dropdown-item" href="#">7</a>
-                          <a class="dropdown-item" href="#">8</a>
-                          <a class="dropdown-item" href="#">9</a>
-                          <a class="dropdown-item" href="#">10</a>
                       </div>
                     </li>
                     <li class="nav-item">
