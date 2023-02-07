@@ -7,18 +7,16 @@
             <a class="navbar-brand" href="${pageContext.request.contextPath }/category/main">
                 <img src="${pageContext.request.contextPath }/resources/harVest_img/harvest_logo.png">
             </a>
+            <div class="socials">
             <c:if test="${empty sessionScope.id}">
-	            <div class="socials">
-	                <a href="${pageContext.request.contextPath }/user/login">로그인</a>
-	            </div>
+                <a href="${pageContext.request.contextPath }/user/login">로그인</a>
             </c:if>
             <c:if test="${! empty sessionScope.id}">
-            	<div class="socials">
-            		<a href="${pageContext.request.contextPath }/creater/newproject">프로젝트 올리기</a>
-	                <a href="${pageContext.request.contextPath }/user/logout">로그아웃</a>
-	                <img src="${pageContext.request.contextPath }/resources/assets/imgs/avatar-1.jpg" class="thumb-sm img-thumbnail rounded-circle" alt="...">
-            	</div>
+           		<a href="${pageContext.request.contextPath }/creater/newproject">프로젝트 올리기</a>
+                <a href="${pageContext.request.contextPath }/user/logout">로그아웃</a>
+                <img src="${pageContext.request.contextPath }/resources/assets/imgs/avatar-1.jpg" class="thumb-sm img-thumbnail rounded-circle" alt="...">
             </c:if>
+            </div>
         </div>
     </nav>
     <!-- End Of First Navigation -->
