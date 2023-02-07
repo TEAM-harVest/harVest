@@ -9,10 +9,10 @@
     <meta name="author" content="Devcrud">
     <title>harVest</title>
     <!-- font icons -->
-    <link rel="stylesheet" href="resources/assets/vendors/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/vendors/themify-icons/css/themify-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- Bootstrap + JoeBLog main styles -->
-	<link rel="stylesheet" href="resources/assets/css/joeblog.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/joeblog.css">
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
 
@@ -23,7 +23,7 @@
 	<div class="container">
 		<div class="btn-group show">
 			<ul class="navbar-nav">
-				<li class="nav-item dropdown"><a class="btn btn-sm btn-outline-secondary dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">달성률</a>
+				<li class="nav-item dropdown"><a class="btn btn-sm btn-outline-secondary dropdown-toggle text-dark mt-5 mb-2" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">달성률</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="#"><small class="text-danger">전체보기</small></a>
 						<a class="dropdown-item" href="#"><small>75% 이하</small></a>
@@ -34,7 +34,7 @@
 			</ul>
 		</div>
 	</div>
-	<div class="container mt-2 mb-4">주문 내역 총 <b style="color: red; white-space: nowrap;">10</b> 건</div>
+	<div class="container mt-2 mb-4"><b style="color: red; white-space: nowrap;">10</b>개의 프로젝트가 있습니다.</div>
 	
 	<!-- !!! 카테고리 메뉴항목 배열로 4줄씩 가져오기 -->
 	<div class="container">
@@ -46,7 +46,7 @@
 						<div class="card text-left mb-5">
 							<div class="card-header p-0">
 								<div class="blog-media">
-									<img src="resources/assets/imgs/blog-2.jpg" alt="" class="w-100"> <a href="#" class="badge badge-primary text-right">♡</a>
+									<img src="${pageContext.request.contextPath }/resources/assets/imgs/blog-2.jpg" alt="" class="w-100"> <a href="#" class="badge badge-primary text-right">♡</a>
 								</div>
 							</div>
 							<div class="card-body px-0">
@@ -67,7 +67,7 @@
 						<div class="card text-left mb-5">
 							<div class="card-header p-0">
 								<div class="blog-media">
-									<img src="resources/assets/imgs/blog-3.jpg" alt=""
+									<img src="${pageContext.request.contextPath }/resources/assets/imgs/blog-3.jpg" alt=""
 										class="w-100"> <a href="#"
 										class="badge badge-primary text-right">♡</a>
 								</div>
@@ -90,7 +90,7 @@
 						<div class="card text-left mb-5">
 							<div class="card-header p-0">
 								<div class="blog-media">
-									<img src="resources/assets/imgs/blog-4.jpg" alt=""
+									<img src="${pageContext.request.contextPath }/resources/assets/imgs/blog-4.jpg" alt=""
 										class="w-100"> <a href="#"
 										class="badge badge-primary text-right">♡</a>
 								</div>
@@ -113,7 +113,7 @@
 						<div class="card text-left mb-5">
 							<div class="card-header p-0">
 								<div class="blog-media">
-									<img src="resources/assets/imgs/blog-5.jpg" alt=""
+									<img src="${pageContext.request.contextPath }/resources/assets/imgs/blog-5.jpg" alt=""
 										class="w-100"> <a href="#"
 										class="badge badge-primary text-right">♡</a>
 								</div>

@@ -9,10 +9,10 @@
     <meta name="author" content="Devcrud">
     <title>harVest</title>
     <!-- font icons -->
-    <link rel="stylesheet" href="resources/assets/vendors/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/vendors/themify-icons/css/themify-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- Bootstrap + JoeBLog main styles -->
-	<link rel="stylesheet" href="resources/assets/css/joeblog.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/joeblog.css">
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
 
@@ -27,7 +27,7 @@
 	       <div class="btn-group show">
 				<div class="col-md-12 text-left">
                     <h4 class="mb-4">로그인</h4>
-		            <form action="#" method="post" name="login">
+		            <form action="${pageContext.request.contextPath }/user/loginPro" method="post" name="loginPro">
 		                <div class="form-group">
 		                    <input type="email" name="email" class="form-control" id="email" aria-describedby="" placeholder="이메일">
 		                </div>
@@ -41,12 +41,12 @@
 		            <hr>
 		            <div class="col-md-12 text-center">
 			            <a href="#"><img src="${pageContext.request.contextPath }/resources/assets/imgs/naver.jpg" class="ml-2 mr-2 mb-4 mt-2 thumb-sm rounded-circle" alt=""></a>
-			            <a href="#"><img src="${pageContext.request.contextPath }/resources/assets/imgs/google.jpg" class="ml-2 mr-2 mb-4 mt-2 thumb-sm rounded-circle" alt=""></a>
+			            <a href="#"><img src="${pageContext.request.contextPath }/resources/assets/imgs/google.jpg" class="ml-2 mr-2 mb-4 mt-2 thumb-sm img-thumbnail rounded-circle" alt=""></a>
 			            <a href="#"><img src="${pageContext.request.contextPath }/resources/assets/imgs/kakao.jpg" class="ml-2 mr-2 mb-4 mt-2 thumb-sm rounded-circle" alt=""></a>
 		            </div>
 		            <p class="text-muted">
-			            아직 harvest 계정이 없으신가요? <a class="text-danger" href="#">회원가입</a><br>
-			            혹시 비밀번호가 기억나지 않으신가요? <a class="text-danger" href="#">비밀번호 재설정</a>
+			            아직 harvest 계정이 없으신가요? <a class="text-danger" href="${pageContext.request.contextPath }/user/join">회원가입</a><br>
+			            비밀번호가 기억나지 않으신가요? <a class="text-danger" href="${pageContext.request.contextPath }/user/rePass">비밀번호 재설정</a>
 		            </p>
 	            </div> 
 	       </div>

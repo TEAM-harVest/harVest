@@ -6,9 +6,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class UserController {
-	@RequestMapping(value = "/member/insert", method = RequestMethod.GET)	
-	public String insert() {
-		// 기본 이동방식 : 주소변경 없이 이동 
-		return "member/join";
+	@RequestMapping(value = "/user/join", method = RequestMethod.GET)	
+	public String join() {
+		return "user/join";
+	}
+	
+	@RequestMapping(value = "/user/login", method = RequestMethod.GET)	
+	public String login() {
+		return "user/login";
+	}
+	
+	@RequestMapping(value = "/user/rePass", method = RequestMethod.GET)	
+	public String rePass() {
+		return "user/rePass";
 	}
 }

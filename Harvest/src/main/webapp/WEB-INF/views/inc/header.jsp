@@ -1,16 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>	
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 	<!-- page-header -->
     <!-- page First Navigation -->
     <nav class="navbar navbar-light bg-white">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="${pageContext.request.contextPath }/category/main">
                 <img src="${pageContext.request.contextPath }/resources/harVest_img/harvest_logo.png">
             </a>
-            <div class="socials">
-                <a href="javascript:void(0)">프로젝트 올리기</a>
-                <a href="../views/loginPage.jsp">로그인</a>
-            </div>
+            <c:if test="${empty sessionScope.id}">
+	            <div class="socials">
+	                <a href="${pageContext.request.contextPath }/user/login">로그인</a>
+	            </div>
+            </c:if>
+            <c:if test="${! empty sessionScope.id}">
+            	<div class="socials">
+            		<a href="${pageContext.request.contextPath }/creater/newproject">프로젝트 올리기</a>
+	                <a href="${pageContext.request.contextPath }/user/logout">로그아웃</a>
+	                <img src="${pageContext.request.contextPath }/resources/assets/imgs/avatar-1.jpg" class="thumb-sm img-thumbnail rounded-circle" alt="...">
+            	</div>
+            </c:if>
         </div>
     </nav>
     <!-- End Of First Navigation -->
@@ -41,19 +49,19 @@
                       </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="./views/mainPage.jsp">홈</a>
+                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/category/main">홈</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="../views/popularPage.jsp">인기</a>
+                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/category/popular">인기</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">신규</a>
+                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/category/newly">신규</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">마감임박</a>
+                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/category/deadline">마감임박</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">공개예정</a>
+                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/category/expect">공개예정</a>
                     </li>
                 </ul>
                 <div class="navbar-nav ml-auto">
