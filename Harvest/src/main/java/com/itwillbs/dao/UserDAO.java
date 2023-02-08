@@ -2,6 +2,9 @@ package com.itwillbs.dao;
 
 import java.util.List;
 
-public interface UserDAO {
+import com.itwillbs.domain.UserDTO;
 
+public interface UserDAO {
+	
+	public UserDTO getMember(String id);
 }

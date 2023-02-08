@@ -4,7 +4,13 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- Mapper.xml 만들 때 참고용, 아래 namespace 수정해서 쓰세요! -->
-<mapper namespace="com.itwillbs.mappers.sampleMapper">
+<mapper namespace="com.itwillbs.mappers.PaymentMapper">
 
-	
+  <select id="getUser" resultType="com.itwillbs.domain.UserDTO">
+     select name, address, phone
+       from user_tb
+      where id=#{id}
+  </select>	
+  
+  
 </mapper>
