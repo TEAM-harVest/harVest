@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 	<!-- page-header -->
     <!-- page First Navigation -->
     <nav class="navbar navbar-light bg-white">
         <div class="container">
-            <a class="navbar-brand" href="${pageContext.request.contextPath }/category/main">
+            <a class="navbar-brand" href="${pageContext.request.contextPath }/projectList/main">
                 <img src="${pageContext.request.contextPath }/resources/harVest_img/harvest_logo.png">
             </a>
             <div class="socials">
@@ -34,32 +34,26 @@
                        카테고리
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="#">1</a>
-                          <a class="dropdown-item" href="#">2</a>
-                          <a class="dropdown-item" href="#">3</a>
-                          <a class="dropdown-item" href="#">4</a>
-                          <a class="dropdown-item" href="#">5</a>
-                          <a class="dropdown-item" href="#">6</a>
-                          <a class="dropdown-item" href="#">7</a>
-                          <a class="dropdown-item" href="#">8</a>
-                          <a class="dropdown-item" href="#">9</a>
-                          <a class="dropdown-item" href="#">10</a>
+                      	  <a class="dropdown-item" href="#"><img src="${pageContext.request.contextPath }/resources/assets/imgs/border-all.svg"/> 전체</a>
+                          <a class="dropdown-item" href="#"><img src="${pageContext.request.contextPath }/resources/assets/imgs/book.svg"/> 출판</a>
+                          <a class="dropdown-item" href="#"><img src="${pageContext.request.contextPath }/resources/assets/imgs/nintendo-switch.svg"/> 게임</a>
+                          <a class="dropdown-item" href="#"><img src="${pageContext.request.contextPath }/resources/assets/imgs/music-note-list.svg"/> 음악</a>
                       </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/category/main">홈</a>
+                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/main">홈</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/category/popular">인기</a>
+                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/popular">인기</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/category/newly">신규</a>
+                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/newly">신규</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/category/deadline">마감임박</a>
+                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/deadline">마감임박</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/category/expect">공개예정</a>
+                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/expect">공개예정</a>
                     </li>
                 </ul>
                 <div class="navbar-nav ml-auto">
