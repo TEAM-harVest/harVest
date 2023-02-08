@@ -3,6 +3,7 @@ package com.itwillbs.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,18 +20,33 @@ public class ProjectListController {
 	private ProjectListService projectListService;
 
 	@RequestMapping(value = "projectList/main", method = RequestMethod.GET)	
-	public String main() {
+	public String main(Model model) {
+		List<ProjectDTO> allProjectList=projectListService.getAllProjectList();
+		int projectCount=projectListService.getProjectCount();
+		// projectCount 이름을 "getProjectCount" 담아서 가져가서 앞단에서 사용하겠다!
+		model.addAttribute("getProjectCount", projectCount);
+		model.addAttribute("allProjectList", allProjectList);
 		return "projectList/main";
 	}
 	
-	@RequestMapping(value = "projectList/AllProjectList", method = RequestMethod.GET)	
+	@RequestMapping(value = "projectList/allProjectList", method = RequestMethod.GET)	
 	public String allProjectList(Model model) {
 		List<ProjectDTO> allProjectList=projectListService.getAllProjectList();
 		int projectCount=projectListService.getProjectCount();
 		// projectCount 이름을 "getProjectCount" 담아서 가져가서 앞단에서 사용하겠다!
 		model.addAttribute("getProjectCount", projectCount);
 		model.addAttribute("allProjectList", allProjectList);
-		System.out.println(allProjectList);
+		return "projectList/allProject";
+	}
+	
+	@RequestMapping(value = "projectList/categoryList", method = RequestMethod.GET)	
+	public String categoryList(Model model, HttpServletRequest request) {
+		String category=request.getParameter("category");
+		List<ProjectDTO> categoryList=projectListService.getCategoryList(category);
+		int categoryCount=projectListService.getCategoryCount(category);
+		model.addAttribute("getCategoryCount", categoryCount);
+		model.addAttribute("categoryList", categoryList);
+		System.out.println(categoryList);
 		return "projectList/category";
 	}
 	

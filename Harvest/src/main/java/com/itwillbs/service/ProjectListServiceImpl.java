@@ -25,6 +25,16 @@ public class ProjectListServiceImpl implements ProjectListService{
 		return projectListDAO.getProjectCount();
 	}
 
+	@Override
+	public List<ProjectDTO> getCategoryList(String category) {
+		return projectListDAO.getCategoryList(category);
+	}
+
+	@Override
+	public int getCategoryCount(String category) {
+		return projectListDAO.getCategoryCount(category);
+	}
+
 
 
 	

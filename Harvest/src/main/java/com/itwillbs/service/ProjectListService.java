@@ -9,5 +9,7 @@ public interface ProjectListService {
 	
 	public List<ProjectDTO> getAllProjectList();
 	public int getProjectCount();
+	public List<ProjectDTO> getCategoryList(String category);
+	public int getCategoryCount(String category);
 
 }

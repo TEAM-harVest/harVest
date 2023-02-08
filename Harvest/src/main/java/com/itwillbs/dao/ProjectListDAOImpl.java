@@ -24,6 +24,17 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 	public int getProjectCount() {
 		return sqlSession.selectOne(namespace+".getProjectCount");
 	}
+
+	@Override
+	public List<ProjectDTO> getCategoryList(String category) {
+		return sqlSession.selectList(namespace+".getCategoryList", category);
+	}
+
+	@Override
+	public int getCategoryCount(String category) {
+		System.out.println("getCategoryCount");
+		return sqlSession.selectOne(namespace+".getCategoryCount", category);
+	}
 	
 	
 

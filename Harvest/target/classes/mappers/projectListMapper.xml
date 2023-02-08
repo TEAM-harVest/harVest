@@ -13,5 +13,13 @@
 	<select id="getProjectCount" resultType="java.lang.Integer">
 		select count(*) from project_tb
 	</select>
+	
+	<select id="getCategoryList" resultType="com.itwillbs.domain.ProjectDTO">
+		select * from project_tb where category=#{category}
+	</select>
+	
+	<select id="getCategoryCount" resultType="java.lang.Integer">
+		select count(*) from project_tb where category=#{category}
+	</select>
 
 </mapper>  
