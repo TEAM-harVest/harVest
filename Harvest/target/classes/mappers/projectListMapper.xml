@@ -7,7 +7,7 @@
 <mapper namespace="com.itwillbs.mappers.projectListMapper">
 
 	<select id="getAllProjectList" resultType="com.itwillbs.domain.ProjectDTO">
-		select * from project
+		select * from project_tb
 	</select>
 
 </mapper>  

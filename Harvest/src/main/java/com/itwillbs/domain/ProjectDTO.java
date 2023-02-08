@@ -1,25 +1,29 @@
 package com.itwillbs.domain;
 
+import java.sql.Date;
+
 public class ProjectDTO {
 	
-	private String name;
-	private String title;
+	private int idx;
+	private String creNm;
 	private String category;
-	private String thumnail;
-	private int target_amount;
-	private int total_amount;
-	
-	public String getName() {
-		return name;
+	private String title;
+	private String img1;
+	private int targetAmt;
+	private int totalAmt;
+	private Date start;
+	private Date end;
+	public int getIdx() {
+		return idx;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setIdx(int idx) {
+		this.idx = idx;
 	}
-	public String getTitle() {
-		return title;
+	public String getCreNm() {
+		return creNm;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setCreNm(String creNm) {
+		this.creNm = creNm;
 	}
 	public String getCategory() {
 		return category;
@@ -27,27 +31,53 @@ public class ProjectDTO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public String getThumnail() {
-		return thumnail;
+	public String getTitle() {
+		return title;
 	}
-	public void setThumnail(String thumnail) {
-		this.thumnail = thumnail;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public int getTarget_amount() {
-		return target_amount;
+	public String getImg1() {
+		return img1;
 	}
-	public void setTarget_amount(int target_amount) {
-		this.target_amount = target_amount;
+	public void setImg1(String img1) {
+		this.img1 = img1;
 	}
-	public int getTotal_amount() {
-		return total_amount;
+	public int getTargetAmt() {
+		return targetAmt;
 	}
-	public void setTotal_amount(int total_amount) {
-		this.total_amount = total_amount;
+	public void setTargetAmt(int targetAmt) {
+		this.targetAmt = targetAmt;
 	}
+	public int getTotalAmt() {
+		return totalAmt;
+	}
+	public void setTotalAmt(int totalAmt) {
+		this.totalAmt = totalAmt;
+	}
+	public Date getStart() {
+		return start;
+	}
+	public void setStart(Date start) {
+		this.start = start;
+	}
+	public Date getEnd() {
+		return end;
+	}
+	public void setEnd(Date end) {
+		this.end = end;
+	}
+	@Override
+	public String toString() {
+		return "ProjectDTO [idx=" + idx + ", creNm=" + creNm + ", category=" + category + ", title=" + title + ", img1="
+				+ img1 + ", targetAmt=" + targetAmt + ", totalAmt=" + totalAmt + ", start=" + start + ", end=" + end
+				+ "]";
+	}
+	
+
 	
 	
 	
-	
+
 
 }

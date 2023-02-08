@@ -34,7 +34,7 @@
                        카테고리
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      	  <a class="dropdown-item" href="#"><img src="${pageContext.request.contextPath }/resources/assets/imgs/border-all.svg"/> 전체</a>
+                      	  <a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/AllProjectList"><img src="${pageContext.request.contextPath }/resources/assets/imgs/border-all.svg"/> 전체</a>
                           <a class="dropdown-item" href="#"><img src="${pageContext.request.contextPath }/resources/assets/imgs/book.svg"/> 출판</a>
                           <a class="dropdown-item" href="#"><img src="${pageContext.request.contextPath }/resources/assets/imgs/nintendo-switch.svg"/> 게임</a>
                           <a class="dropdown-item" href="#"><img src="${pageContext.request.contextPath }/resources/assets/imgs/music-note-list.svg"/> 음악</a>
@@ -44,16 +44,16 @@
                         <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/main">홈</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/popular">인기</a>
+                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/popularList">인기</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/newly">신규</a>
+                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/newlyList">신규</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/deadline">마감임박</a>
+                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/deadlineList">마감임박</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/expect">공개예정</a>
+                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/expectList">공개예정</a>
                     </li>
                 </ul>
                 <div class="navbar-nav ml-auto">

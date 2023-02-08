@@ -27,7 +27,8 @@ public class ProjectListController {
 	public String allProjectList(Model model) {
 		List<ProjectDTO> allProjectList=projectListService.getAllProjectList();
 		model.addAttribute("allProjectList", allProjectList);
-		return "projectList/popular";
+		System.out.println(allProjectList);
+		return "projectList/category";
 	}
 	
 	@RequestMapping(value = "projectList/popularList", method = RequestMethod.GET)	
