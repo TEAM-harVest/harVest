@@ -8,5 +8,6 @@ import com.itwillbs.domain.ProjectDTO;
 public interface ProjectListService {
 	
 	public List<ProjectDTO> getAllProjectList();
+	public int getProjectCount();
 
 }

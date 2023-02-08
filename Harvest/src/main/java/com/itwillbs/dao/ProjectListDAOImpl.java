@@ -19,6 +19,11 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 	public List<ProjectDTO> getAllProjectList() {
 		return sqlSession.selectList(namespace+".getAllProjectList");
 	}
+
+	@Override
+	public int getProjectCount() {
+		return sqlSession.selectOne(namespace+".getProjectCount");
+	}
 	
 	
 

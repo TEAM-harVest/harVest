@@ -9,5 +9,9 @@
 	<select id="getAllProjectList" resultType="com.itwillbs.domain.ProjectDTO">
 		select * from project_tb
 	</select>
+	
+	<select id="getProjectCount" resultType="java.lang.Integer">
+		select count(*) from project_tb
+	</select>
 
 </mapper>  

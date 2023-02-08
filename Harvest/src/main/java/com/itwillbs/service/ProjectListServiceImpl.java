@@ -20,6 +20,11 @@ public class ProjectListServiceImpl implements ProjectListService{
 		return projectListDAO.getAllProjectList();
 	}
 
+	@Override
+	public int getProjectCount() {
+		return projectListDAO.getProjectCount();
+	}
+
 
 
 	

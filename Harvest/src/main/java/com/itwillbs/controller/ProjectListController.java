@@ -26,6 +26,9 @@ public class ProjectListController {
 	@RequestMapping(value = "projectList/AllProjectList", method = RequestMethod.GET)	
 	public String allProjectList(Model model) {
 		List<ProjectDTO> allProjectList=projectListService.getAllProjectList();
+		int projectCount=projectListService.getProjectCount();
+		// projectCount 이름을 "getProjectCount" 담아서 가져가서 앞단에서 사용하겠다!
+		model.addAttribute("getProjectCount", projectCount);
 		model.addAttribute("allProjectList", allProjectList);
 		System.out.println(allProjectList);
 		return "projectList/category";

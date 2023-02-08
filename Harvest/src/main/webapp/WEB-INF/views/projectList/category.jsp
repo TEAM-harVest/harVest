@@ -35,7 +35,7 @@
 			</ul>
 		</div>
 	</div>
-	<div class="container mt-2 mb-4"><b style="color: red; white-space: nowrap;">4</b>개의 프로젝트가 있습니다.</div>
+	<div class="container mt-2 mb-4"><b style="color: red; white-space: nowrap;">${getProjectCount }</b>개의 프로젝트가 있습니다.</div>
 	
 	<!-- !!! 카테고리 메뉴항목 배열로 4줄씩 가져오기 -->
 	<div class="container">
