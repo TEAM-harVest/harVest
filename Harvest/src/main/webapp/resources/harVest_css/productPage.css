@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /* div {border: 1px solid;} */
 /* [ 상품 이미지 및 간략 정보 ] */
-#prodContent {
+#productContent {
 	position: relative;
 	padding: 0 10%;
 }
@@ -29,6 +29,7 @@
 	min-height: 244px;
 	margin: 60px auto;
 }
+
 /* 상품정보 간략 */
 .project_info {
 	margin: 60px 0;
@@ -36,10 +37,51 @@
 /* - 정보 사이드 박스 */
 .project_summary > div {
 	display: flex;
+	justify-content: space-between;
+}
+.project_summary > div > div {
+	font-size: .8em;
 }
 /* - 공유 및 후원 버튼*/
 .project_btn {
 	display: flex;
+	padding-left: 30px;
+}
+
+@media all and (max-width:1220px) {
+	.prod_cont {
+		display: inline;
+	}
+	.project_info {
+		display: flex;
+		justify-content: space-around;
+		padding: 0 50px;
+	}
+	.project_info > div > * {
+	}
+	.project_summary > div {
+		display: flex;
+		justify-content: space-between;
+	}
+	.project_summary > div > div {
+		font-size: 1em;
+	}
+}
+@media all and (max-width:768px) {
+	.project_info > div > h2 {
+		font-size: 1.3em;
+	}
+	.project_summary > div > div {
+		font-size: .8em;
+	}
+}
+@media all and (max-width:480px) {
+	.project_info > div > h2 {
+		font-size: .8em;
+	}
+	.project_summary > div > div {
+		font-size: .6em;
+	}
 }
 
 /* 상품 상세 페이지 */
@@ -49,8 +91,10 @@
 #productInfoMore > div {
 	display:grid;
 	position: relative;
-	grid-template-columns: 80% 20%;
+	grid-template-columns: 100%;
 }
+
+/* 탭 메뉴 */
 ul#myTab {
 	position: sticky;
 	top:0;
@@ -74,12 +118,12 @@ ul#myTab {
 	border-bottom: 5px solid green !important;
 }
 .tab-content {
-	padding: 80px 200px;
+	padding: 80px 10%;
 }
-
-
+/* 후원 옵션 */
 .project_info_aside {
 	position:relative;
 	height: 100%;
 	border: 1px solid;
 }
+#fundingBtn:checked ~ div .fundingInfo {grid-template-columns:75% 25%;}
