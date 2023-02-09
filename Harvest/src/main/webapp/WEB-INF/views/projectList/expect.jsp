@@ -55,9 +55,11 @@
 							<div class="card-body px-0">
 								<p class="my-2">${dto.category } | ${dto.creNm }</p>
 								<h5 class="card-title mb-2">${dto.title }</h5>
+								<span class="text-muted">${dto.start } 공개예정입니다.</span><br>
 								<span class="text-danger">N명 알림신청 중</span>
 								<p>
-								<button class="btn btn-outline-secondary btn-sm mt-2" type="button" id="button" style="width:100%;">
+								<form action="${pageContext.request.contextPath }/projectList/alram" method="post">
+								<button class="btn btn-outline-secondary btn-sm mt-2" type="submit" id="button" style="width:100%;">
 									알림신청
 									<a href="#">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
@@ -65,6 +67,7 @@
 									</svg>
 									</a>
 								</button>
+								</form>
 								</p>
 							</div>
 						</div>

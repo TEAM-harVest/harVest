@@ -29,7 +29,7 @@
                     <h4 class="mb-4">로그인</h4>
 		            <form action="${pageContext.request.contextPath }/user/loginPro" method="post" name="loginPro">
 		                <div class="form-group">
-		                    <input type="email" name="email" class="form-control" id="email" aria-describedby="" placeholder="이메일">
+		                    <input type="email" name="id" class="form-control" id="id" aria-describedby="" placeholder="이메일">
 		                </div>
 		                <div class="form-group">
 		                    <input type="password" name="pass" id="pass" class="form-control" aria-describedby="" placeholder="비밀번호">

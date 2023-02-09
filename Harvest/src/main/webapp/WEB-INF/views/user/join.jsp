@@ -28,7 +28,7 @@
 				<div class="col-md-12 text-center">
                      <div class="col-md-12 text-left">
                      <h4 class="mb-4">회원가입</h4>
-	                     <form action="#" method="post" name="join">
+	                     <form action="${pageContext.request.contextPath }/user/joinPro" method="post" name="join">
 	                     	  <div class="form-group">
 	                              <label for="exampleInputEmail1">이름</label>
 	                              <input type="text"  name="name" class="form-control form-control-sm" id="name" placeholder="이름을 입력해주세요">
@@ -36,7 +36,7 @@
 	                          <div class="form-group">
 	                          	  <label for="exampleInputEmail1">이메일 계정</label>
 	                          	  <div class="input-group">
-									  <input type="email" name="email" class="form-control form-control-sm" id="email" placeholder="이메일 계정 입력해주세요">
+									  <input type="email" name="id" class="form-control form-control-sm" id="id" placeholder="이메일 계정 입력해주세요">
 									  <button class="btn btn-sm btn-outline-secondary" type="button" id="button-addon2">중복확인</button>
 							  	  </div>
 							  </div>
