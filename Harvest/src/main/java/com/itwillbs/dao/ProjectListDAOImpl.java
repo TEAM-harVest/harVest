@@ -74,6 +74,16 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 	public int getExpCount() {
 		return sqlSession.selectOne(namespace+".getExpCount");
 	}
+
+	@Override
+	public List<ProjectDTO> getSearchList(String search) {
+		return sqlSession.selectList(namespace+".getSearch", search);
+	}
+
+	@Override
+	public int getSearchCount(String search) {
+		return sqlSession.selectOne(namespace+".getSearchCount", search);
+	}
 	
 	
 

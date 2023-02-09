@@ -75,6 +75,16 @@ public class ProjectListServiceImpl implements ProjectListService{
 		return projectListDAO.getExpCount();
 	}
 
+	@Override
+	public List<ProjectDTO> getSearchList(String search) {
+		return projectListDAO.getSearchList(search);
+	}
+
+	@Override
+	public int getSearchCount(String search) {
+		return projectListDAO.getSearchCount(search);
+	}
+
 
 
 	

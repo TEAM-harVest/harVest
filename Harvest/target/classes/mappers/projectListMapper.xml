@@ -43,7 +43,7 @@
 	</select>
 	
 	<select id="getPopCount" resultType="java.lang.Integer">
-		select count(*), (total_amt/target_amt * 100) A from project_tb order by A DESC
+		select count(*) from project_tb
 	</select>
 	
 	<select id="getExpect" resultType="com.itwillbs.domain.ProjectDTO">
@@ -53,5 +53,14 @@
 	<select id="getExpCount" resultType="java.lang.Integer">
 		select count(*) from project_tb where START > CURDATE()
 	</select>
+	
+	<select id="getSearch" resultType="com.itwillbs.domain.ProjectDTO">
+		select * from project_tb where title like CONCAT('%', #{search}, '%')
+	</select>
+	
+	<select id="getSearchCount" resultType="java.lang.Integer">
+		select count(*) from project_tb where title like CONCAT('%', #{search}, '%')
+	</select>
+	
 
 </mapper>  

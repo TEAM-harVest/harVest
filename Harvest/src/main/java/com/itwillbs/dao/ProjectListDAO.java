@@ -18,5 +18,7 @@ public interface ProjectListDAO {
 	public int getPopCount();
 	public List<ProjectDTO> getExpect();
 	public int getExpCount();
+	public List<ProjectDTO> getSearchList(String search);
+	public int getSearchCount(String search);
 
 }

@@ -25,7 +25,7 @@ public class ProjectListController {
 		List<ProjectDTO> popular=projectListService.getPopular();
 		List<ProjectDTO> newly=projectListService.getNewly();
 		List<ProjectDTO> deadline=projectListService.getDeadline();
-		// projectCount ÀÌ¸§À» "getProjectCount" ´ã¾Æ¼­ °¡Á®°¡¼­ ¾Õ´Ü¿¡¼­ »ç¿ëÇÏ°Ú´Ù!
+		// projectCount ï¿½Ì¸ï¿½ï¿½ï¿½ "getProjectCount" ï¿½ï¿½Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ü¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°Ú´ï¿½!
 		model.addAttribute("allList", allList);
 		model.addAttribute("popular", popular);
 		model.addAttribute("newly", newly);
@@ -86,5 +86,16 @@ public class ProjectListController {
 		model.addAttribute("getExpCount", expCount);
 		model.addAttribute("expect", expect);
 		return "projectList/expect";
+	}
+	
+	@RequestMapping(value = "projectList/search", method = RequestMethod.GET)	
+	public String searchList(Model model, HttpServletRequest request) {
+		String search=request.getParameter("search");
+		List<ProjectDTO> searchList=projectListService.getSearchList(search);
+		int searchCount=projectListService.getSearchCount(search);
+		model.addAttribute("getSearchCount", searchCount);
+		model.addAttribute("searchList", searchList);
+		System.out.println(search);
+		return "projectList/search";
 	}
 }
