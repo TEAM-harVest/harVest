@@ -35,7 +35,7 @@
 			</ul>
 		</div>
 	</div>
-	<div class="container mt-2 mb-4"><b style="color: red; white-space: nowrap;">${getProjectCount }</b>개의 프로젝트가 있습니다.</div>
+	<div class="container mt-2 mb-4"><b style="color: red; white-space: nowrap;">${getProjCount }</b>개의 프로젝트가 있습니다.</div>
 	
 	<!-- !!! 카테고리 메뉴항목 배열로 4줄씩 가져오기 -->
 	<div class="container">
@@ -44,9 +44,9 @@
 				<!-- 주목할 만한 프로젝트 4줄 정렬-->
 				<div class="row">
 <%-- 				<c:forEach var="dto" items="${allProjectList }" step="이부분 찾아보기"> --%>
-				<c:forEach var="dto" items="${allProjectList }">
+				<c:forEach var="dto" items="${allList }">
 					<div class="col-md-3 col-sm-6">
-						<div class="card text-left mb-5">
+						<div class="card text-left">
 							<div class="card-header p-0">
 								<!-- 찜버튼 -->
 								<div class="blog-media">
