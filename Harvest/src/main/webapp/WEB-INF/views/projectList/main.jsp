@@ -69,7 +69,7 @@
                 <h5>주목할 만한 프로젝트</h5>
                 <hr>
                 <div class="row">
-                <c:forEach var="dto" items="${allProjectList }" begin="1" end="8">
+                <c:forEach var="dto" items="${allList }" begin="1" end="8">
                     <div class="col-md-3 col-sm-6">
                         <div class="card text-left">
                             <div class="card-header p-0">                                   
@@ -108,24 +108,34 @@
             <div class="page-sidebar text-left">
             	<!-- 인기 프로젝트 -->
             	<h6 class="sidebar-title section-title">인기프로젝트</h6><hr>
-            	<c:forEach var="dto" items="${allProjectList }" begin="1" end="8">
+            	<c:forEach var="dto" items="${popular }" begin="1" end="8">
 	                <div class="media text-left">
 	                    <a href="#" class="overlay-link"></a>
-	                    <img class="mr-3" src="${pageContext.request.contextPath }/resources/assets/imgs/${dto.img1 }" width="100px" alt="Generic placeholder image">
+	                    <img class="mr-3" src="${pageContext.request.contextPath }/resources/assets/imgs/${dto.img1 }" width="100px" alt="">
 	                    <div class="media-body">
 	                    	<p class="mb-2">${dto.category } | ${dto.creNm }</p>
 	                        <h6 class="mt-0">${dto.title }</h6>
 	                        <p class="small text-danger">${Math.round(dto.totalAmt / dto.targetAmt * 100)}% 달성</p>
 	                    </div>
 	                </div>
-                
 				</c:forEach>
 				<div class="text-center">
-					<a href="#" class="btn btn-outline-dark btn-sm">전체보기</a>
+					<a href="#" class="btn btn-outline-secondary btn-sm rounded">전체보기</a>
 				</div>
 				<!-- 인기 프로젝트 끝 -->
             </div>
         </div>
+    </div>
+    
+    <!-- 신규 마감임박 공개예정 프로젝트 -->
+    <div class="container">
+    <br>
+    <h5>신규 프로젝트</h5>
+	<hr>
+	<h5>마감임박 프로젝트</h5>
+	<hr>
+	<h5>공개예정 프로젝트</h5>
+	<hr>
     </div>
 
     <!-- Page Footer -->
