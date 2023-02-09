@@ -6,11 +6,11 @@
 <!-- Mapper.xml 만들 때 참고용, 아래 namespace 수정해서 쓰세요! -->
 <mapper namespace="com.itwillbs.mappers.projectListMapper">
 
-	<select id="getAllProjectList" resultType="com.itwillbs.domain.ProjectDTO">
+	<select id="getAllList" resultType="com.itwillbs.domain.ProjectDTO">
 		select * from project_tb
 	</select>
 	
-	<select id="getProjectCount" resultType="java.lang.Integer">
+	<select id="getProjCount" resultType="java.lang.Integer">
 		select count(*) from project_tb
 	</select>
 	
@@ -18,8 +18,40 @@
 		select * from project_tb where category=#{category}
 	</select>
 	
-	<select id="getCategoryCount" resultType="java.lang.Integer">
-		select count(*) from project_tb where category=#{category}
+	<select id="getCateCount" resultType="java.lang.Integer">
+		select count(*) from project_tb where START >= DATE_SUB(CURDATE(),INTERVAL 7 day)
+	</select>
+	
+	<select id="getNewly" resultType="com.itwillbs.domain.ProjectDTO">
+		select * from project_tb where START >= DATE_SUB(CURDATE(),INTERVAL 7 day)
+	</select>
+	
+	<select id="getNewCount" resultType="java.lang.Integer">
+		select count(*) from project_tb where START >= DATE_SUB(CURDATE(),INTERVAL 7 day)
+	</select>
+	
+	<select id="getDeadline" resultType="com.itwillbs.domain.ProjectDTO">
+		select * from project_tb where CURDATE() >= DATE_SUB(END,INTERVAL 7 day)
+	</select>
+	
+	<select id="getDeadCount" resultType="java.lang.Integer">
+		select count(*) from project_tb where CURDATE() >= DATE_SUB(END,INTERVAL 7 day)
+	</select>
+	
+	<select id="getPopular" resultType="com.itwillbs.domain.ProjectDTO">
+		select *, (total_amt/target_amt * 100) A from project_tb order by A DESC
+	</select>
+	
+	<select id="getPopCount" resultType="java.lang.Integer">
+		select count(*), (total_amt/target_amt * 100) A from project_tb order by A DESC
+	</select>
+	
+	<select id="getExpect" resultType="com.itwillbs.domain.ProjectDTO">
+		select * from project_tb where START > CURDATE()
+	</select>
+	
+	<select id="getExpCount" resultType="java.lang.Integer">
+		select count(*) from project_tb where START > CURDATE()
 	</select>
 
 </mapper>  

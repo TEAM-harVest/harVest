@@ -21,21 +21,24 @@ public class ProjectListController {
 
 	@RequestMapping(value = "projectList/main", method = RequestMethod.GET)	
 	public String main(Model model) {
-		List<ProjectDTO> allProjectList=projectListService.getAllProjectList();
-		int projectCount=projectListService.getProjectCount();
+		List<ProjectDTO> allList=projectListService.getAllList();
+		List<ProjectDTO> popular=projectListService.getPopular();
+		List<ProjectDTO> newly=projectListService.getNewly();
+		List<ProjectDTO> deadline=projectListService.getDeadline();
 		// projectCount 이름을 "getProjectCount" 담아서 가져가서 앞단에서 사용하겠다!
-		model.addAttribute("getProjectCount", projectCount);
-		model.addAttribute("allProjectList", allProjectList);
+		model.addAttribute("allList", allList);
+		model.addAttribute("popular", popular);
+		model.addAttribute("newly", newly);
+		model.addAttribute("deadline", deadline);
 		return "projectList/main";
 	}
 	
-	@RequestMapping(value = "projectList/allProjectList", method = RequestMethod.GET)	
-	public String allProjectList(Model model) {
-		List<ProjectDTO> allProjectList=projectListService.getAllProjectList();
-		int projectCount=projectListService.getProjectCount();
-		// projectCount 이름을 "getProjectCount" 담아서 가져가서 앞단에서 사용하겠다!
-		model.addAttribute("getProjectCount", projectCount);
-		model.addAttribute("allProjectList", allProjectList);
+	@RequestMapping(value = "projectList/allList", method = RequestMethod.GET)	
+	public String allList(Model model) {
+		List<ProjectDTO> allList=projectListService.getAllList();
+		int projCount=projectListService.getProjCount();
+		model.addAttribute("getProjCount", projCount);
+		model.addAttribute("allList", allList);
 		return "projectList/allProject";
 	}
 	
@@ -43,30 +46,45 @@ public class ProjectListController {
 	public String categoryList(Model model, HttpServletRequest request) {
 		String category=request.getParameter("category");
 		List<ProjectDTO> categoryList=projectListService.getCategoryList(category);
-		int categoryCount=projectListService.getCategoryCount(category);
-		model.addAttribute("getCategoryCount", categoryCount);
+		int cateCount=projectListService.getCateCount(category);
+		model.addAttribute("getCateCount", cateCount);
 		model.addAttribute("categoryList", categoryList);
-		System.out.println(categoryList);
 		return "projectList/category";
 	}
 	
-	@RequestMapping(value = "projectList/popularList", method = RequestMethod.GET)	
-	public String popular() {
+	@RequestMapping(value = "projectList/popular", method = RequestMethod.GET)	
+	public String popular(Model model) {
+		List<ProjectDTO> popular=projectListService.getPopular();
+		int popCount=projectListService.getPopCount();
+		model.addAttribute("getPopCount", popCount);
+		model.addAttribute("popular", popular);
 		return "projectList/popular";
 	}
 	
-	@RequestMapping(value = "projectList/newlyList", method = RequestMethod.GET)	
-	public String newly() {
+	@RequestMapping(value = "projectList/newly", method = RequestMethod.GET)	
+	public String newly(Model model) {
+		List<ProjectDTO> newly=projectListService.getNewly();
+		int newCount=projectListService.getNewCount();
+		model.addAttribute("getNewCount", newCount);
+		model.addAttribute("newly", newly);
 		return "projectList/newly";
 	}
 	
-	@RequestMapping(value = "projectList/deadlineList", method = RequestMethod.GET)	
-	public String deadline() {
+	@RequestMapping(value = "projectList/deadline", method = RequestMethod.GET)	
+	public String deadline(Model model) {
+		List<ProjectDTO> deadline=projectListService.getDeadline();
+		int deadCount=projectListService.getDeadCount();
+		model.addAttribute("getDeadCount", deadCount);
+		model.addAttribute("deadline", deadline);
 		return "projectList/deadline";
 	}
 	
-	@RequestMapping(value = "projectList/expectList", method = RequestMethod.GET)	
-	public String expect() {
+	@RequestMapping(value = "projectList/expect", method = RequestMethod.GET)	
+	public String expect(Model model) {
+		List<ProjectDTO> expect=projectListService.getExpect();
+		int expCount=projectListService.getExpCount();
+		model.addAttribute("getExpCount", expCount);
+		model.addAttribute("expect", expect);
 		return "projectList/expect";
 	}
 }

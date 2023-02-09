@@ -16,13 +16,13 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 	private static final String namespace="com.itwillbs.mappers.projectListMapper";
 
 	@Override
-	public List<ProjectDTO> getAllProjectList() {
-		return sqlSession.selectList(namespace+".getAllProjectList");
+	public List<ProjectDTO> getAllList() {
+		return sqlSession.selectList(namespace+".getAllList");
 	}
 
 	@Override
-	public int getProjectCount() {
-		return sqlSession.selectOne(namespace+".getProjectCount");
+	public int getProjCount() {
+		return sqlSession.selectOne(namespace+".getProjCount");
 	}
 
 	@Override
@@ -31,9 +31,48 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 	}
 
 	@Override
-	public int getCategoryCount(String category) {
-		System.out.println("getCategoryCount");
-		return sqlSession.selectOne(namespace+".getCategoryCount", category);
+	public int getCateCount(String category) {
+		return sqlSession.selectOne(namespace+".getCateCount", category);
+	}
+
+	@Override
+	public List<ProjectDTO> getNewly() {
+		return sqlSession.selectList(namespace+".getNewly");
+	}
+
+	@Override
+	public int getNewCount() {
+		return sqlSession.selectOne(namespace+".getNewCount");
+	}
+
+	@Override
+	public List<ProjectDTO> getDeadline() {
+		return sqlSession.selectList(namespace+".getDeadline");
+	}
+
+	@Override
+	public int getDeadCount() {
+		return sqlSession.selectOne(namespace+".getDeadCount");
+	}
+
+	@Override
+	public List<ProjectDTO> getPopular() {
+		return sqlSession.selectList(namespace+".getPopular");
+	}
+
+	@Override
+	public int getPopCount() {
+		return sqlSession.selectOne(namespace+".getPopCount");
+	}
+
+	@Override
+	public List<ProjectDTO> getExpect() {
+		return sqlSession.selectList(namespace+".getExpect");
+	}
+
+	@Override
+	public int getExpCount() {
+		return sqlSession.selectOne(namespace+".getExpCount");
 	}
 	
 	

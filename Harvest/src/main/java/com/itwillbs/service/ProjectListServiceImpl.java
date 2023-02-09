@@ -16,13 +16,13 @@ public class ProjectListServiceImpl implements ProjectListService{
 	private ProjectListDAO projectListDAO;
 
 	@Override
-	public List<ProjectDTO> getAllProjectList() {
-		return projectListDAO.getAllProjectList();
+	public List<ProjectDTO> getAllList() {
+		return projectListDAO.getAllList();
 	}
 
 	@Override
-	public int getProjectCount() {
-		return projectListDAO.getProjectCount();
+	public int getProjCount() {
+		return projectListDAO.getProjCount();
 	}
 
 	@Override
@@ -31,8 +31,48 @@ public class ProjectListServiceImpl implements ProjectListService{
 	}
 
 	@Override
-	public int getCategoryCount(String category) {
-		return projectListDAO.getCategoryCount(category);
+	public int getCateCount(String category) {
+		return projectListDAO.getCateCount(category);
+	}
+
+	@Override
+	public List<ProjectDTO> getNewly() {
+		return projectListDAO.getNewly();
+	}
+
+	@Override
+	public int getNewCount() {
+		return projectListDAO.getNewCount();
+	}
+
+	@Override
+	public List<ProjectDTO> getDeadline() {
+		return projectListDAO.getDeadline();
+	}
+
+	@Override
+	public int getDeadCount() {
+		return projectListDAO.getDeadCount();
+	}
+
+	@Override
+	public List<ProjectDTO> getPopular() {
+		return projectListDAO.getPopular();
+	}
+
+	@Override
+	public int getPopCount() {
+		return projectListDAO.getPopCount();
+	}
+
+	@Override
+	public List<ProjectDTO> getExpect() {
+		return projectListDAO.getExpect();
+	}
+
+	@Override
+	public int getExpCount() {
+		return projectListDAO.getExpCount();
 	}
 
 
