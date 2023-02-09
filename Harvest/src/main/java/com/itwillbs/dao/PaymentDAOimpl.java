@@ -6,12 +6,14 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.PaymentDTO;
+import com.itwillbs.domain.UserDTO;
 
 @Repository
 public class PaymentDAOimpl implements PaymentDAO {
 	
 	@Inject
 	private SqlSession sqlSession;
+
 	
 	private static final String namespace="com.itwillbs.mappers.PaymentMapper";
 	
@@ -21,8 +23,8 @@ public class PaymentDAOimpl implements PaymentDAO {
 	}
 
 	@Override
-	public PaymentDTO getUser(PaymentDTO PaymentDTO) {
-		return sqlSession.selectOne(namespace+".getUser", PaymentDTO);
+	public UserDTO getUser(String id) {
+		return sqlSession.selectOne(namespace+".getUser", id);
 	}
 	
 	

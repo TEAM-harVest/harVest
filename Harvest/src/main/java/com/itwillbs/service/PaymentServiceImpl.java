@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.PaymentDAO;
 import com.itwillbs.domain.PaymentDTO;
+import com.itwillbs.domain.UserDTO;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
@@ -20,10 +21,9 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public PaymentDTO getUser(PaymentDTO paymentDTO) {
-		return paymentDAO.getUser(paymentDTO);
+	public UserDTO getUser(String id) {
+		return paymentDAO.getUser(id);
 	}
-	
 	
 	
 	

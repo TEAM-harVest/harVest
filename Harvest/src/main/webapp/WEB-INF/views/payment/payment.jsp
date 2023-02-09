@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>payment.jsp</title>
-<link
-	href="${pageContext.request.contextPath }/resources/harVest_css/payment.css"
-	rel="stylesheet">
+<link href="${pageContext.request.contextPath }/resources/harVest_css/payment.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath }/resources/payment/payment.css" rel="stylesheet">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description"
@@ -103,31 +103,69 @@
 	</nav>
 	<!-- End Of Page Second Navigation -->
 	<!-- header 들어갈 부분 -->
-
-
 	<div id="wrapper">
 		<div class="payment_container">
 			<div class="payment_cont">
 				<h1>프로젝트 후원하기</h1>
-				<div>상품정보 넣는 곳<br>
-					<span>프로젝트 이름</span>
-					
-					
-				
-				
+				<hr>
+				<div class="RoundedWrapper__Wrapper-a7usag-0 qlVky">
+				<div class="style__FlexRoundedWrapper-sc-1b41ica-6 dCjPpO">
+<!-- 				 <h4>후원정보</h4><br> -->
+				 <table>
+				  <tbody>
+				   <tr>
+					<th>선물 구성</th>		
+					 <td>
+					 	"[나만알고싶은 퍼품핸드 싱글]"
+					  <ul class="style__FlexRoundedWrapper-sc-1b41ica-6 dCjPpO">
+					   <li></li>
+					   
+					  </ul>
+					 </td>			   
+				   </tr>
+				   <tr>
+				    <th>선물금액</th>
+				     <td>9000원</td>
+				   </tr>
+				   <tr>
+				    <th>예상전달일<th>
+				     <td>2023년 3월 6일</td>
+				   </tr>		  
+				  </tbody>
+				 </table>
+				  <span>프로젝트 이름</span>
 				</div>
+			   </div>
 				
-				<div>회원정보 넣는 곳 <br>
+				<div>
+				 <h4>후원자 정보(세션값가져오기)</h4>
+				  <hr>
 					${dto.name}<br>
 					${dto.address}<br>
-					${dto.phone}
-				
-				
+					${dto.phone}<br><br>
+					<p>*위 연락처와 이메일로 후원 관련 소식이 전달됩니다.<br>
+					   *연락처 및 이메일 변경은 설정>계정 설정에서 가능합니다.</p>
 				</div>
-				<div>결제수단 넣는 곳</div>
+				 <div>
+				  <h4>배송지</h4>
+				  <input type="button" value="변경" id="address" onclick="window.open('${pageContext.request.contextPath }/payment/address','배송지','width=445, height=400, left=500, top=100');"> <!-- 오른쪽으로 옮기기..-->
+				 </div>
+				<div>
+				 <h4>결제수단</h4><br>
+				  <input type="radio" name="payMethod" id="card" checked="checked">카드 및 계좌
+				  <input type="radio" name="payMethod" id="naverpay">네이버페이
+				</div>
+				<div class="style__AddButton-sc-1393oxn-2 fizgUv">
+				 <span>+ 결제수단 추가</span>
+<!-- 				 <input type="button" value="결제수단 추가" id="address"  -->
+<%-- 				  onclick="window.open('${pageContext.request.contextPath }/payment/address','배송지','width=445, height=400, left=500, top=100');"> <!-- 오른쪽으로 옮기기..--> --%>
+				 
+				</div>
 			</div>
+			
+			<div>최종 후원 금액/ 약관동의 넣는 곳</div>
+			<!-- <div>최종결제 넣는 곳</div> -->
 			<div class="payment_res">
-				<!-- 				<div>최종결제 넣는 곳</div> -->
 				<div>
 					<!-- jQuery -->
 					<script type="text/javascript"
@@ -150,62 +188,42 @@
 							    buyer_tel: "010-1234-5678", 		//주문자 전화번호
 							    buyer_addr: "부산진구 동천로 어쩌구", 		//주문자 주소
 						// 	    m_redirct_url : "", 				//모바일 결제시 사용할 url
-							    
 							  }, function (rsp) { // callback
 						    	if (rsp.success) {
 						    	    // 결제 성공 시 로직
 						            var msg = "결제가 완료되었습니다.";
 						            alert(msg);
-						            
-						            //후원페이지 다시 돌아가기
-						            location.href = "";
+// 						        	$.ajax({
+// 										url : "", // 예약 db처리 할 경로
+// 										data : {
+// 											res_num : rsp.merchant_uid,
+// 											car_num : $('.carNum').val(),
+// 											res_stime : $('.stime').val(),
+// 											res_time : $('.time').val(),
+// 											price : $('.price').val(),
+// 											usePoint : usept
+// 										}, // 예약에 들어갈 정보들
+// 										success : function(data) {
+// 											alert("예약이 완료되었습니다.");
+// 											location.href = "./CarListUser.ci"; // 내 예약 목록
+// 										}
+// 									});
+						            location.href = "${pageContext.request.contextPath }/payment/paySuccess}";
 							  	} else {
-							  		
 								// 결제 실패 시 로직
 								alert("결제 실패: "+ rsp.error_msg);
-								
 								//돌아가기 후원결제목록 페이지
-								location.href = "";
-// 								${pageContext.request.contextPath }/payment/paySuccess)
+								//location.href = "${pageContext.request.contextPath }/payment/donationPage}";
 							    }
 							  });
 						 	}
 						</script>
 					<button id="pay" type="button" onclick="requestPay()">결제테스트</button>
 				</div>
-
 			</div>
 		</div>
 	</div>
 
-
-
-
-
-	<!--    <!-- Page Footer -->
-	<!--     <footer class="page-footer"> -->
-	<!--         <div class="container"> -->
-	<!--             <div class="row align-items-center justify-content-between border-top"> -->
-	<!--                 <div class="col-md-7 text-center text-md-left"> -->
-	<!--                 <p class="mb-0 mt-4 small"> -->
-	<!--                 회사명 텀블벅(주) 주소 서울 서초구 서초대로 398, 19층 (서초동, BNK디지털) -->
-	<!--                 사업자등록번호 123-45-67890 -->
-	<!--                 통신판매업 신고번호 대표번호 02-0000-0000 Tumblbug Inc.</p> -->
-	<!--                 </div> -->
-	<!--                 <div class="col-md-5 text-center text-md-right"> -->
-	<!--                     <div class="socials"> -->
-	<!--                         <a href="javascript:void(0)" class="font-weight-bold text-muted mr-4"><i class="ti-facebook pr-1"></i></a> -->
-	<!--                         <a href="javascript:void(0)" class="font-weight-bold text-muted mr-4"><i class="ti-twitter pr-1"></i></a> -->
-	<!--                         <a href="javascript:void(0)" class="font-weight-bold text-muted mr-4"><i class="ti-pinterest-alt pr-1"></i></a> -->
-	<!--                         <a href="javascript:void(0)" class="font-weight-bold text-muted mr-4"><i class="ti-instagram pr-1"></i></a> -->
-	<!--                         <a href="javascript:void(0)" class="font-weight-bold text-muted mr-4"><i class="ti-youtube pr-1"></i></a> -->
-	<!--                     </div> -->
-	<!--                 </div>   -->
-	<!--             </div> -->
-	<!--         </div>       -->
-	<!--     </footer> -->
-	<!-- End of Page Footer -->
-	<!-- Page Footer -->
 	<jsp:include page="../inc/footer.jsp"></jsp:include>
 	<!-- core  -->
 	<script
