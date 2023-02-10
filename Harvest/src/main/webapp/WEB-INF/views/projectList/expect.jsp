@@ -58,14 +58,12 @@
 								<span class="text-muted">${dto.start } 공개예정입니다.</span><br>
 								<span class="text-danger">N명 알림신청 중</span>
 								<p>
-								<form action="${pageContext.request.contextPath }/projectList/alram" method="post">
+								<form action="${pageContext.request.contextPath }/email" method="get">
 								<button class="btn btn-outline-secondary btn-sm mt-2" type="submit" id="button" style="width:100%;">
 									알림신청
-									<a href="#">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
 										<path fill-rule="evenodd" clip-rule="evenodd" d="M4.85203 0.9375C4.85203 0.833947 4.93598 0.75 5.03953 0.75H6.91453C7.01808 0.75 7.10203 0.833947 7.10203 0.9375V1.24582C9.46092 1.76082 11.227 3.86166 11.227 6.375V9.14062L11.5778 12.1659C11.5907 12.2773 11.5036 12.375 11.3915 12.375H0.562525C0.450415 12.375 0.36336 12.2773 0.376272 12.1659L0.727029 9.14062V6.375C0.727029 3.86166 2.49314 1.76082 4.85203 1.24582V0.9375ZM1.92703 9.20996L1.6992 11.175H10.2549L10.027 9.20996V6.375C10.027 4.13825 8.21378 2.325 5.97703 2.325C3.74028 2.325 1.92703 4.13825 1.92703 6.375V9.20996Z"></path><path d="M7.85203 13.125H4.47703C4.47703 13.7463 4.98071 14.4375 5.60203 14.4375H6.72703C7.34835 14.4375 7.85203 13.7463 7.85203 13.125Z"></path>
 									</svg>
-									</a>
 								</button>
 								</form>
 								</p>
