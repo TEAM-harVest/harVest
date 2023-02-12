@@ -85,6 +85,11 @@ public class ProjectListServiceImpl implements ProjectListService{
 		return projectListDAO.getSearchCount(search);
 	}
 
+	@Override
+	public void updateAlramcount(int idx) {
+		projectListDAO.updateAlramcount(idx);
+	}
+
 	
 
 	

@@ -20,14 +20,6 @@ public class AlramDAO {
 		sqlSession.insert(namespace + ".insertAlram", alramDTO); 
 	}
 
-	public List<AlramDTO> getAlram() {
-		return sqlSession.selectList(namespace+".getAlram");
-	}
-	
-	public int getAlramCount() {
-		return sqlSession.selectOne(namespace+".getAlramCount");
-	}
-
 	public Integer getMaxNum() {
 		return sqlSession.selectOne(namespace+".getMaxNum");
 	}

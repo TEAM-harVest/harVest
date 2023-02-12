@@ -13,6 +13,7 @@ public class ProjectDTO {
 	private int totalAmt;
 	private Date start;
 	private Date end;
+	private int alramcount;
 	
 	public int getIdx() {
 		return idx;
@@ -68,11 +69,11 @@ public class ProjectDTO {
 	public void setEnd(Date end) {
 		this.end = end;
 	}
-	@Override
-	public String toString() {
-		return "ProjectDTO [idx=" + idx + ", creNm=" + creNm + ", category=" + category + ", title=" + title + ", img1="
-				+ img1 + ", targetAmt=" + targetAmt + ", totalAmt=" + totalAmt + ", start=" + start + ", end=" + end
-				+ "]";
+	public int getAlramcount() {
+		return alramcount;
+	}
+	public void setAlramcount(int alramcount) {
+		this.alramcount = alramcount;
 	}
 	
 

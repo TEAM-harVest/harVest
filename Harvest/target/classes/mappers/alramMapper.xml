@@ -20,7 +20,8 @@
 	</select>
 	
 	<select id="getAlramCount" resultType="java.lang.Integer">
-		select count(*) from alram_tb a join project_tb p on a.idx = p.idx where p.idx=10 group by p.idx;
+<!-- 		select count(*) from alram_tb a join project_tb p on a.idx = p.idx where p.idx=11 group by p.idx; -->
+		select count(*) from project_tb where idx=#{idx}
 	</select>
 	
 </mapper>

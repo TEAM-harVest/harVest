@@ -85,6 +85,12 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 		return sqlSession.selectOne(namespace+".getSearchCount", search);
 	}
 
+	@Override
+	public void updateAlramcount(int idx) {
+		sqlSession.update(namespace+".updateAlramcount", idx);
+		
+	}
+
 	
 	
 

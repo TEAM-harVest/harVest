@@ -22,7 +22,6 @@
     
     <!-- 본문 내용 -->
 	<div class="container mt-5 mb-4"><b style="color: red; white-space: nowrap;">${getExpCount }</b>개의 프로젝트가 있습니다.
-	<span class="text-danger">AlramDTO idx 배열 ${getAlram }</span>
 	</div>
 	
 	
@@ -55,17 +54,18 @@
 								</div>
 							</div>
 							<div class="card-body px-0">
-								<form action="${pageContext.request.contextPath }/email" method=post>
-								<p class="my-2">${dto.category } | ${dto.creNm }</p>
-								<h5 class="card-title mb-2">${dto.title }</h5>
-								<span class="text-muted">${dto.start } 공개예정입니다.</span><br>
-								<span class="text-danger">${getAlramCount }명 알림신청 중</span>
-								<p>
+								<form action="${pageContext.request.contextPath }/email?idx=${dto.idx}" method="get">
 								<!-- pj_idx 언더바가 값널길때인식안됨 -->
-								<input type="text" value="${dto.idx }" name="idx">
+								<input type="hidden" value="${dto.idx }" name="idx">
 								<input type="hidden" value="${dto.title }" name="title">
 								<input type="hidden" value="${dto.start }" name="start">
 								<input type="hidden" value="${sessionScope.id }" name="id">
+								
+								<p class="my-2">${dto.category } | ${dto.creNm }</p>
+								<h5 class="card-title mb-2">${dto.title }</h5>
+								<span class="text-muted">${dto.start } 공개예정입니다.</span><br>
+								<span class="text-danger">${dto.alramcount }명 알림신청 중</span>
+								<p>
 								<button class="btn btn-outline-secondary btn-sm mt-2" type="submit" id="button" style="width:100%;">
 									알림신청
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">

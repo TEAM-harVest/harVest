@@ -16,8 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.itwillbs.domain.AlramDTO;
+import com.itwillbs.domain.ProjectDTO;
 import com.itwillbs.service.AlramService;
+import com.itwillbs.service.ProjectListService;
 
 
 @Controller
@@ -27,10 +28,10 @@ public class EmailController {
 	private JavaMailSender mailSender;
 	
 	@Inject
-	private AlramService alramService;
+	private ProjectListService projectListService;
 	
-	@RequestMapping(value = "/email", method = RequestMethod.POST)
-    public String sendMail(AlramDTO alramDTO, HttpSession session, HttpServletRequest request) throws Exception{
+	@RequestMapping(value = "/email", method = RequestMethod.GET)
+    public String sendMail(ProjectDTO projectDTO, HttpSession session, HttpServletRequest request) throws Exception{
         
 		// 오늘날짜 불러오기 테스트용
 		LocalDate todaysDate = LocalDate.now();
@@ -41,9 +42,6 @@ public class EmailController {
         String to = (String)session.getAttribute("id");
         
         try {
-        	// 이메일보내기와 동시에 알람 디비에 데이터 인서트
-        	alramService.insertAlram(alramDTO);
-        	
         	// 이메일 보내는 구문
             MimeMessage mail = mailSender.createMimeMessage();
             MimeMessageHelper mailHelper = new MimeMessageHelper(mail,"UTF-8");
@@ -54,6 +52,11 @@ public class EmailController {
             mailHelper.setText(content);
             
             mailSender.send(mail);
+            
+            // 이메일보내기와 동시에 디비에 알람 카운트 인서트
+            int idx=Integer.parseInt(request.getParameter("idx"));
+            projectListService.updateAlramcount(idx);
+        	
             System.out.println("성공^^");
             System.out.println(todaysDate);
             

@@ -19,9 +19,6 @@ import com.itwillbs.service.ProjectListService;
 public class ProjectListController {
 	
 	@Inject
-	private AlramService alramService;
-	
-	@Inject
 	private ProjectListService projectListService;
 	
 
@@ -90,13 +87,6 @@ public class ProjectListController {
 		int expCount=projectListService.getExpCount();
 		model.addAttribute("getExpCount", expCount);
 		model.addAttribute("expect", expect);
-		// 알람 신청 수
-		List<AlramDTO> alram=alramService.getAlram();
-		int alramCount=alramService.getAlramCount();
-		model.addAttribute("getAlram", alram);
-    	model.addAttribute("getAlramCount", alramCount);
-    	System.out.println(alram+"객체");
-    	System.out.println(alramCount);
 		return "projectList/expect";
 	}
 	

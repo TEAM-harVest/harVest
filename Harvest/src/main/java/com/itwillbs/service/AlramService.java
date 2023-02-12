@@ -26,14 +26,7 @@ public class AlramService {
 		alramDAO.insertAlram(alramDTO);
 	}
 
-	public List<AlramDTO> getAlram() {
-		return alramDAO.getAlram();
-	}
 
-	public int getAlramCount() {
-		return alramDAO.getAlramCount();
-	}
-	
 
 
 }

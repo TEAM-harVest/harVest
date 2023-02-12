@@ -21,5 +21,6 @@ public interface ProjectListDAO {
 	public int getExpCount();
 	public List<ProjectDTO> getSearchList(String search);
 	public int getSearchCount(String search);
+	public void updateAlramcount(int idx);
 
 }

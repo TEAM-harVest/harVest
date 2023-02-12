@@ -62,15 +62,9 @@
 		select count(*) from project_tb where title like CONCAT('%', #{search}, '%')
 	</select>
 	
-	
-	
-<!-- 	<select id="getAlram" resultType="com.itwillbs.domain.AlramDTO"> -->
-<!-- 		select * from alram_tb -->
-<!-- 	</select> -->
-	
-<!-- 	<select id="getAlramCount" resultType="java.lang.Integer"> -->
-<!-- 		select count(*) from alram_tb where idx=#{idx} -->
-<!-- 	</select> -->
+	<select id="updateAlramcount">
+		update project_tb set alramcount=alramcount+1 where idx=#{idx}
+	</select>
 	
 	
 </mapper>  

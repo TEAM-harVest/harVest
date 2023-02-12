@@ -41,10 +41,6 @@ public class AlramDTO {
 	public void setStart(Date start) {
 		this.start = start;
 	}
-	@Override
-	public String toString() {
-		return "" + idx;
-	}
 	
 
 }
