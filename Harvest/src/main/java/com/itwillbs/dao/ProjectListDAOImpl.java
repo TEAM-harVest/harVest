@@ -84,6 +84,7 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 	public int getSearchCount(String search) {
 		return sqlSession.selectOne(namespace+".getSearchCount", search);
 	}
+
 	
 	
 

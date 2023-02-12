@@ -13,6 +13,7 @@ public class ProjectDTO {
 	private int totalAmt;
 	private Date start;
 	private Date end;
+	
 	public int getIdx() {
 		return idx;
 	}

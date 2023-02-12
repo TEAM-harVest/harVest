@@ -11,13 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.itwillbs.domain.ProjectDTO;
+import com.itwillbs.domain.AlramDTO;
+import com.itwillbs.service.AlramService;
 import com.itwillbs.service.ProjectListService;
 
 @Controller
 public class ProjectListController {
 	
 	@Inject
+	private AlramService alramService;
+	
+	@Inject
 	private ProjectListService projectListService;
+	
 
 	@RequestMapping(value = "projectList/main", method = RequestMethod.GET)	
 	public String main(Model model) {
@@ -25,7 +31,6 @@ public class ProjectListController {
 		List<ProjectDTO> popular=projectListService.getPopular();
 		List<ProjectDTO> newly=projectListService.getNewly();
 		List<ProjectDTO> deadline=projectListService.getDeadline();
-		// projectCount �̸��� "getProjectCount" ��Ƽ� �������� �մܿ��� ����ϰڴ�!
 		model.addAttribute("allList", allList);
 		model.addAttribute("popular", popular);
 		model.addAttribute("newly", newly);
@@ -85,6 +90,13 @@ public class ProjectListController {
 		int expCount=projectListService.getExpCount();
 		model.addAttribute("getExpCount", expCount);
 		model.addAttribute("expect", expect);
+		// 알람 신청 수
+		List<AlramDTO> alram=alramService.getAlram();
+		int alramCount=alramService.getAlramCount();
+		model.addAttribute("getAlram", alram);
+    	model.addAttribute("getAlramCount", alramCount);
+    	System.out.println(alram+"객체");
+    	System.out.println(alramCount);
 		return "projectList/expect";
 	}
 	

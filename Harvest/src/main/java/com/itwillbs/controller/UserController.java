@@ -51,7 +51,7 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value = "/main/logout", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/projectList/main";
