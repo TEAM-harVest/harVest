@@ -26,10 +26,10 @@
 			<ul class="navbar-nav">
 				<li class="nav-item dropdown"><a class="btn btn-sm btn-outline-secondary dropdown-toggle text-dark mt-5 mb-2" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">달성률</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#"><small class="text-danger">전체보기</small></a>
-						<a class="dropdown-item" href="#"><small>75% 이하</small></a>
-						<a class="dropdown-item" href="#"><small>75% ~ 100%</small></a>
-						<a class="dropdown-item" href="#"><small>100% 이상</small></a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/popular"><small class="text-danger">전체보기</small></a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/popular?percent=1"><small>75% 이하</small></a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/popular?percent=2"><small>75% ~ 100%</small></a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/popular?percent=3"><small>100% 이상</small></a>
 					</div>
 				</li>
 			</ul>
@@ -43,7 +43,6 @@
 			<div class="page-content">
 				<!-- 주목할 만한 프로젝트 4줄 정렬-->
 				<div class="row">
-<%-- 				<c:forEach var="dto" items="${allProjectList }" step="이부분 찾아보기"> --%>
 				<c:forEach var="dto" items="${popular }">
 					<div class="col-md-3 col-sm-6">
 						<div class="card text-left">
@@ -72,8 +71,9 @@
 								<span class="text-danger">${Math.round(dto.totalAmt / dto.targetAmt * 100)}%</span> <small><fmt:formatNumber value="${dto.totalAmt}" pattern="#,###"/>원</small>
 								<div class="progress mt-2 mb-3">
 									<div class="progress-bar bg-danger" role="progressbar" style="width: ${Math.round(dto.totalAmt / dto.targetAmt * 100)}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-										<fmt:parseDate value="${dto.start }" var="startDate" pattern="yyyy-MM-dd"/>
-										<fmt:parseNumber value="${dto.start.time / (1000*60*60*24)}" integerOnly="true" var="start"></fmt:parseNumber>
+										<jsp:useBean id="javaDate" class="java.util.Date" />
+										<fmt:formatDate var="nowDate" value="${javaDate}" pattern="yyyy-MM-dd"/>
+										<fmt:parseNumber value="${javaDate.time / (1000*60*60*24)}" integerOnly="true" var="start"></fmt:parseNumber>
 										<fmt:parseDate value="${dto.end }" var="endDate" pattern="yyyy-MM-dd"/>
 										<fmt:parseNumber value="${dto.end.time / (1000*60*60*24)}" integerOnly="true" var="end"></fmt:parseNumber>
 										<span>${end - start }일 남음</span>

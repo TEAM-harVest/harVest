@@ -56,13 +56,13 @@ public class ProjectListServiceImpl implements ProjectListService{
 	}
 
 	@Override
-	public List<ProjectDTO> getPopular() {
-		return projectListDAO.getPopular();
+	public List<ProjectDTO> getPopular(String percent) {
+		return projectListDAO.getPopular(percent);
 	}
 
 	@Override
-	public int getPopCount() {
-		return projectListDAO.getPopCount();
+	public int getPopCount(String percent) {
+		return projectListDAO.getPopCount(percent);
 	}
 
 	@Override

@@ -21,11 +21,16 @@ public class ProjectListController {
 	@Inject
 	private ProjectListService projectListService;
 	
+	String percent1 = "";
+	String percent2 = "";
+	String percent3 = "";
+	
 
 	@RequestMapping(value = "projectList/main", method = RequestMethod.GET)	
-	public String main(Model model) {
+	public String main(Model model, HttpServletRequest request) {
+		String percent=request.getParameter("percent");
 		List<ProjectDTO> allList=projectListService.getAllList();
-		List<ProjectDTO> popular=projectListService.getPopular();
+		List<ProjectDTO> popular=projectListService.getPopular(percent);
 		List<ProjectDTO> newly=projectListService.getNewly();
 		List<ProjectDTO> deadline=projectListService.getDeadline();
 		model.addAttribute("allList", allList);
@@ -55,9 +60,10 @@ public class ProjectListController {
 	}
 	
 	@RequestMapping(value = "projectList/popular", method = RequestMethod.GET)	
-	public String popular(Model model) {
-		List<ProjectDTO> popular=projectListService.getPopular();
-		int popCount=projectListService.getPopCount();
+	public String popular(Model model, HttpServletRequest request) {
+		String percent=request.getParameter("percent");
+		List<ProjectDTO> popular=projectListService.getPopular(percent);
+		int popCount=projectListService.getPopCount(percent);
 		model.addAttribute("getPopCount", popCount);
 		model.addAttribute("popular", popular);
 		return "projectList/popular";

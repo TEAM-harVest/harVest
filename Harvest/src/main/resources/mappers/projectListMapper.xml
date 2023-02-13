@@ -22,6 +22,8 @@
 		select count(*) from project_tb where START >= DATE_SUB(CURDATE(),INTERVAL 7 day)
 	</select>
 	
+	
+	
 	<select id="getNewly" resultType="com.itwillbs.domain.ProjectDTO">
 		select * from project_tb where START >= DATE_SUB(CURDATE(),INTERVAL 7 day)
 	</select>
@@ -39,11 +41,15 @@
 	</select>
 	
 	<select id="getPopular" resultType="com.itwillbs.domain.ProjectDTO">
-		select *, (total_amt/target_amt * 100) A from project_tb order by A DESC
+		select *, (total_amt/target_amt * 100) A from project_tb
+		<if test="percent = 1">
+		where (total_amt/target_amt * 100) between 0 and 75
+		</if>
+		 order by A DESC
 	</select>
 	
 	<select id="getPopCount" resultType="java.lang.Integer">
-		select count(*) from project_tb
+		select count(*) from project_tb where (total_amt/target_amt * 100)
 	</select>
 	
 	<select id="getExpect" resultType="com.itwillbs.domain.ProjectDTO">

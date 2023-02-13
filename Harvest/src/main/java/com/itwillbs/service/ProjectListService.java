@@ -16,8 +16,8 @@ public interface ProjectListService {
 	public int getNewCount();
 	public List<ProjectDTO> getDeadline();
 	public int getDeadCount();
-	public List<ProjectDTO> getPopular();
-	public int getPopCount();
+	public List<ProjectDTO> getPopular(String percent);
+	public int getPopCount(String percent);
 	public List<ProjectDTO> getExpect();
 	public int getExpCount();
 	public List<ProjectDTO> getSearchList(String search);

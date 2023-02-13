@@ -56,12 +56,12 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 	}
 
 	@Override
-	public List<ProjectDTO> getPopular() {
+	public List<ProjectDTO> getPopular(String percent) {
 		return sqlSession.selectList(namespace+".getPopular");
 	}
 
 	@Override
-	public int getPopCount() {
+	public int getPopCount(String percent) {
 		return sqlSession.selectOne(namespace+".getPopCount");
 	}
 

@@ -71,8 +71,9 @@
 								<span class="text-danger">${Math.round(dto.totalAmt / dto.targetAmt * 100)}%</span> <small><fmt:formatNumber value="${dto.totalAmt}" pattern="#,###"/>원</small>
 								<div class="progress mt-2 mb-3">
 									<div class="progress-bar bg-danger" role="progressbar" style="width: ${Math.round(dto.totalAmt / dto.targetAmt * 100)}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-										<fmt:parseDate value="${dto.start }" var="startDate" pattern="yyyy-MM-dd"/>
-										<fmt:parseNumber value="${dto.start.time / (1000*60*60*24)}" integerOnly="true" var="start"></fmt:parseNumber>
+										<jsp:useBean id="javaDate" class="java.util.Date" />
+										<fmt:formatDate var="nowDate" value="${javaDate}" pattern="yyyy-MM-dd"/>
+										<fmt:parseNumber value="${javaDate.time / (1000*60*60*24)}" integerOnly="true" var="start"></fmt:parseNumber>
 										<fmt:parseDate value="${dto.end }" var="endDate" pattern="yyyy-MM-dd"/>
 										<fmt:parseNumber value="${dto.end.time / (1000*60*60*24)}" integerOnly="true" var="end"></fmt:parseNumber>
 										<span>${end - start }일 남음</span>
