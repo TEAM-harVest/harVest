@@ -1,5 +1,15 @@
 @charset "UTF-8";
-/* div {border: 1px solid;} */
+/* 폰트 */
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+* {font-family: 'Pretendard-Regular';}
+
+
+
 /* [ 상품 이미지 및 간략 정보 ] */
 #productContent {
 	position: relative;
@@ -42,10 +52,28 @@
 .project_summary > div > div {
 	font-size: .8em;
 }
+/* 남은 날짜 */
+.deadline {
+	color: rgb(255, 87, 87);
+}
+/* 남은날짜 미니창 */
+.deadline_box {
+	border-radius: 5px;
+	padding: 2px 6px;
+	background: rgb(253, 244, 243);
+	color: rgb(255, 87, 87);
+}
 /* - 공유 및 후원 버튼*/
 .project_btn {
 	display: flex;
-	padding-left: 30px;
+	justify-content: space-around;
+	align-items: center;
+	padding:15px 0 25px 30px;
+}
+/* 하트 */
+img#likeBtn {
+	width:30px;
+	height:30px;
 }
 
 @media all and (max-width:1220px) {
@@ -81,6 +109,16 @@
 	}
 	.project_summary > div > div {
 		font-size: .6em;
+	}
+	.project_btn {
+		position: fixed;
+		bottom: 0;
+		left:0;
+		width:100%;
+		height: auto;
+		z-index:9999;
+		background: white;
+		box-shadow: 0 -3px 3px rgba(0,0,0,.1);
 	}
 }
 
@@ -118,6 +156,20 @@ ul#myTab {
 .tab-content {
 	padding: 80px 10%;
 }
+/* 찜하기 */
+span[class^="heart"] {
+	color: red;
+}
+.heart_fill {
+	display: none;
+}
+#likeBtn:checked ~ .heart {
+	display: none;
+}
+#likeBtn:checked ~ .heart_fill {
+	display: inline;
+}
+
 /* 후원하기 버튼 */
 .funding_btn {
 	cursor: pointer;
