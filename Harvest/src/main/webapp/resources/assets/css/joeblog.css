@@ -11778,7 +11778,7 @@ textarea.form-control {
 .page-container .page-sidebar {
   max-width: 400px;
   mix-width: 250px;
-  margin: 0 auto;
+  margin-right: 0 auto;
 }
 
 .page-container .page-sidebar .sidebar-title:after {
@@ -11876,4 +11876,26 @@ span[class^="heart"] {
 	100% {
 		transform: scale(1.1);
 	}
+}
+
+.items{
+/*   width:90%; */
+  margin:0px auto;
+}
+.slick-slide{
+  margin:10px;
+}
+.slick-slide img{
+  width:100%;
+  border: 0px solid #fff;
+}
+
+.slick-prev:before, .slick-next:before {
+    font-family: 'slick';
+    font-size: 20px;
+    line-height: 1;
+    opacity: .75;
+    color: black !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
