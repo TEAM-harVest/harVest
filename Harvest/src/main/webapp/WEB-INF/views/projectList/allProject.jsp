@@ -77,7 +77,12 @@
 										<fmt:parseNumber value="${javaDate.time / (1000*60*60*24)}" integerOnly="true" var="start"></fmt:parseNumber>
 										<fmt:parseDate value="${dto.end }" var="endDate" pattern="yyyy-MM-dd"/>
 										<fmt:parseNumber value="${dto.end.time / (1000*60*60*24)}" integerOnly="true" var="end"></fmt:parseNumber>
+										<c:if test="${end - start < 1}">
+										<span>오늘 마감</span>
+										</c:if>
+										<c:if test="${end - start > 0}">
 										<span>${end - start }일 남음</span>
+										</c:if>
 									</div>
 								</div>
 							</div>
