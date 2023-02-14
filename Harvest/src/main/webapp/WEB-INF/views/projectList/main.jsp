@@ -72,7 +72,7 @@
                 <hr>
                 <h5>주목할 만한 프로젝트</h5>
                 <div class="row">
-                <c:forEach var="dto" items="${allList }" begin="1" end="8">
+                <c:forEach var="dto" items="${getPjList }" begin="1" end="8">
                     <div class="col-md-3 col-sm-6">
                         <div class="card text-left">
                             <div class="card-header p-0">                                   
@@ -135,7 +135,7 @@
     <hr>
     <h5>신규 프로젝트</h5>
     <div class="items">
-    	<c:forEach var="dto" items="${allList }">
+    	<c:forEach var="dto" items="${getPjList }">
         	<div>
 				<img src="${pageContext.request.contextPath }/resources/assets/imgs/${dto.img1 }" alt="" class="w-100">
 				<label class="like_btn badge">
@@ -161,7 +161,7 @@
 	<hr>
 	<h5>마감임박 프로젝트</h5>
 	<div class="items">
-    	<c:forEach var="dto" items="${allList }">
+    	<c:forEach var="dto" items="${getPjList }">
         	<div>
 				<img src="${pageContext.request.contextPath }/resources/assets/imgs/${dto.img1 }" alt="" class="w-100">
 				<label class="like_btn badge">
@@ -187,7 +187,7 @@
 	<hr>
 	<h5>공개예정 프로젝트</h5>
 	<div class="items">
-    	<c:forEach var="dto" items="${allList }">
+    	<c:forEach var="dto" items="${getPjList }">
         	<div>
 				<img src="${pageContext.request.contextPath }/resources/assets/imgs/${dto.img1 }" alt="" class="w-100">
 				<label class="like_btn badge">

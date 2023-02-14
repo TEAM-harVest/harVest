@@ -105,6 +105,11 @@
 	
 	function like() {
 		let pjIdx = this.id.split('_')[1];
+		if(${empty sessionScope.id}){
+			alert('로그인 후 이용해주세요');
+			return;
+		}
+		
 		$.ajax({
 			  url	: "${pageContext.request.contextPath}/project/likePro", // 요청이 전송될 URL 주소
 			  type	: "POST", // http 요청 방식 (default: ‘GET’)

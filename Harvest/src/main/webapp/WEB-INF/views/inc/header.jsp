@@ -34,7 +34,7 @@
                        카테고리
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      	  <a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/allList"><img src="${pageContext.request.contextPath }/resources/assets/imgs/border-all.svg"/> 전체</a>
+                      	  <a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/pjList"><img src="${pageContext.request.contextPath }/resources/assets/imgs/border-all.svg"/> 전체</a>
                           <a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/categoryList?category=book"><img src="${pageContext.request.contextPath }/resources/assets/imgs/book.svg"/> 출판</a>
                           <a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/categoryList?category=game"><img src="${pageContext.request.contextPath }/resources/assets/imgs/nintendo-switch.svg"/> 게임</a>
                           <a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/categoryList?category=music"><img src="${pageContext.request.contextPath }/resources/assets/imgs/music-note-list.svg"/> 음악</a>
@@ -57,7 +57,7 @@
                     </li>
                 </ul>
                 <div class="navbar-nav ml-auto">
-                	<form action="${pageContext.request.contextPath }/projectList/search" method="get">
+                	<form action="${pageContext.request.contextPath }/projectList/pjList" method="get">
                 	<div class="input-group">
 						<input type="text" class="form-control form-control-sm" name="search" placeholder="프로젝트 검색하기" aria-label="Recipient's username" aria-describedby="basic-addon2">
 						<div class="input-group-append">

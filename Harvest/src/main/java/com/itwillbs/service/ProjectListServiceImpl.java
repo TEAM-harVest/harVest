@@ -17,16 +17,6 @@ public class ProjectListServiceImpl implements ProjectListService{
 	private ProjectListDAO projectListDAO;
 
 	@Override
-	public List<ProjectDTO> getAllList() {
-		return projectListDAO.getAllList();
-	}
-
-	@Override
-	public int getProjCount() {
-		return projectListDAO.getProjCount();
-	}
-
-	@Override
 	public List<ProjectDTO> getCategoryList(String category) {
 		return projectListDAO.getCategoryList(category);
 	}
@@ -57,13 +47,13 @@ public class ProjectListServiceImpl implements ProjectListService{
 	}
 
 	@Override
-	public List<ProjectDTO> getPopular(String percent) {
-		return projectListDAO.getPopular(percent);
+	public List<ProjectDTO> getPopular() {
+		return projectListDAO.getPopular();
 	}
 
 	@Override
-	public int getPopCount(String percent) {
-		return projectListDAO.getPopCount(percent);
+	public int getPopCount() {
+		return projectListDAO.getPopCount();
 	}
 
 	@Override
@@ -77,25 +67,23 @@ public class ProjectListServiceImpl implements ProjectListService{
 	}
 
 	@Override
-	public List<ProjectDTO> getSearchList(String search) {
-		return projectListDAO.getSearchList(search);
-	}
-
-	@Override
-	public int getSearchCount(String search) {
-		return projectListDAO.getSearchCount(search);
-	}
-
-	@Override
 	public void updateAlramcount(int idx) {
 		projectListDAO.updateAlramcount(idx);
 	}
 
+	
 	@Override
-	public List<ProjectDTO> getProjectList(Map<String, String> param) {
-		return projectListDAO.getProjectList(param);
+	public List<ProjectDTO> getProjectList() {
+		return projectListDAO.getProjectList();
 	}
-
+	@Override
+	public List<ProjectDTO> getPjList(String search) {
+		return projectListDAO.getPjList(search);
+	}
+	@Override
+	public int getPjCount(String search) {
+		return projectListDAO.getPjCount(search);
+	}
 	
 
 	

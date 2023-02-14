@@ -18,16 +18,6 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 	private static final String namespace="com.itwillbs.mappers.projectListMapper";
 
 	@Override
-	public List<ProjectDTO> getAllList() {
-		return sqlSession.selectList(namespace+".getAllList");
-	}
-
-	@Override
-	public int getProjCount() {
-		return sqlSession.selectOne(namespace+".getProjCount");
-	}
-
-	@Override
 	public List<ProjectDTO> getCategoryList(String category) {
 		return sqlSession.selectList(namespace+".getCategoryList", category);
 	}
@@ -58,12 +48,12 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 	}
 
 	@Override
-	public List<ProjectDTO> getPopular(String percent) {
+	public List<ProjectDTO> getPopular() {
 		return sqlSession.selectList(namespace+".getPopular");
 	}
 
 	@Override
-	public int getPopCount(String percent) {
+	public int getPopCount() {
 		return sqlSession.selectOne(namespace+".getPopCount");
 	}
 
@@ -78,26 +68,23 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 	}
 
 	@Override
-	public List<ProjectDTO> getSearchList(String search) {
-		return sqlSession.selectList(namespace+".getSearch", search);
-	}
-
-	@Override
-	public int getSearchCount(String search) {
-		return sqlSession.selectOne(namespace+".getSearchCount", search);
-	}
-
-	@Override
 	public void updateAlramcount(int idx) {
 		sqlSession.update(namespace+".updateAlramcount", idx);
 		
 	}
 
 	@Override
-	public List<ProjectDTO> getProjectList(Map<String, String> param) {
-		return sqlSession.selectList(namespace + ".getProject", param);
+	public List<ProjectDTO> getProjectList() {
+		return sqlSession.selectList(namespace + ".getProject");
 	}
-
+	@Override
+	public List<ProjectDTO> getPjList(String search) {
+		return sqlSession.selectList(namespace+".getPjList", search);
+	}
+	@Override
+	public int getPjCount(String search) {
+		return sqlSession.selectOne(namespace+".getPjCount", search);
+	}
 	
 	
 

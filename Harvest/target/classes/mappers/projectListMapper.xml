@@ -6,16 +6,45 @@
 <!-- Mapper.xml 만들 때 참고용, 아래 namespace 수정해서 쓰세요! -->
 <mapper namespace="com.itwillbs.mappers.projectListMapper">
 
-	<select id="getAllList" resultType="com.itwillbs.domain.ProjectDTO">
-		select * 
-		  from project_tb 
-		 where END > CURDATE()
+	<select id="getPjList" resultType="com.itwillbs.domain.ProjectDTO">
+		SELECT IDX
+			 , CATEGORY
+			 , CRE_NM
+			 , TITLE
+			 , TARGET_AMT
+			 , START
+			 , END
+			 , IMG1
+		  FROM PROJECT_TB
+		 WHERE 1=1
+		 <if test="value != null and value=''">
+		   and title like CONCAT('%', #{search}, '%')
+		 </if>
+<!-- 		 <if test="category"> -->
+<!-- 		   and category=#{category} -->
+<!-- 		 </if>  -->
+<!-- 		 <if test="value='deadline'"> -->
+<!-- 		   and CURDATE() > DATE_SUB(END,INTERVAL 7 day) -->
+<!-- 		 </if> -->
+		 AND END > CURDATE()
 	</select>
 	
-	<select id="getProjCount" resultType="java.lang.Integer">
-		select count(*) from project_tb where END > CURDATE()
+	<select id="getPjCount" parameterType="HashMap" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		  FROM PROJECT_TB
+		 WHERE 1=1
+		 <if test="value != null and value=''">
+		   and title like CONCAT('%', #{search}, '%')
+		 </if>
+<!-- 		 <if test="category"> -->
+<!-- 		   and category=#{category} -->
+<!-- 		 </if>  -->
+<!-- 		 <if test="value='deadline'"> -->
+<!-- 		   and CURDATE() > DATE_SUB(END,INTERVAL 7 day) and END > CURDATE() -->
+<!-- 		 </if> -->
+		 AND END > CURDATE()
 	</select>
-	
+
 	<select id="getCategoryList" resultType="com.itwillbs.domain.ProjectDTO">
 		select * 
 		  from project_tb 
@@ -34,7 +63,7 @@
 	
 	
 	<select id="getCateCount" resultType="java.lang.Integer">
-		select count(*) from project_tb where END > CURDATE()
+		select count(*) from project_tb where category=#{category} and END > CURDATE()
 	</select>
 	
 	
@@ -91,13 +120,7 @@
 		select count(*) from project_tb where START > CURDATE()
 	</select>
 	
-	<select id="getSearch" resultType="com.itwillbs.domain.ProjectDTO">
-		select * from project_tb where title like CONCAT('%', #{search}, '%') and END > CURDATE()
-	</select>
 	
-	<select id="getSearchCount" resultType="java.lang.Integer">
-		select count(*) from project_tb where title like CONCAT('%', #{search}, '%') and where END > CURDATE()
-	</select>
 	
 	<select id="updateAlramcount">
 		update project_tb set alramcount=alramcount+1 where idx=#{idx}
