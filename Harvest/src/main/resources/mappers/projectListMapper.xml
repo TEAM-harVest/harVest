@@ -19,25 +19,25 @@
 	</select>
 	
 	<select id="getCateCount" resultType="java.lang.Integer">
-		select count(*) from project_tb where START >= DATE_SUB(CURDATE(),INTERVAL 7 day)
+		select count(*) from project_tb where START > DATE_SUB(CURDATE(),INTERVAL 7 day)
 	</select>
 	
 	
 	
 	<select id="getNewly" resultType="com.itwillbs.domain.ProjectDTO">
-		select * from project_tb where START >= DATE_SUB(CURDATE(),INTERVAL 7 day)
+		select * from project_tb where START > DATE_SUB(CURDATE(),INTERVAL 7 day)
 	</select>
 	
 	<select id="getNewCount" resultType="java.lang.Integer">
-		select count(*) from project_tb where START >= DATE_SUB(CURDATE(),INTERVAL 7 day)
+		select count(*) from project_tb where START > DATE_SUB(CURDATE(),INTERVAL 7 day)
 	</select>
 	
 	<select id="getDeadline" resultType="com.itwillbs.domain.ProjectDTO">
-		select * from project_tb where CURDATE() >= DATE_SUB(END,INTERVAL 7 day)
+		select * from project_tb where CURDATE() > DATE_SUB(END,INTERVAL 7 day) and END > CURDATE()
 	</select>
 	
 	<select id="getDeadCount" resultType="java.lang.Integer">
-		select count(*) from project_tb where CURDATE() >= DATE_SUB(END,INTERVAL 7 day)
+		select count(*) from project_tb where CURDATE() > DATE_SUB(END,INTERVAL 7 day) and END > CURDATE()
 	</select>
 	
 	<select id="getPopular" resultType="com.itwillbs.domain.ProjectDTO">

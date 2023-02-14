@@ -14,7 +14,15 @@ public class ProjectDTO {
 	private Date start;
 	private Date end;
 	private int alramcount;
+	private String heart;
 	
+	
+	public String getHeart() {
+		return heart;
+	}
+	public void setHeart(String heart) {
+		this.heart = heart;
+	}
 	public int getIdx() {
 		return idx;
 	}
