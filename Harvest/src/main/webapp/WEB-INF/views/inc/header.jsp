@@ -47,7 +47,7 @@
                         <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/popular">인기</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/newly">신규</a>
+                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/project">신규</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/deadline">마감임박</a>

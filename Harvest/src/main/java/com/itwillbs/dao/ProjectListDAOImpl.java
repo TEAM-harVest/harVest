@@ -1,6 +1,8 @@
 package com.itwillbs.dao;
 
 import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -89,6 +91,11 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 	public void updateAlramcount(int idx) {
 		sqlSession.update(namespace+".updateAlramcount", idx);
 		
+	}
+
+	@Override
+	public List<ProjectDTO> getProjectList(Map<String, String> param) {
+		return sqlSession.selectList(namespace + ".getProject", param);
 	}
 
 	

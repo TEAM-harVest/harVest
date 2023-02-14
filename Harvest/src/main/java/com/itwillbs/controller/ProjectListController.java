@@ -1,18 +1,20 @@
 package com.itwillbs.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.domain.ProjectDTO;
-import com.itwillbs.domain.AlramDTO;
-import com.itwillbs.service.AlramService;
 import com.itwillbs.service.ProjectListService;
 
 @Controller
@@ -75,6 +77,17 @@ public class ProjectListController {
 		int newCount=projectListService.getNewCount();
 		model.addAttribute("getNewCount", newCount);
 		model.addAttribute("newly", newly);
+		return "projectList/newly";
+	}
+	
+	@RequestMapping(value = "projectList/project", method = RequestMethod.GET)
+	public String projectList( Model model, HttpSession session) {
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("SESSIONID", session.getAttribute("id").toString());
+		List<ProjectDTO> projectList=projectListService.getProjectList(param);
+		int newCount=projectListService.getNewCount();
+		model.addAttribute("projectList", projectList);
+		model.addAttribute("getNewCount", newCount);
 		return "projectList/newly";
 	}
 	

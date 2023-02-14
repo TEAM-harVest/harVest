@@ -28,7 +28,7 @@ public class LikeController {
 		param.put("PJ_IDX", pjIdx);
 		param.put("USER_ID", userId);
 		String result = projectService.setLike(param);
-		System.out.println("ìœ ì € ì•„ì´ë””*******: " + userId);
+		System.out.println("¾ÆÀÌµğ: " + userId);
 		return result;
 	}
 }

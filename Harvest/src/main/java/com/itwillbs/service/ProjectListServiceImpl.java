@@ -1,6 +1,7 @@
 package com.itwillbs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -88,6 +89,11 @@ public class ProjectListServiceImpl implements ProjectListService{
 	@Override
 	public void updateAlramcount(int idx) {
 		projectListDAO.updateAlramcount(idx);
+	}
+
+	@Override
+	public List<ProjectDTO> getProjectList(Map<String, String> param) {
+		return projectListDAO.getProjectList(param);
 	}
 
 	

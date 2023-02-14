@@ -34,17 +34,16 @@ public class ProjectController {
 	}
 	
 	@RequestMapping(value = "/project/projectInfo", method = RequestMethod.GET)
-	public String projectInfo(@RequestParam("idx")int idx, Model model, HttpSession session, String ID) {
+	public String projectInfo(@RequestParam("idx")int idx, Model model, HttpSession session) {
 		
 		Map<String, String> param = new HashMap<String, String>();
-		param.put("SESSIONID", session.getAttribute("iD").toString());
+		param.put("SESSIONID", session.getAttribute("id").toString());
 		param.put("IDX", idx + "");
-		param.put("ID", ID + "");
 		ProjectDTO projectDTO = projectService.getProjectInfo(param);
 		Integer sumMoney = projectService.getSumMoney(param);
 		Integer sumUser = projectService.getSumUser(param);
 		
-//		System.out.println("인티저입니다." + sum);
+//		System.out.println("�씤�떚���엯�땲�떎." + sum);
 		
 //		Map<String, Integer> map = new HashMap<String, Integer>();
 //		map.put("idx", idx);
@@ -56,7 +55,7 @@ public class ProjectController {
 //		int sumUser = projectService.getSumUser(idx);
 //		projectDTO.setSumUser(sumUser);
 		
-		System.out.println("몇 명?" + sumUser);
+		System.out.println("紐� 紐�?" + sumUser);
 		
 		model.addAttribute("projectDTO", projectDTO);
 		model.addAttribute("sumMoney", sumMoney);

@@ -36,7 +36,7 @@
 		</div>
 	</div>
 	<div class="container mt-2 mb-4"><b style="color: red; white-space: nowrap;">${getNewCount }</b>개의 프로젝트가 있습니다.</div>
-	<input type="hidden" value="${sessionScope.iD}">
+	<input type="hidden" value="${sessionScope.id}">
 	
 	<!-- !!! 카테고리 메뉴항목 배열로 4줄씩 가져오기 -->
 	<div class="container">
@@ -44,23 +44,23 @@
 			<div class="page-content">
 				<!-- 주목할 만한 프로젝트 4줄 정렬-->
 				<div class="row">
-				<c:forEach var="projectDTO" items="${newly }">
+				<c:forEach var="projectDTO" items="${projectList }">
 					<div class="col-md-3 col-sm-6">
 						<div class="card text-left">
 							<div class="card-header p-0">
 								<!-- 찜버튼 -->
 								<div class="blog-media">
 									<img src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" alt="" class="w-100">
-									<label class="like_btn badge">
-                                   		<c:if test="${empty sesssionScope.iD}">
-										<img id="likeBtn" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
+<!-- 									<label class="like_btn badge"> -->
+                                   		<c:if test="${empty sesssionScope.id}">
+										<img style="position:absolute; top:5px;right:5px;z-index:9999;cursor:pointer;" width="30" height="30" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}"></span>
 										</c:if>
-                                   	</label>	
+<!--                                    	</label>	 -->
 								</div>
 							</div>
 							<div class="card-body px-0">
 								<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
-								<input type="hidden" id="pjIdx" value="${projectDTO.idx }">
+								<input type="hidden" id="pjIdx_${projectDTO.idx }" value="${projectDTO.idx }">
 								<h5 class="card-title mb-2">${projectDTO.title }</h5>
 								<span class="text-danger">${Math.round(projectDTO.totalAmt / projectDTO.targetAmt * 100)}%</span> <small><fmt:formatNumber value="${projectDTO.totalAmt}" pattern="#,###"/>원</small>
 								<div class="progress mt-2 mb-3">
@@ -100,21 +100,22 @@
 	
 	<script type="text/javascript">
 	$(document).ready(function(){
-		$("#likeBtn").click(like)
+		$(".heart").click(like)
 	})
 	
 	function like() {
+		let pjIdx = this.id.split('_')[1];
 		$.ajax({
 			  url	: "${pageContext.request.contextPath}/project/likePro", // 요청이 전송될 URL 주소
 			  type	: "POST", // http 요청 방식 (default: ‘GET’)
-			  data  : {'PJ_IDX' : $('#pjIdx').val(),
+			  data  : {'PJ_IDX' : pjIdx,
 				  	   'USER_ID' : '${sessionScope.id}'}, // TODO session 아이디로 바까라 좋은말 할때...
 			  //processData : true, // 데이터를 컨텐트 타입에 맞게 변환 여부
 			  success : function(data) {
 				  alert("성공");
-				  var src = $('#likeBtn').attr('src');
+				  var src = $('#likeBtn_' + pjIdx).attr('src');
 				  src = src.substring(0, src.lastIndexOf('/') + 1) + data;
-				  $('#likeBtn').attr('src', src);
+				  $('#likeBtn_' + pjIdx).attr('src', src);
 			  }
 			})
 	}
