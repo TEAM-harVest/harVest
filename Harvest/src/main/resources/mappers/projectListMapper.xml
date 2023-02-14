@@ -19,18 +19,19 @@
 	<select id="getCategoryList" resultType="com.itwillbs.domain.ProjectDTO">
 		select * 
 		  from project_tb 
-		 where category = #{category} and END > CURDATE()
+		 where category=#{category} and END > CURDATE()
 	</select>
 	
-	<select id="getCategoryList" resultType="com.itwillbs.domain.ProjectDTO">
-		select * 
-		  from project_tb
-		 where 1=1 
-		 <if test="category ">
-		   and category=#{category}
-		 </if> 
-		   and END > CURDATE()
-	</select>
+<!-- 	<select id="getCategoryList" resultType="com.itwillbs.domain.ProjectDTO"> -->
+<!-- 		select *  -->
+<!-- 		  from project_tb -->
+<!-- 		 where 1=1  -->
+<!-- 		 <if test="category "> -->
+<!-- 		   and category=#{category} -->
+<!-- 		 </if>  -->
+<!-- 		   and END > CURDATE() -->
+<!-- 	</select> -->
+	
 	
 	<select id="getCateCount" resultType="java.lang.Integer">
 		select count(*) from project_tb where END > CURDATE()
@@ -46,7 +47,6 @@
 			 , CATEGORY
 			 , CRE_NM
 			 , TITLE
-			 , INTRO
 			 , TARGET_AMT
 			 , START
 			 , END
