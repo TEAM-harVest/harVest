@@ -23,8 +23,8 @@ public class ProjectServiceImpl implements ProjectService{
 	}
 
 	@Override
-	public ProjectDTO getProjectInfo(int idx) {
-		return projectDAO.getProjectInfo(idx);
+	public ProjectDTO getProjectInfo(Map<String, String> param) {
+		return projectDAO.getProjectInfo(param);
 	}
 
 	@Override
@@ -41,14 +41,19 @@ public class ProjectServiceImpl implements ProjectService{
 		return result;
 	}
 
+//	@Override
+//	public int getSumUser(int idx) {
+//		return projectDAO.getSumUser(idx);
+//	}
+
 	@Override
-	public int getSumMoney(int idx) {
-		return projectDAO.getSumMoney(idx);
+	public int getSumMoney(Map<String, String> param) {
+		return projectDAO.getSumMoney(param);
 	}
 
 	@Override
-	public int getSumUser(int idx) {
-		return projectDAO.getSumUser(idx);
+	public int getSumUser(Map<String, String> param) {
+		return projectDAO.getSumUser(param);
 	}
 	
 	

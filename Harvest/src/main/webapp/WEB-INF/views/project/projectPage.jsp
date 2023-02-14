@@ -16,7 +16,6 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
 <script type="text/javascript">
-
 $(document).ready(function(){
 	$("#likeBtn").click(like)
 })
@@ -26,7 +25,7 @@ function like() {
 		  url	: "${pageContext.request.contextPath}/project/likePro", // 요청이 전송될 URL 주소
 		  type	: "POST", // http 요청 방식 (default: ‘GET’)
 		  data  : {'PJ_IDX' : $('#pjIdx').val(),
-			  	   'USER_ID' : $('#'.val())}, // TODO session 아이디로 바까라 좋은말 할때...
+			  	   'USER_ID' : '${sessionScope.iD}'}, // TODO session 아이디로 바까라 좋은말 할때...
 		  //processData : true, // 데이터를 컨텐트 타입에 맞게 변환 여부
 		  success : function(data) {
 			  var src = $('#likeBtn').attr('src');
@@ -39,6 +38,9 @@ function like() {
 </script>
 </head>
 <body>
+	<div style="position:fixed;top:0;left:0;z-index:9999;color:red;">
+	${sessionScope.iD}님이 로그인했습니다.
+	</div>
 	<!-- 상품 이미지 및 간략 정보 -->
 	<input type="checkbox" id="fundingBtn" style="display:none;">
 	<div id="productContent">
@@ -80,9 +82,9 @@ function like() {
 				<div class="project_info">
 					<div class="info_price">
 						<span>모인 금액</span>
-						<span style="font-size: 1em !important;">${Math.round(projectDTO.sumMoney / projectDTO.targetAmt * 100)}%</span>
+						<span style="font-size: 1em !important;">${Math.round(sumMoney / projectDTO.targetAmt * 100)}%</span>
 						<h2>
-							<fmt:formatNumber value="${projectDTO.sumMoney}" />원
+							<fmt:formatNumber value="${sumMoney}" />원
 						</h2>
 					</div>
 					<div class="info_time">
@@ -101,18 +103,22 @@ function like() {
 							<c:if test="${(dbDtParse - nowDtParse) + 1 == 0}">
 								<span class="deadline">오늘 마감</span>
 							</c:if>
+							<c:if test="${(dbDtParse - nowDtParse) + 1 < 0}">
+								<span class="deadline">펀딩 종료</span>
+							</c:if>
+							
 						</h2>
 					</div>
 					<div class="info_support">
 						<span>후원자</span>
-						<h2><fmt:formatNumber value="${projectDTO.sumUser}" />명</h2>
+						<h2><fmt:formatNumber value="${sumUser}" />명</h2>
 					</div>
 				</div>
 				<div class="project_summary">
 					<div>
 						<div>목표 금액</div>
 						<div><fmt:formatNumber value="${projectDTO.targetAmt}"/>원</div>
-						<div>${Math.round(projectDTO.sumMoney / projectDTO.targetAmt * 100)}%</div>
+						<div>${Math.round(sumMoney / projectDTO.targetAmt * 100)}%</div>
 					</div>
 					<div>
 						<div>펀딩 기간</div>
@@ -123,6 +129,9 @@ function like() {
 							</c:if>
 							<c:if test="${(dbDtParse - nowDtParse) + 1 == 0}">
 							<span class="deadline_box">${(dbDtParse - nowDtParse) + 1}일 남음</span>
+							</c:if>
+							<c:if test="${(dbDtParse - nowDtParse) + 1 < 0}">
+							<span class="deadline_box">펀딩 종료</span>
 							</c:if>
 						</div>
 					</div>
@@ -148,8 +157,11 @@ function like() {
 <!-- 						</span> -->
 <!-- 					</label> -->
 <!-- 					</form> -->
-					<img id="likeBtn" src="${pageContext.request.contextPath}/resources/harVest_img/heart.svg">
+					<c:if test="${empty sesssionScope.iD}">
+					<img id="likeBtn" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
+					</c:if>
 					<button>공유</button>
+					<div class="share_cont">공유하기</div>
 					<label for="fundingBtn" class="funding_btn">후원하기</label>
 				</div>
 			</div>

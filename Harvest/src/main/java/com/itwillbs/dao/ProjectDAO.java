@@ -8,10 +8,10 @@ import com.itwillbs.domain.ProjectDTO;
 
 public interface ProjectDAO {
 	public List<ProjectDTO> getProjectList();
-	public ProjectDTO getProjectInfo(int idx);
+	public ProjectDTO getProjectInfo(Map<String, String> param);
 	public String getLike(Map<String, String> param);
 	public int setLike(Map<String, String> param);
 	public int delLike(Map<String, String> param);
-	public int getSumMoney(int idx);
-	public int getSumUser(int idx);
+	public int getSumMoney(Map<String, String> param);
+	public int getSumUser(Map<String, String> param);
 }

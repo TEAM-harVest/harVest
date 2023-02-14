@@ -9,8 +9,14 @@
 	  FROM PROJECT
 	</select>
 	<select id="getProjectInfo" resultType="com.itwillbs.domain.ProjectDTO">
-	SELECT *
-	  FROM PROJECT
+	 SELECT IDX, CATEGORY, TITLE, INTRO, TARGET_AMT, START, END
+	 , case when (SELECT COUNT(*)
+				    FROM LIKE_TB
+				   WHERE PJ_IDX = P.IDX
+					 AND USER_ID = #{SESSIONID}) = 1 THEN 'heart_fill.svg'
+		   											 ELSE 'heart.svg'
+		   											 END AS HEART  
+	  FROM PROJECT P
 	 WHERE IDX = #{IDX}
 	</select>
 	
@@ -44,12 +50,12 @@
 	<select id="getSumMoney" resultType="java.lang.Integer">
 		SELECT SUM(AMOUNT) AS sumMoney
 	  	  FROM PAYMENT_TB
-	  	 WHERE PJ_IDX = #{idx}
+	  	 WHERE PJ_IDX = #{IDX}
 	</select>
 	
 	<select id="getSumUser" resultType="java.lang.Integer">
 		SELECT COUNT(ID) AS sumUser
 		  FROM PAYMENT_TB
-		 where PJ_IDX = #{ID};
+		 where PJ_IDX = #{IDX};
 	</select>
 </mapper>

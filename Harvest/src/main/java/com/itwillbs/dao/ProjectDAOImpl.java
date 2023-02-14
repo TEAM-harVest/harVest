@@ -25,8 +25,8 @@ public class ProjectDAOImpl implements ProjectDAO {
 	}
 
 	@Override
-	public ProjectDTO getProjectInfo(int idx) {
-		return sqlSession.selectOne(namespace + ".getProjectInfo", idx);
+	public ProjectDTO getProjectInfo(Map<String, String> param) {
+		return sqlSession.selectOne(namespace + ".getProjectInfo", param);
 	}
 
 	@Override
@@ -45,13 +45,18 @@ public class ProjectDAOImpl implements ProjectDAO {
 		return sqlSession.delete(namespace + ".delLike", param);
 	}
 
+//	@Override
+//	public int getSumMoney(int idx) {
+//		return sqlSession.selectOne(namespace + ".getSumMoney", idx);
+//	}
+
 	@Override
-	public int getSumMoney(int idx) {
-		return sqlSession.selectOne(namespace + ".getSumMoney", idx);
+	public int getSumUser(Map<String, String> param) {
+		return sqlSession.selectOne(namespace + ".getSumUser", param);
 	}
 
 	@Override
-	public int getSumUser(int idx) {
-		return sqlSession.selectOne(namespace + ".getSumUser", idx);
+	public int getSumMoney(Map<String, String> param) {
+		return sqlSession.selectOne(namespace + ".getSumMoney", param);
 	}
 }

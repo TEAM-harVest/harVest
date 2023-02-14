@@ -26,7 +26,14 @@ public class ProjectDTO {
 	private int sumMoney;
 	private int sumUser;
 	
+	private String heart;
 	
+	public String getHeart() {
+		return heart;
+	}
+	public void setHeart(String heart) {
+		this.heart = heart;
+	}
 	public int getSumMoney() {
 		return sumMoney;
 	}
