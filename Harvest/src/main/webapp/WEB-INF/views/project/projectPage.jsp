@@ -18,9 +18,27 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#likeBtn").click(like)
+	$("#shareBtn").click(shareDisplay)
+	$("#shareX").click(offDisplay)
 })
 
+
 function like() {
+	if(${empty sessionScope.iD}) {
+		Swal.fire({
+			title: '로그인 후 사용할 수 있습니다.',
+			icon: 'warning',
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: '로그인',
+		}).then((result) => {
+			if (result.value) {
+				window.location = '${pageContext.request.contextPath}/main/mainList';
+			}
+		})
+	}
+
+	
 	$.ajax({
 		  url	: "${pageContext.request.contextPath}/project/likePro", // 요청이 전송될 URL 주소
 		  type	: "POST", // http 요청 방식 (default: ‘GET’)
@@ -35,19 +53,47 @@ function like() {
 		})
 }
 
+function shareDisplay() {
+	if($("#shareCont").css("display") == "none") {
+		$("#shareCont").show();
+		return false;
+	}
+};
+
+function offDisplay() {
+	debugger;
+	if($("#shareCont").css("display") != "none") {
+		$("#shareCont").hide();
+		return false;
+	}
+};
+
+function shareTwitter() {
+    var sendText = "${projectDTO.title}"; // 전달할 텍스트
+    var sendUrl = "http://localhost:8080/main/project/projectInfo?idx=${projectDTO.idx}"; // 전달할 URL
+    window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+}
+function shareFacebook() {
+    var sendUrl = "http://localhost:8080/main/project/projectInfo?idx=${projectDTO.idx}"; // 전달할 URL
+    window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+}
+
 </script>
 </head>
 <body>
+<%-- 	<c:if test="${empty sesssionScope.iD}"> --%>
 	<div style="position:fixed;top:0;left:0;z-index:9999;color:red;">
 	${sessionScope.iD}님이 로그인했습니다.
+	<button onclick="location.href='${pageContext.request.contextPath}/member/logout'">로그아웃</button>
 	</div>
+<%-- 	</c:if> --%>
 	<!-- 상품 이미지 및 간략 정보 -->
 	<input type="checkbox" id="fundingBtn" style="display:none;">
 	<div id="productContent">
 		<div class="prod_title">
 			<button>${projectDTO.category}</button>
 			<h1>${projectDTO.title}</h1>
-			<input type="hidden" id="pjIdx" value="${projectDTO.idx }">
+			<input type="hidden" id="pjIdx" value="${projectDTO.idx}">
 		</div>
 		<div class="prod_cont">
 			<div> <!-- 이미지 캐러셀 -->
@@ -59,13 +105,13 @@ function like() {
 				  </div>
 				  <div class="carousel-inner">
 				    <div class="carousel-item active">
-				      <img src="https://tumblbug-pci.imgix.net/326f0b30dedd61b1b4ab402a546ed23ff763b676/a942a2f8dc6f8cb765a188a7817e4d132d87ed86/b5f809fa459add77e412896fb41972bf73dbb890/2f162593-feb4-4450-bafa-d11bbcf334f5.jpeg?ixlib=rb-1.1.0&w=1240&h=930&auto=format%2Ccompress&lossless=true&fit=crop&s=e761a6cc2af8edba46fefb72a395250b" class="d-block w-100" alt="...">
+				      <img src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.img1}" class="d-block w-100" alt="...">
 				    </div>
 				    <div class="carousel-item">
-				      <img src="https://tumblbug-pci.imgix.net/326f0b30dedd61b1b4ab402a546ed23ff763b676/a942a2f8dc6f8cb765a188a7817e4d132d87ed86/b5f809fa459add77e412896fb41972bf73dbb890/2f162593-feb4-4450-bafa-d11bbcf334f5.jpeg?ixlib=rb-1.1.0&w=1240&h=930&auto=format%2Ccompress&lossless=true&fit=crop&s=e761a6cc2af8edba46fefb72a395250b" class="d-block w-100" alt="...">
+				      <img src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.img2}" class="d-block w-100" alt="...">
 				    </div>
 				    <div class="carousel-item">
-				      <img src="https://tumblbug-pci.imgix.net/326f0b30dedd61b1b4ab402a546ed23ff763b676/a942a2f8dc6f8cb765a188a7817e4d132d87ed86/b5f809fa459add77e412896fb41972bf73dbb890/2f162593-feb4-4450-bafa-d11bbcf334f5.jpeg?ixlib=rb-1.1.0&w=1240&h=930&auto=format%2Ccompress&lossless=true&fit=crop&s=e761a6cc2af8edba46fefb72a395250b" class="d-block w-100" alt="...">
+				      <img src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.img3}" class="d-block w-100" alt="...">
 				    </div>
 				  </div>
 				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -82,19 +128,14 @@ function like() {
 				<div class="project_info">
 					<div class="info_price">
 						<span>모인 금액</span>
-						<span style="font-size: 1em !important;">${Math.round(sumMoney / projectDTO.targetAmt * 100)}%</span>
+						<span style="font-size: 1em !important;">${Math.round(projectDTO.sumMoney / projectDTO.targetAmt * 100)}%</span>
 						<h2>
-							<fmt:formatNumber value="${sumMoney}" />원
+							<fmt:formatNumber value="${projectDTO.sumMoney}" />원
 						</h2>
 					</div>
 					<div class="info_time">
 						<span>남은 시간</span>
 						<h2>
-<%-- 							<fmt:parseDate value="${projectDTO.start }" var="startDate" pattern="yyyy-MM-dd"/> --%>
-<%-- 							<fmt:parseNumber value="${projectDTO.start.time / (1000*60*60*24)}" integerOnly="true" var="start"></fmt:parseNumber> --%>
-<%-- 							<fmt:parseDate value="${projectDTO.end }" var="endDate" pattern="yyyy-MM-dd"/> --%>
-<%-- 							<fmt:parseNumber value="${projectDTO.end.time / (1000*60*60*24)}" integerOnly="true" var="end"></fmt:parseNumber> --%>
-<%-- 							${end - start}일 --%>
 							<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="nowDtParse" scope="request"/>
 							<fmt:parseNumber value="${projectDTO.end.time/ (1000*60*60*24)}" integerOnly="true" var="dbDtParse" scope="request"/>
 							<c:if test="${(dbDtParse - nowDtParse) + 1 > 0}">
@@ -106,19 +147,18 @@ function like() {
 							<c:if test="${(dbDtParse - nowDtParse) + 1 < 0}">
 								<span class="deadline">펀딩 종료</span>
 							</c:if>
-							
 						</h2>
 					</div>
 					<div class="info_support">
 						<span>후원자</span>
-						<h2><fmt:formatNumber value="${sumUser}" />명</h2>
+						<h2><fmt:formatNumber value="${projectDTO.sumUser}" />명</h2>
 					</div>
 				</div>
 				<div class="project_summary">
 					<div>
 						<div>목표 금액</div>
-						<div><fmt:formatNumber value="${projectDTO.targetAmt}"/>원</div>
-						<div>${Math.round(sumMoney / projectDTO.targetAmt * 100)}%</div>
+						<div><fmt:formatNumber value="${projectDTO.sumMoney}"/>원</div>
+						<div>${Math.round(projectDTO.sumMoney / projectDTO.targetAmt * 100)}%</div>
 					</div>
 					<div>
 						<div>펀딩 기간</div>
@@ -138,30 +178,41 @@ function like() {
 					<div>
 						<div>결제 일시</div>
 						<div>목표금액 달성시 2023.03.06에 결제 진행</div>
-						<div>목표 달성</div>
+						<c:if test="${(dbDtParse - nowDtParse) + 1 > 0}">
+							<c:if test="${projectDTO.sumMoney > projectDTO.targetAmt}">
+							<div>목표 달성</div>
+							</c:if>
+						</c:if>
+						<c:if test="${(dbDtParse - nowDtParse) + 1 > 0}">
+							<c:if test="${projectDTO.sumMoney < projectDTO.targetAmt}">
+							<div>진행 중</div>
+							</c:if>
+						</c:if>
+						<c:if test="${(dbDtParse - nowDtParse) + 1 <= 0}">
+							<c:if test="${projectDTO.sumMoney < projectDTO.targetAmt}">
+							<div>달성 실패</div>
+							</c:if>
+						</c:if>
 					</div>
 				</div>
 				<div class="project_btn">
-<%-- 					<form action="${pageContext.request.contextPath}/project/likePro" method="post"> --%>
-<!-- 					<label> -->
-<!-- 						<input type="checkbox" id="likeBtn" name="likeBtn" style="display:none;"> -->
-<!-- 						<span class="heart"> -->
-<!-- 							<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16"> -->
-<!-- 								<path d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z"/> -->
-<!-- 							</svg> -->
-<!-- 						</span> -->
-<!-- 						<span class="heart_fill"> -->
-<!-- 							<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16"> -->
-<!-- 								<path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/> -->
-<!-- 							</svg> -->
-<!-- 						</span> -->
-<!-- 					</label> -->
-<!-- 					</form> -->
-					<c:if test="${empty sesssionScope.iD}">
 					<img id="likeBtn" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
-					</c:if>
-					<button>공유</button>
-					<div class="share_cont">공유하기</div>
+					<div id="shareBtn" class="share_btn">
+						<span>공유</span>
+						<div id="shareCont" class="share_cont">
+							<span id="shareX" class="share_x">
+								<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+									<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+									<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+								</svg>
+							</span>
+							<div>
+								<a id="btnTwitter" class="link_icon twitter" href="javascript:shareTwitter();"></a>
+								<a id="btnFacebook" class="link_icon facebook" href="javascript:shareFacebook();"></a>    
+								<a id="btnKakao" class="link_icon kakao" href="javascript:shareKakao();"></a>
+							</div>
+						</div>
+					</div>
 					<label for="fundingBtn" class="funding_btn">후원하기</label>
 				</div>
 			</div>
@@ -233,6 +284,8 @@ function like() {
 	<!-- 상세 페이지 및 창작자 소개, 금액 -->
 	<div class=""></div>
 	
+	
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 </html>

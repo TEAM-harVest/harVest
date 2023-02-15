@@ -9,13 +9,22 @@
 	  FROM PROJECT
 	</select>
 	<select id="getProjectInfo" resultType="com.itwillbs.domain.ProjectDTO">
-	 SELECT IDX, CATEGORY, TITLE, INTRO, TARGET_AMT, START, END
-	 , case when (SELECT COUNT(*)
-				    FROM LIKE_TB
-				   WHERE PJ_IDX = P.IDX
-					 AND USER_ID = #{SESSIONID}) = 1 THEN 'heart_fill.svg'
-		   											 ELSE 'heart.svg'
-		   											 END AS HEART  
+	 SELECT IDX
+	 	  , CATEGORY
+	 	  , TITLE
+	 	  , INTRO
+	 	  , TARGET_AMT
+	 	  , START
+	 	  , END
+	 	  , IMG1
+	 	  , IMG2
+	 	  , IMG3
+	 	  , case when (SELECT COUNT(*)
+	 	  				 FROM LIKE_TB
+	 	  				WHERE PJ_IDX = P.IDX
+	 	  				  AND USER_ID = #{SESSIONID}) = 1 THEN 'heart_fill.svg'
+		   											 	  ELSE 'heart.svg'
+		   											   	   END AS HEART  
 	  FROM PROJECT P
 	 WHERE IDX = #{IDX}
 	</select>
