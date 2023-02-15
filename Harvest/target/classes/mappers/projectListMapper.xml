@@ -26,6 +26,7 @@
 <!-- 		 <if test="value='deadline'"> -->
 <!-- 		   and CURDATE() > DATE_SUB(END,INTERVAL 7 day) -->
 <!-- 		 </if> -->
+<!-- 			수정예정 -->
 		 AND END > CURDATE()
 	</select>
 	
