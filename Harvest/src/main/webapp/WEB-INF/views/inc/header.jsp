@@ -47,7 +47,7 @@
                         <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/popular">인기</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/project">신규</a>
+                        <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/newly">신규</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="${pageContext.request.contextPath }/projectList/deadline">마감임박</a>
@@ -57,7 +57,7 @@
                     </li>
                 </ul>
                 <div class="navbar-nav ml-auto">
-                	<form action="${pageContext.request.contextPath }/projectList/pjList" method="get">
+                	<form action="${pageContext.request.contextPath }/projectList/search" method="get">
                 	<div class="input-group">
 						<input type="text" class="form-control form-control-sm" name="search" placeholder="프로젝트 검색하기" aria-label="Recipient's username" aria-describedby="basic-addon2">
 						<div class="input-group-append">

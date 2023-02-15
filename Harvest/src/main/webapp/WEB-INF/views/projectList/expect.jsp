@@ -21,7 +21,7 @@
   	<jsp:include page="../inc/header.jsp"></jsp:include>
     
     <!-- 본문 내용 -->
-	<div class="container mt-5 mb-4"><b style="color: red; white-space: nowrap;">${getExpCount }</b>개의 프로젝트가 있습니다.
+	<div class="container mt-5 mb-4"><b style="color: red; white-space: nowrap;">${getCount }</b>개의 프로젝트가 있습니다.
 	</div>
 	
 	
@@ -31,7 +31,7 @@
 			<div class="page-content">
 				<!-- 주목할 만한 프로젝트 4줄 정렬-->
 				<div class="row">
-				<c:forEach var="dto" items="${expect }">
+				<c:forEach var="dto" items="${getExpList }">
 					<div class="col-md-3 col-sm-6">
 						<div class="card text-left">
 							<div class="card-header p-0">

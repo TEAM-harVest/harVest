@@ -17,67 +17,35 @@
 			 , IMG1
 		  FROM PROJECT_TB
 		 WHERE 1=1
-		 <if test="value != null and value=''">
+		 <if test="value='search'">
 		   and title like CONCAT('%', #{search}, '%')
 		 </if>
 <!-- 		 <if test="category"> -->
 <!-- 		   and category=#{category} -->
 <!-- 		 </if>  -->
-<!-- 		 <if test="value='deadline'"> -->
-<!-- 		   and CURDATE() > DATE_SUB(END,INTERVAL 7 day) -->
-<!-- 		 </if> -->
-<!-- 			수정예정 -->
 		 AND END > CURDATE()
 	</select>
 	
-	<select id="getPjCount" parameterType="HashMap" resultType="java.lang.Integer">
-		SELECT COUNT(*)
-		  FROM PROJECT_TB
-		 WHERE 1=1
-		 <if test="value != null and value=''">
-		   and title like CONCAT('%', #{search}, '%')
-		 </if>
-<!-- 		 <if test="category"> -->
-<!-- 		   and category=#{category} -->
-<!-- 		 </if>  -->
-<!-- 		 <if test="value='deadline'"> -->
-<!-- 		   and CURDATE() > DATE_SUB(END,INTERVAL 7 day) and END > CURDATE() -->
-<!-- 		 </if> -->
-		 AND END > CURDATE()
-	</select>
+	
 
-	<select id="getCategoryList" resultType="com.itwillbs.domain.ProjectDTO">
+	<select id="getCateList" resultType="com.itwillbs.domain.ProjectDTO">
 		select * 
 		  from project_tb 
 		 where category=#{category} and END > CURDATE()
 	</select>
-	
-<!-- 	<select id="getCategoryList" resultType="com.itwillbs.domain.ProjectDTO"> -->
-<!-- 		select *  -->
-<!-- 		  from project_tb -->
-<!-- 		 where 1=1  -->
-<!-- 		 <if test="category "> -->
-<!-- 		   and category=#{category} -->
-<!-- 		 </if>  -->
-<!-- 		   and END > CURDATE() -->
-<!-- 	</select> -->
-	
 	
 	<select id="getCateCount" resultType="java.lang.Integer">
 		select count(*) from project_tb where category=#{category} and END > CURDATE()
 	</select>
 	
 	
-	<select id="getNewly" resultType="com.itwillbs.domain.ProjectDTO">
-		select * from project_tb where START > DATE_SUB(CURDATE(),INTERVAL 7 day) and END > CURDATE()
-	</select>
-	
-	<select id="getProject" resultType="com.itwillbs.domain.ProjectDTO">
+	<select id="getProjectList" parameterType="map" resultType="com.itwillbs.domain.ProjectDTO">
 		SELECT IDX
 			 , CATEGORY
 			 , CRE_NM
 			 , TITLE
 			 , TARGET_AMT
+			 , TOTAL_AMT
 			 , START
 			 , END
 			 , IMG1
@@ -89,39 +57,64 @@
 			   											 	  END AS HEART  
 		  FROM PROJECT_TB P
 		 WHERE 1=1
-          -- AND START > DATE_SUB(CURDATE(),INTERVAL 7 day) and END > CURDATE()
+		 <if test='! GB.equals("") and GB != null'>
+		 	  <if test='GB.equals("POP")'>  
+		   	  AND END > CURDATE()
+			  </if>
+			  <if test='GB.equals("NEW")'>  
+		   	  AND START > DATE_SUB(CURDATE(),INTERVAL 7 day) and END > CURDATE()
+			  </if>
+		  	  <if test='GB.equals("DEAD")'>  
+		   	  AND CURDATE() > DATE_SUB(END,INTERVAL 7 day) and END > CURDATE()
+			  </if>
+			  <if test='GB.equals("EXP")'>  
+		   	  AND START > CURDATE()
+			  </if>
+		 </if>
+<!-- 		 <if test='! search.equals("") and search != null'> -->
+<!-- 			  AND TITLE LIKE CONCAT('%', #{search}, '%') -->
+<!-- 		 </if> -->
 	</select>
 
-	
-	<select id="getNewCount" resultType="java.lang.Integer">
-		select count(*) from project_tb where START > DATE_SUB(CURDATE(),INTERVAL 7 day) and END > CURDATE()
+	<select id="getCount" parameterType="map" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		  FROM PROJECT_TB 
+		 WHERE 1=1
+		 <if test='! GB.equals("") and GB != null'>
+		  	  <if test='GB.equals("DEAD")'>  
+		   	  AND CURDATE() > DATE_SUB(END,INTERVAL 7 day) AND END > CURDATE()
+			  </if>
+			  <if test='GB.equals("EXP")'>  
+		   	  AND START > CURDATE()
+			  </if>
+			  <if test='GB.equals("POP")'>  
+		   	  AND END > CURDATE()
+			  </if>
+			  <if test='GB.equals("NEW")'>  
+		   	  AND START > DATE_SUB(CURDATE(),INTERVAL 7 day) and END > CURDATE()
+			  </if>
+<!-- 			  <if test='GB.equals(search)'> -->
+<!-- 			  AND TITLE LIKE CONCAT('%', #{search}, '%') -->
+<!-- 			  </if> -->
+			  
+		 </if>
 	</select>
 	
-	<select id="getDeadline" resultType="com.itwillbs.domain.ProjectDTO">
-		select * from project_tb where CURDATE() > DATE_SUB(END,INTERVAL 7 day) and END > CURDATE()
-	</select>
-	
-	<select id="getDeadCount" resultType="java.lang.Integer">
-		select count(*) from project_tb where CURDATE() > DATE_SUB(END,INTERVAL 7 day) and END > CURDATE()
-	</select>
-	
-	<select id="getPopular" resultType="com.itwillbs.domain.ProjectDTO">
-		select *, (total_amt/target_amt * 100) A from project_tb where END > CURDATE() order by A DESC
-	</select>
-	
-	<select id="getPopCount" resultType="java.lang.Integer">
-		select count(*) from project_tb where END > CURDATE()
-	</select>
-	
-	<select id="getExpect" resultType="com.itwillbs.domain.ProjectDTO">
-		select * from project_tb where START > CURDATE()
-	</select>
-	
-	<select id="getExpCount" resultType="java.lang.Integer">
-		select count(*) from project_tb where START > CURDATE()
+	<select id="getPjCount" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		  FROM PROJECT_TB
+		 WHERE 1=1
+		 <if test="value='search'">
+		   and title like CONCAT('%', #{search}, '%')
+		 </if>
+<!-- 		 <if test="category"> -->
+<!-- 		   and category=#{category} -->
+<!-- 		 </if>  -->
+		 AND END > CURDATE()
 	</select>
 	
 	
+
 	
 	<select id="updateAlramcount">
 		update project_tb set alramcount=alramcount+1 where idx=#{idx}

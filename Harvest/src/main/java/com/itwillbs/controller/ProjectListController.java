@@ -24,19 +24,23 @@ public class ProjectListController {
 	private ProjectListService projectListService;
 	
 	@RequestMapping(value = "projectList/main", method = RequestMethod.GET)	
-	public String main(@RequestParam(value="search",required=false,defaultValue="")String search
-//			, @RequestParam("category") String category
-			, Model model, HttpServletRequest request) {
-		List<ProjectDTO> pjList=projectListService.getPjList(search);
-		List<ProjectDTO> popular=projectListService.getPopular();
-		List<ProjectDTO> newly=projectListService.getNewly();
-		List<ProjectDTO> deadline=projectListService.getDeadline();
-		int pjCount=projectListService.getPjCount(search);
-		model.addAttribute("getPjCount", pjCount);
-		model.addAttribute("getPjList", pjList);
-		model.addAttribute("popular", popular);
-		model.addAttribute("newly", newly);
-		model.addAttribute("deadline", deadline);
+	public String main(Model model, HttpServletRequest request) {
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("GB", "POP");
+		List<ProjectDTO> popList=projectListService.getProjectList(param);
+		model.addAttribute("getPopList", popList);
+		
+		param.put("GB", "NEW");
+		List<ProjectDTO> newList=projectListService.getProjectList(param);
+		model.addAttribute("getNewList", newList);
+		
+		param.put("GB", "DEAD");
+		List<ProjectDTO> deadList=projectListService.getProjectList(param);
+		model.addAttribute("getDeadList", deadList);
+		
+		param.put("GB", "EXP");
+		List<ProjectDTO> expList=projectListService.getProjectList(param);
+		model.addAttribute("getExpList", expList);
 		return "projectList/main";
 	}
 	
@@ -52,15 +56,6 @@ public class ProjectListController {
 		return "projectList/allProject";
 	}
 	
-	@RequestMapping(value = "projectList/project", method = RequestMethod.GET)
-	public String projectList(Model model, HttpSession session) {
-		List<ProjectDTO> projectList=projectListService.getProjectList();
-		int newCount=projectListService.getNewCount();
-		model.addAttribute("projectList", projectList);
-		model.addAttribute("getNewCount", newCount);
-		return "projectList/newly";
-	}
-	
 	@RequestMapping(value = "projectList/categoryList", method = RequestMethod.GET)	
 	public String categoryList(Model model, HttpServletRequest request) {
 		String category=request.getParameter("category");
@@ -71,54 +66,70 @@ public class ProjectListController {
 		return "projectList/category";
 	}
 	
-//	@RequestMapping(value = "projectList/stateList", method = RequestMethod.GET)	
-//	public String stateList(@RequestParam(value="popular",required=false,defaultValue="")String popular
-//			, @RequestParam(value="deadline",required=false,defaultValue="")String deadline
-//			, Model model, HttpServletRequest request) {
-//		int pjCount=projectListService.getPjCount(popular);
-//		List<ProjectDTO> pjList1=projectListService.getPjList(popular);
-//		List<ProjectDTO> pjList2=projectListService.getPjList(deadline);
-//		
-//		model.addAttribute("getPjCount", pjCount);
-//		model.addAttribute("getPjList", pjList1);
-//		model.addAttribute("getPjList", pjList2);
-//		return "projectList/allProject";
-//	}
-	
 	@RequestMapping(value = "projectList/popular", method = RequestMethod.GET)	
 	public String popular(Model model, HttpServletRequest request) {
-		List<ProjectDTO> popular=projectListService.getPopular();
-		int popCount=projectListService.getPopCount();
-		model.addAttribute("getPopCount", popCount);
-		model.addAttribute("popular", popular);
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("GB", "POP");
+		List<ProjectDTO> popList=projectListService.getProjectList(param);
+		model.addAttribute("getPopList", popList);
+		
+		int count = projectListService.getCount(param);
+		model.addAttribute("getCount", count);
+		
 		return "projectList/popular";
 	}
 	
 	@RequestMapping(value = "projectList/newly", method = RequestMethod.GET)	
 	public String newly(Model model) {
-		List<ProjectDTO> newly=projectListService.getNewly();
-		int newCount=projectListService.getNewCount();
-		model.addAttribute("getNewCount", newCount);
-		model.addAttribute("newly", newly);
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("GB", "NEW");
+		List<ProjectDTO> newList=projectListService.getProjectList(param);
+		model.addAttribute("getNewList", newList);
+		
+		int count = projectListService.getCount(param);
+		model.addAttribute("getCount", count);
+		
 		return "projectList/newly";
 	}
 	
 	@RequestMapping(value = "projectList/deadline", method = RequestMethod.GET)	
 	public String deadline(Model model) {
-		List<ProjectDTO> deadline=projectListService.getDeadline();
-		int deadCount=projectListService.getDeadCount();
-		model.addAttribute("getDeadCount", deadCount);
-		model.addAttribute("deadline", deadline);
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("GB", "DEAD");
+		List<ProjectDTO> deadList=projectListService.getProjectList(param);
+		model.addAttribute("getDeadList", deadList);
+		
+		int count = projectListService.getCount(param);
+		model.addAttribute("getCount", count);
+		
 		return "projectList/deadline";
 	}
 	
 	@RequestMapping(value = "projectList/expect", method = RequestMethod.GET)	
 	public String expect(Model model) {
-		List<ProjectDTO> expect=projectListService.getExpect();
-		int expCount=projectListService.getExpCount();
-		model.addAttribute("getExpCount", expCount);
-		model.addAttribute("expect", expect);
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("GB", "EXP");
+		List<ProjectDTO> expList=projectListService.getProjectList(param);
+		model.addAttribute("getExpList", expList);
+		
+		int count = projectListService.getCount(param);
+		model.addAttribute("getCount", count);
+		
 		return "projectList/expect";
+	}
+	
+	@RequestMapping(value = "projectList/search", method = RequestMethod.GET)	
+	public String search(@RequestParam("search")String search, Model model
+			, HttpServletRequest request) {
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("search", search + "");
+		List<ProjectDTO> searchList=projectListService.getProjectList(param);
+		model.addAttribute("getProjectList", searchList);
+		
+		int count = projectListService.getCount(param);
+		model.addAttribute("getCount", count);
+		
+		return "projectList/allProject";
 	}
 	
 	

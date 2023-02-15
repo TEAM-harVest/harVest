@@ -35,7 +35,7 @@
 			</ul>
 		</div>
 	</div>
-	<div class="container mt-2 mb-4"><b style="color: red; white-space: nowrap;">${getNewCount }</b>개의 프로젝트가 있습니다.</div>
+	<div class="container mt-2 mb-4"><b style="color: red; white-space: nowrap;">${getCount }</b>개의 프로젝트가 있습니다.</div>
 	<input type="hidden" value="${sessionScope.id}">
 	
 	<!-- !!! 카테고리 메뉴항목 배열로 4줄씩 가져오기 -->
@@ -44,18 +44,16 @@
 			<div class="page-content">
 				<!-- 주목할 만한 프로젝트 4줄 정렬-->
 				<div class="row">
-				<c:forEach var="projectDTO" items="${projectList }">
+				<c:forEach var="projectDTO" items="${getNewList }">
 					<div class="col-md-3 col-sm-6">
 						<div class="card text-left">
 							<div class="card-header p-0">
 								<!-- 찜버튼 -->
 								<div class="blog-media">
 									<img src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" alt="" class="w-100">
-<!-- 									<label class="like_btn badge"> -->
                                    		<c:if test="${empty sesssionScope.id}">
-										<img style="position:absolute; top:5px;right:5px;z-index:9999;cursor:pointer;" width="30" height="30" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}"></span>
+										<img style="position:absolute; top:5px;right:5px;z-index:9999;cursor:pointer;" width="20" height="20" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
 										</c:if>
-<!--                                    	</label>	 -->
 								</div>
 							</div>
 							<div class="card-body px-0">
