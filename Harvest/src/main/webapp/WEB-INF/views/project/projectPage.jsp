@@ -20,9 +20,11 @@ $(document).ready(function(){
 	$("#likeBtn").click(like)
 	$("#shareBtn").click(shareDisplay)
 	$("#shareX").click(offDisplay)
+	$(".funding_btn").click(showFunding)
+	$(".info_x").click(hideFunding)
 })
 
-
+// 좋아요 버튼
 function like() {
 	if(${empty sessionScope.iD}) {
 		Swal.fire({
@@ -37,8 +39,6 @@ function like() {
 			}
 		})
 	}
-
-	
 	$.ajax({
 		  url	: "${pageContext.request.contextPath}/project/likePro", // 요청이 전송될 URL 주소
 		  type	: "POST", // http 요청 방식 (default: ‘GET’)
@@ -48,34 +48,87 @@ function like() {
 		  success : function(data) {
 			  var src = $('#likeBtn').attr('src');
 			  src = src.substring(0, src.lastIndexOf('/') + 1) + data;
-			  $('#likeBtn').attr('src', src);
+			  if(${!empty sessionScope.iD}) {
+				  $('#likeBtn').attr('src', src);
+			  }
 		  }
 		})
 }
 
+// 공유하기 열기
 function shareDisplay() {
 	if($("#shareCont").css("display") == "none") {
 		$("#shareCont").show();
 		return false;
 	}
-};
-
+}
+// 공유하기 닫기
 function offDisplay() {
 	debugger;
 	if($("#shareCont").css("display") != "none") {
 		$("#shareCont").hide();
 		return false;
 	}
-};
-
+}
+// 공유하기 - 트위터
 function shareTwitter() {
     var sendText = "${projectDTO.title}"; // 전달할 텍스트
     var sendUrl = "http://localhost:8080/main/project/projectInfo?idx=${projectDTO.idx}"; // 전달할 URL
     window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
 }
+//공유하기 - 페이스북
 function shareFacebook() {
     var sendUrl = "http://localhost:8080/main/project/projectInfo?idx=${projectDTO.idx}"; // 전달할 URL
     window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+}
+
+// 후원금액 자릿수
+function handleInputLength(el, max) {
+	if(el.value.length > max) {
+	  el.value = el.value.substr(0, max);
+	}
+}
+// 후원금액 ',' 표시
+function inputNumberFormat(obj) {
+	obj.value = comma(uncomma(obj.value));
+}
+function comma(str) {
+	str = String(str);
+	return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+function uncomma(str) {
+	str = String(str);
+	return str.replace(/[^\d]+/g, '');
+}
+// 후원하기 나타내기
+function showFunding() {
+	if(${empty sessionScope.iD}) {
+		Swal.fire({
+			title: '로그인 후 사용할 수 있습니다.',
+			icon: 'warning',
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: '로그인',
+		}).then((result) => {
+			if (result.value) {
+				window.location = '${pageContext.request.contextPath}/main/mainList';
+			}
+		})
+	}
+	
+	if(${!empty sessionScope.iD}) {
+		if($(".project_info_box").css("display") == "none") {
+			$(".project_info_box, .info_bg").show();
+			return false;
+		}
+	}
+}
+// 후원하기 닫기
+function hideFunding() {
+	if($(".project_info_box").css("display") != "none") {
+		$(".project_info_box, .info_bg").hide();
+		return false;
+	}
 }
 
 </script>
@@ -88,7 +141,6 @@ function shareFacebook() {
 	</div>
 <%-- 	</c:if> --%>
 	<!-- 상품 이미지 및 간략 정보 -->
-	<input type="checkbox" id="fundingBtn" style="display:none;">
 	<div id="productContent">
 		<div class="prod_title">
 			<button>${projectDTO.category}</button>
@@ -213,7 +265,7 @@ function shareFacebook() {
 							</div>
 						</div>
 					</div>
-					<label for="fundingBtn" class="funding_btn">후원하기</label>
+					<span class="funding_btn">후원하기</span>
 				</div>
 			</div>
 		</div>
@@ -268,17 +320,29 @@ function shareFacebook() {
 				    </div>
 				</div>
 			</div>
-			<div class="project_info_box">
-				<label for="fundingBtn" class="info_x">
+			<div class="project_info_box" id="fundingDo">
+				<span class="info_x">
 					<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
 						<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
 						<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
 					</svg>
-				</label>
-				<div class="creator_box">크리에이터 박스</div>
-				<div class="prod_option">상품 옵션</div>
+				</span>
+				<form action="${pageContext.request.contextPath}/project/fundingPro" method="post" id="projFunding" class="funding_box">
+					<div>
+						<input type="radio" name="funding_money" style="display:none;" id="minDona" checked>
+						<label for="minDona" class="creator_box">크리에이터 박스</label>
+						</div>
+						<div>
+						<input type="radio" name="funding_money" style="display:none;" id="userDona">
+						<label for="userDona" class="prod_option">후원금액 직접 입력</label>
+						<span class="user_dona" >
+							<input type="text" placeholder="후원금액을 입력하세요." onkeyup="javascript:inputNumberFormat(this)" oninput="handleInputLength(this, 8)">원
+						</span>
+					</div>
+					<button type="submit" name="funding_submit">결제하기</button>
+				</form>
 			</div>
-			<label for="fundingBtn" class="info_bg"></label>
+			<div class="info_bg"></div>
 		</div>
 	</div>
 	<!-- 상세 페이지 및 창작자 소개, 금액 -->
