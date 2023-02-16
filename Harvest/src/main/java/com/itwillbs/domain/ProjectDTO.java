@@ -9,17 +9,23 @@ public class ProjectDTO {
 	private String category;
 	private String title;
 	private String img1;
+	private String intro;
 	private int targetAmt;
 	private int totalAmt;
 	private Date start;
 	private Date end;
-	private int alramcount;
 	private String heart;
 	private String alram;
 	
 	
 	
 	
+	public String getIntro() {
+		return intro;
+	}
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
 	public String getHeart() {
 		return heart;
 	}
@@ -79,12 +85,6 @@ public class ProjectDTO {
 	}
 	public void setEnd(Date end) {
 		this.end = end;
-	}
-	public int getAlramcount() {
-		return alramcount;
-	}
-	public void setAlramcount(int alramcount) {
-		this.alramcount = alramcount;
 	}
 	public String getAlram() {
 		return alram;

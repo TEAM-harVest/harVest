@@ -60,17 +60,13 @@
 		INSERT INTO ALRAM_TB
 			 ( IDX
 			 , PJ_IDX
-			 , USER_ID
-			 , TITLE
-			 , START)
+			 , USER_ID)
 		     VALUES (
 		     (SELECT NUM
 			    FROM (SELECT IFNULL(MAX(IDX), 0) + 1 AS NUM
 					    FROM ALRAM_TB) A)
 			 , #{PJ_IDX}
 		     , #{USER_ID}
-		     , #{TITLE}
-		     , #{START}
 		     )
 	</insert>
 	

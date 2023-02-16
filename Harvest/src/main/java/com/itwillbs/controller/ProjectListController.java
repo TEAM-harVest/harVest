@@ -155,6 +155,8 @@ public class ProjectListController {
 		List<ProjectDTO> expectList=projectListService.getExpectList(param);
 		model.addAttribute("getExpectList", expectList);
 		
+		param.put("SEARCH", "");
+		param.put("CATEGORY", "");
 		int count = projectListService.getCount(param);
 		model.addAttribute("getCount", count);
 		

@@ -7,26 +7,26 @@
 <mapper namespace="com.itwillbs.mappers.userMapper">
 
 	<insert id="insertUser">
-		insert into User(num,id,pass1,name) 
+		insert into USER_TB (num,id,pass1,name) 
 		values(#{num},#{id},#{pass1},#{name})
 	</insert>
 	
 	<select id="getMaxNum" resultType="java.lang.Integer">
-		select max(num) from user
+		select max(num) from USER_TB
 	</select>
 	
 	<select id="userCheck" resultType="com.itwillbs.domain.UserDTO">
-		select * from user
+		select * from USER_TB
 		where id=#{id} and pass=#{pass}
 	</select>
 	
 	<select id="getUser" resultType="com.itwillbs.domain.UserDTO">
-		select * from User
+		select * from USER_TB
 		where id=#{id}
 	</select>
   
   	<update id="updateUser">
-  		update User set name=#{name} where id=#{id}
+  		update USER_TB set name=#{name} where id=#{id}
   	</update>
 
 	

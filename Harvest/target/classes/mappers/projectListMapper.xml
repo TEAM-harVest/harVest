@@ -97,9 +97,4 @@
 	</select>
 	
 	
-	<select id="updateAlramcount">
-		update project_tb set alramcount=alramcount+1 where idx=#{idx}
-	</select>
-	
-	
 </mapper>  

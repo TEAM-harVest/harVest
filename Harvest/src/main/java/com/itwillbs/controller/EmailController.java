@@ -3,7 +3,6 @@ package com.itwillbs.controller;
 
 import java.time.LocalDate;
 
-import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,13 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.itwillbs.domain.ProjectDTO;
-import com.itwillbs.service.AlramService;
-import com.itwillbs.service.ProjectListService;
 
 
 @Controller
@@ -27,8 +23,6 @@ public class EmailController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-	@Inject
-	private ProjectListService projectListService;
 	
 	@RequestMapping(value = "/email", method = RequestMethod.GET)
     public String sendMail(ProjectDTO projectDTO, HttpSession session, HttpServletRequest request) throws Exception{
@@ -53,9 +47,6 @@ public class EmailController {
             
             mailSender.send(mail);
             
-            // 이메일보내기와 동시에 디비에 알람 카운트 인서트
-            int idx=Integer.parseInt(request.getParameter("idx"));
-            projectListService.updateAlramcount(idx);
         	
             System.out.println("성공^^");
             System.out.println(todaysDate);

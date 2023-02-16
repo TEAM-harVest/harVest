@@ -26,10 +26,6 @@ public class ProjectListServiceImpl implements ProjectListService{
 	}
 
 	@Override
-	public void updateAlramcount(int idx) {
-		projectListDAO.updateAlramcount(idx);
-	}
-	@Override
 	public List<ProjectDTO> getExpectList(Map<String, String> param) {
 		return projectListDAO.getExpectList(param);
 	}

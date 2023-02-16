@@ -27,11 +27,6 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 		return sqlSession.selectOne(namespace+".getCount", param);
 	}
 	
-	@Override
-	public void updateAlramcount(int idx) {
-		sqlSession.update(namespace+".updateAlramcount", idx);
-		
-	}
 
 	@Override
 	public List<ProjectDTO> getExpectList(Map<String, String> param) {
