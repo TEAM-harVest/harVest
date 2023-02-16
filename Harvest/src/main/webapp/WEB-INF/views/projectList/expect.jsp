@@ -86,6 +86,7 @@
 	
 	function alram() {
 		let pjIdx = this.id.split('_')[1];
+		var title = $('#title').val();
 		if(${empty sessionScope.id}){
 			alert('로그인 후 이용해주세요');
 			return;
@@ -94,8 +95,9 @@
 		$.ajax({
 			  url	: "${pageContext.request.contextPath}/project/alramPro", // 요청이 전송될 URL 주소
 			  type	: "POST", // http 요청 방식 (default: ‘GET’)
-			  data  : {'PJ_IDX' : pjIdx,
-				       'USER_ID' : '${sessionScope.id}'},
+			   data  : {'PJ_IDX' : pjIdx,
+				       'USER_ID' : '${sessionScope.id}',
+				       'TITLE' : title},
 // 				  	   'TITLE' : '${projectDTO.title}',
 // 				  	   'START' : '${projectDTO.start}'}, // TODO session 아이디로 바까라 좋은말 할때...
 			  //processData : true, // 데이터를 컨텐트 타입에 맞게 변환 여부
