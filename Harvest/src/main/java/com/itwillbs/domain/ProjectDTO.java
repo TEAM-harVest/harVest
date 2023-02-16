@@ -15,6 +15,9 @@ public class ProjectDTO {
 	private Date end;
 	private int alramcount;
 	private String heart;
+	private String alram;
+	
+	
 	
 	
 	public String getHeart() {
@@ -82,6 +85,12 @@ public class ProjectDTO {
 	}
 	public void setAlramcount(int alramcount) {
 		this.alramcount = alramcount;
+	}
+	public String getAlram() {
+		return alram;
+	}
+	public void setAlram(String alram) {
+		this.alram = alram;
 	}
 	
 

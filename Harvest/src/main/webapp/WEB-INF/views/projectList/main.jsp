@@ -73,7 +73,7 @@
                 <hr>
                 <h5>주목할 만한 프로젝트</h5>
                 <div class="row">
-                <c:forEach var="projectDTO" items="${getPjList }" begin="1" end="8">
+                <c:forEach var="projectDTO" items="${getAllList }" begin="1" end="8">
                     <div class="col-md-3 col-sm-6">
                         <div class="card text-left">
                             <div class="card-header p-0">                                   
@@ -175,8 +175,7 @@
 				</div>
               	<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
                 <h6 class="m-0">${projectDTO.title }</h6>
-                <span class="text-danger">${Math.round(projectDTO.totalAmt / projectDTO.targetAmt * 100)}%</span>
-                <small class="small text-danger"> 달성</small>
+                <span class="text-muted">${projectDTO.start } 공개예정</span>
 			</div>
 		</c:forEach>
     </div>

@@ -18,15 +18,15 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 	private static final String namespace="com.itwillbs.mappers.projectListMapper";
 
 	@Override
-	public List<ProjectDTO> getCategoryList(String category) {
-		return sqlSession.selectList(namespace+".getCategoryList", category);
+	public List<ProjectDTO> getProjectList(Map<String, String> param) {
+		return sqlSession.selectList(namespace + ".getProjectList", param);
 	}
-
+	
 	@Override
-	public int getCateCount(String category) {
-		return sqlSession.selectOne(namespace+".getCateCount", category);
+	public int getCount(Map<String, String> param) {
+		return sqlSession.selectOne(namespace+".getCount", param);
 	}
-
+	
 	@Override
 	public void updateAlramcount(int idx) {
 		sqlSession.update(namespace+".updateAlramcount", idx);
@@ -34,22 +34,11 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 	}
 
 	@Override
-	public List<ProjectDTO> getProjectList(Map<String, String> param) {
-		return sqlSession.selectList(namespace + ".getProjectList", param);
-	}
-	@Override
-	public List<ProjectDTO> getPjList(String search) {
-		return sqlSession.selectList(namespace+".getPjList", search);
-	}
-	@Override
-	public int getPjCount(String search) {
-		return sqlSession.selectOne(namespace+".getPjCount", search);
+	public List<ProjectDTO> getExpectList(Map<String, String> param) {
+		return sqlSession.selectList(namespace+".getExpectList", param);
 	}
 
-	@Override
-	public int getCount(Map<String, String> param) {
-		return sqlSession.selectOne(namespace+".getCount", param);
-	}
+	
 	
 	
 	

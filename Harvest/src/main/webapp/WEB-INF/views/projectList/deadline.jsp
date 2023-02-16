@@ -51,11 +51,9 @@
 								<!-- 찜버튼 -->
 								<div class="blog-media">
 									<img src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" alt="" class="w-100">
-<!-- 									<label class="like_btn badge"> -->
                                    		<c:if test="${empty sesssionScope.id}">
 										<img style="position:absolute; top:5px;right:5px;z-index:9999;cursor:pointer;" width="20" height="20" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
 										</c:if>
-<!--                                    	</label>	 -->
 								</div>
 							</div>
 							<div class="card-body px-0">

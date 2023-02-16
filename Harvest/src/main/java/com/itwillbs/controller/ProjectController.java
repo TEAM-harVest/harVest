@@ -40,26 +40,9 @@ public class ProjectController {
 		param.put("SESSIONID", session.getAttribute("id").toString());
 		param.put("IDX", idx + "");
 		ProjectDTO projectDTO = projectService.getProjectInfo(param);
-		Integer sumMoney = projectService.getSumMoney(param);
-		Integer sumUser = projectService.getSumUser(param);
 		
-//		System.out.println("�씤�떚���엯�땲�떎." + sum);
-		
-//		Map<String, Integer> map = new HashMap<String, Integer>();
-//		map.put("idx", idx);
-		
-		
-//		int sumMoney = projectService.getSumMoney(idx);
-//		projectDTO.setSumMoney(sumMoney);
-		
-//		int sumUser = projectService.getSumUser(idx);
-//		projectDTO.setSumUser(sumUser);
-		
-		System.out.println("紐� 紐�?" + sumUser);
 		
 		model.addAttribute("projectDTO", projectDTO);
-		model.addAttribute("sumMoney", sumMoney);
-		model.addAttribute("sumUser", sumUser);
 		return "project/projectPage";
 	}
 }

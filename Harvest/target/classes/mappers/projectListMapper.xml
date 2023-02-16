@@ -6,39 +6,6 @@
 <!-- Mapper.xml 만들 때 참고용, 아래 namespace 수정해서 쓰세요! -->
 <mapper namespace="com.itwillbs.mappers.projectListMapper">
 
-	<select id="getPjList" resultType="com.itwillbs.domain.ProjectDTO">
-		SELECT IDX
-			 , CATEGORY
-			 , CRE_NM
-			 , TITLE
-			 , TARGET_AMT
-			 , START
-			 , END
-			 , IMG1
-		  FROM PROJECT_TB
-		 WHERE 1=1
-		 <if test="value='search'">
-		   and title like CONCAT('%', #{search}, '%')
-		 </if>
-<!-- 		 <if test="category"> -->
-<!-- 		   and category=#{category} -->
-<!-- 		 </if>  -->
-		 AND END > CURDATE()
-	</select>
-	
-	
-
-	<select id="getCateList" resultType="com.itwillbs.domain.ProjectDTO">
-		select * 
-		  from project_tb 
-		 where category=#{category} and END > CURDATE()
-	</select>
-	
-	<select id="getCateCount" resultType="java.lang.Integer">
-		select count(*) from project_tb where category=#{category} and END > CURDATE()
-	</select>
-	
-	
 	<select id="getProjectList" parameterType="map" resultType="com.itwillbs.domain.ProjectDTO">
 		SELECT IDX
 			 , CATEGORY
@@ -55,11 +22,13 @@
 							 AND USER_ID = #{SESSIONID}) = 1 THEN 'heart_fill.svg'
 			   											 	 ELSE 'heart.svg'
 			   											 	  END AS HEART  
+			   											 	  
 		  FROM PROJECT_TB P
 		 WHERE 1=1
 		 <if test='! GB.equals("") and GB != null'>
-		 	  <if test='GB.equals("POP")'>  
-		   	  AND END > CURDATE()
+		 	  <if test='GB.equals("POP")'>
+		 	  AND END > CURDATE()
+		 	  ORDER BY total_amt / target_amt * 100 DESC
 			  </if>
 			  <if test='GB.equals("NEW")'>  
 		   	  AND START > DATE_SUB(CURDATE(),INTERVAL 7 day) and END > CURDATE()
@@ -71,9 +40,34 @@
 		   	  AND START > CURDATE()
 			  </if>
 		 </if>
-<!-- 		 <if test='! search.equals("") and search != null'> -->
-<!-- 			  AND TITLE LIKE CONCAT('%', #{search}, '%') -->
-<!-- 		 </if> -->
+		 <if test='! SEARCH.equals("") and SEARCH != null'>  
+	   	 AND title like CONCAT('%', #{SEARCH}, '%') AND END > CURDATE()
+		 </if>
+		 <if test='! CATEGORY.equals("") and CATEGORY != null'>  
+	   	 AND category=#{CATEGORY} and END > CURDATE()
+		 </if>
+	</select>
+	
+	<select id="getExpectList" parameterType="map" resultType="com.itwillbs.domain.ProjectDTO">
+		SELECT IDX
+			 , CATEGORY
+			 , CRE_NM
+			 , TITLE
+			 , START
+			 , IMG1
+		 	 , CASE when (SELECT COUNT(*)
+					    FROM alram_tb
+					   WHERE PJ_IDX = P.IDX
+						 AND USER_ID = #{SESSIONID}) = 1 THEN 'alram_fill.svg'
+			   											 ELSE 'alram.svg'
+			   											 END AS ALRAM 
+		  FROM PROJECT_TB P
+		 WHERE 1=1
+		 <if test='! GB.equals("") and GB != null'>
+			  <if test='GB.equals("EXP")'>  
+		   	  AND START > CURDATE()
+			  </if>
+		 </if>
 	</select>
 
 	<select id="getCount" parameterType="map" resultType="java.lang.Integer">
@@ -93,28 +87,15 @@
 			  <if test='GB.equals("NEW")'>  
 		   	  AND START > DATE_SUB(CURDATE(),INTERVAL 7 day) and END > CURDATE()
 			  </if>
-<!-- 			  <if test='GB.equals(search)'> -->
-<!-- 			  AND TITLE LIKE CONCAT('%', #{search}, '%') -->
-<!-- 			  </if> -->
-			  
+		 </if>
+		 <if test='! SEARCH.equals("") and SEARCH != null'>  
+	   	 AND title like CONCAT('%', #{SEARCH}, '%') AND END > CURDATE()
+		 </if>
+		 <if test='! CATEGORY.equals("") and CATEGORY != null'>  
+	   	 AND category=#{CATEGORY} and END > CURDATE()
 		 </if>
 	</select>
 	
-	<select id="getPjCount" resultType="java.lang.Integer">
-		SELECT COUNT(*)
-		  FROM PROJECT_TB
-		 WHERE 1=1
-		 <if test="value='search'">
-		   and title like CONCAT('%', #{search}, '%')
-		 </if>
-<!-- 		 <if test="category"> -->
-<!-- 		   and category=#{category} -->
-<!-- 		 </if>  -->
-		 AND END > CURDATE()
-	</select>
-	
-	
-
 	
 	<select id="updateAlramcount">
 		update project_tb set alramcount=alramcount+1 where idx=#{idx}

@@ -26,16 +26,17 @@
 			<ul class="navbar-nav">
 				<li class="nav-item dropdown"><a class="btn btn-sm btn-outline-secondary dropdown-toggle text-dark mt-5 mb-2" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">달성률</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/popular"><small class="text-danger">전체보기</small></a>
-						<a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/popular?percent=1"><small>75% 이하</small></a>
-						<a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/popular?percent=2"><small>75% ~ 100%</small></a>
-						<a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/popular?percent=3"><small>100% 이상</small></a>
+						<a class="dropdown-item" href="#"><small class="text-danger">전체보기</small></a>
+						<a class="dropdown-item" href="#"><small>75% 이하</small></a>
+						<a class="dropdown-item" href="#"><small>75% ~ 100%</small></a>
+						<a class="dropdown-item" href="#"><small>100% 이상</small></a>
 					</div>
 				</li>
 			</ul>
 		</div>
 	</div>
 	<div class="container mt-2 mb-4"><b style="color: red; white-space: nowrap;">${getCount }</b>개의 프로젝트가 있습니다.</div>
+	<input type="hidden" value="${sessionScope.id}">
 	
 	<!-- !!! 카테고리 메뉴항목 배열로 4줄씩 가져오기 -->
 	<div class="container">
@@ -57,6 +58,7 @@
 							</div>
 							<div class="card-body px-0">
 								<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
+								<input type="hidden" id="pjIdx_${projectDTO.idx }" value="${projectDTO.idx }">
 								<h5 class="card-title mb-2">${projectDTO.title }</h5>
 								<span class="text-danger">${Math.round(projectDTO.totalAmt / projectDTO.targetAmt * 100)}%</span> <small><fmt:formatNumber value="${projectDTO.totalAmt}" pattern="#,###"/>원</small>
 								<div class="progress mt-2 mb-3">
@@ -88,14 +90,40 @@
     <jsp:include page="../inc/footer.jsp"></jsp:include>
 
 	<!-- core  -->
-	<script
-		src="${pageContext.request.contextPath }/resources/assets/vendors/jquery/jquery-3.4.1.js"></script>
-	<script
-		src="${pageContext.request.contextPath }/resources/assets/vendors/bootstrap/bootstrap.bundle.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/assets/vendors/jquery/jquery-3.4.1.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/assets/vendors/bootstrap/bootstrap.bundle.js"></script>
 
 	<!-- JoeBLog js -->
-	<script
-		src="${pageContext.request.contextPath }/resources/assets/js/joeblog.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/assets/js/joeblog.js"></script>
+	
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$(".heart").click(like)
+	})
+	
+	function like() {
+		let pjIdx = this.id.split('_')[1];
+		if(${empty sessionScope.id}){
+			alert('로그인 후 이용해주세요');
+			return;
+		}
+		
+		$.ajax({
+			  url	: "${pageContext.request.contextPath}/project/likePro", // 요청이 전송될 URL 주소
+			  type	: "POST", // http 요청 방식 (default: ‘GET’)
+			  data  : {'PJ_IDX' : pjIdx,
+				  	   'USER_ID' : '${sessionScope.id}'}, // TODO session 아이디로 바까라 좋은말 할때...
+			  //processData : true, // 데이터를 컨텐트 타입에 맞게 변환 여부
+			  success : function(data) {
+				  alert("성공");
+				  var src = $('#likeBtn_' + pjIdx).attr('src');
+				  src = src.substring(0, src.lastIndexOf('/') + 1) + data;
+				  $('#likeBtn_' + pjIdx).attr('src', src);
+			  }
+			})
+	}
+	
+	</script>
 
 </body>
 </html>

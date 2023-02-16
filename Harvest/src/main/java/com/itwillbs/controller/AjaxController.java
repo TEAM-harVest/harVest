@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.itwillbs.service.ProjectService;
 
 @Controller
-public class LikeController {
+public class AjaxController {
 
 	@Inject
 	private ProjectService projectService;
 
 	@ResponseBody
 	@RequestMapping(value = "/project/likePro" , method = RequestMethod. POST)
-	public String editCustomer(@RequestParam(value = "PJ_IDX") String pjIdx,
+	public String like(@RequestParam(value = "PJ_IDX") String pjIdx,
 							   @RequestParam(value = "USER_ID") String userId) {
 
 		Map<String, String> param = new HashMap<String, String>();
@@ -31,4 +31,24 @@ public class LikeController {
 		System.out.println("아이디: " + userId);
 		return result;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/project/alramPro" , method = RequestMethod. POST)
+	public String alram(@RequestParam(value = "PJ_IDX") String pjIdx,
+						@RequestParam(value = "USER_ID") String userId
+//						@RequestParam(value = "TITLE") String title,
+//						@RequestParam(value = "START") String start
+						) {
+		System.out.println("담기전");
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("PJ_IDX", pjIdx);
+		param.put("USER_ID", userId);
+//		param.put("TITLE", title);
+//		param.put("START", start);
+		System.out.println("담기후");
+		String result = projectService.setAlram(param);
+		System.out.println("아이디: " + userId);
+		return result;
+	}
+						
 }

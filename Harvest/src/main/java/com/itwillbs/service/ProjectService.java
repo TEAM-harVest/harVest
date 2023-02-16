@@ -10,8 +10,7 @@ public interface ProjectService {
 	public List<ProjectDTO> getProjectList();
 	public ProjectDTO getProjectInfo(Map<String, String> param);
 	public String setLike(Map<String, String> param);
-	public int getSumUser(Map<String, String> param);
-	public int getSumMoney(Map<String, String> param);
+	public String setAlram(Map<String, String> param);
 	
 	
 }

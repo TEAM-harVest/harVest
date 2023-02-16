@@ -26,27 +26,12 @@ public class ProjectListServiceImpl implements ProjectListService{
 	}
 
 	@Override
-	public List<ProjectDTO> getCategoryList(String category) {
-		return projectListDAO.getCategoryList(category);
-	}
-
-	@Override
-	public int getCateCount(String category) {
-		return projectListDAO.getCateCount(category);
-	}
-	
-	@Override
-	public List<ProjectDTO> getPjList(String search) {
-		return projectListDAO.getPjList(search);
-	}
-	@Override
-	public int getPjCount(String search) {
-		return projectListDAO.getPjCount(search);
-	}
-
-	@Override
 	public void updateAlramcount(int idx) {
 		projectListDAO.updateAlramcount(idx);
+	}
+	@Override
+	public List<ProjectDTO> getExpectList(Map<String, String> param) {
+		return projectListDAO.getExpectList(param);
 	}
 	
 	
