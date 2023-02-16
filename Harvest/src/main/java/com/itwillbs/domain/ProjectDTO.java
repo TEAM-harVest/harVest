@@ -16,10 +16,16 @@ public class ProjectDTO {
 	private Date end;
 	private String heart;
 	private String alram;
+	private int count;
 	
 	
 	
-	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public String getIntro() {
 		return intro;
 	}

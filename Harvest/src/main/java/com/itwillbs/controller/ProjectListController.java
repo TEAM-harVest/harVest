@@ -146,7 +146,7 @@ public class ProjectListController {
 	}
 	
 	@RequestMapping(value = "projectList/expect", method = RequestMethod.GET)	
-	public String expect(Model model, HttpSession session) {
+	public String expect(ProjectDTO projectDTO, Model model, HttpSession session) {
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("GB", "EXP");
 		if(session.getAttribute("id") == null) {param.put("SESSIONID", "");}

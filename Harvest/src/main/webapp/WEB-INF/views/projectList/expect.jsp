@@ -41,7 +41,6 @@
 								</div>
 							</div>
 							<div class="card-body px-0">
-								<!-- pj_idx 언더바가 값널길때인식안됨 -->
 								<input type="hidden" id="pjIdx_${projectDTO.idx }" value="${projectDTO.idx }">
 								<input type="hidden" id="title" value="${projectDTO.title }">
 								<input type="hidden" id="start" value="${projectDTO.start }">
@@ -50,7 +49,7 @@
 								<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
 								<h5 class="card-title mb-2">${projectDTO.title }</h5>
 								<span class="text-muted">${projectDTO.start } 공개예정입니다.</span><br>
-<%-- 								<span class="text-danger">${projectDTO.alramcount }명 알림신청 중</span> --%>
+								<span class="text-danger">${projectDTO.count }명 알림신청 중</span>
 								<p>
 								<button class="btn btn-outline-secondary btn-sm mt-2" style="width:100%;">
 									알림신청

@@ -56,11 +56,18 @@
 			 , START
 			 , IMG1
 		 	 , CASE when (SELECT COUNT(*)
-					    FROM alram_tb
-					   WHERE PJ_IDX = P.IDX
-						 AND USER_ID = #{SESSIONID}) = 1 THEN 'alram_fill.svg'
-			   											 ELSE 'alram.svg'
-			   											 END AS ALRAM 
+					      FROM alram_tb
+					     WHERE PJ_IDX = P.IDX
+						  AND USER_ID = #{SESSIONID}) = 1 THEN 'alram_fill.svg'
+			   											  ELSE 'alram.svg'
+			   											  END AS ALRAM
+			 , CASE when (SELECT COUNT(*)
+		       		       FROM alram_tb
+					      WHERE PJ_IDX = P.IDX) = 1 THEN (SELECT COUNT(*)
+													        FROM alram_tb
+													       WHERE PJ_IDX = P.IDX)
+			   										ELSE 0
+			   										END AS COUNT  											 
 		  FROM PROJECT_TB P
 		 WHERE 1=1
 		 <if test='! GB.equals("") and GB != null'>
