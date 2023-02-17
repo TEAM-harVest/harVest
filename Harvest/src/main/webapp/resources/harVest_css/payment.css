@@ -1,15 +1,45 @@
 @charset "UTF-8";
 html, body {padding:0; margin:0;}
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-style: normal;
+}
+* {font-family: 'Pretendard-Regular';}
 /* 결제 전체 영역 */
 .payment_container {
-	display: grid;
-	grid-template-columns: 70% 30%;
+	display: flex;
+/* 	grid-template-columns: 70% 30%; */
 	height: 100vh;
 }
-
-/* 이후에 지울거 */
-.payment_container > div, .payment_container > div > div{
+.payment_top {
+	position: relative;
+	display: flex;
+    min-height: 58px;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 0px 26px;
+	border-bottom: 1px solid;
+}
+.payment_top span {
+	padding-left:30px;
+	font-size:14px;
+	font-weight: 900;
+}
+/* 정보 전체 */
+.payment_cont {
+	position: relative;
+	width: 80%;
+	margin: 50px auto;
+}
+.proj_info {
+	display: flex;
+	padding: 32px 16px 36px;
 	border: 1px solid;
+}
+.proj_info > div:first-of-type {
+	display: flex;
+	margin-left: 15px;
 }
 
 /* 최종결제 영역 */

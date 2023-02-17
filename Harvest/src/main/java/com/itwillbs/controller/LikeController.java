@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.itwillbs.service.ProjectService;
+import com.itwillbs.service.ProjectInfoService;
 
 // 찜하기 컨트롤러(아작스)
 @Controller
 public class LikeController {
 	
 	@Inject
-	private ProjectService projectService;
+	private ProjectInfoService projectService;
 	
 	@ResponseBody
 	@RequestMapping(value = "/project/likePro" , method = RequestMethod. POST)
