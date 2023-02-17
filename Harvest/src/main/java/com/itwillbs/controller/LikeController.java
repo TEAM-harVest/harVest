@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.service.ProjectService;
 
+// 찜하기 컨트롤러(아작스)
 @Controller
 public class LikeController {
 	
@@ -28,7 +29,6 @@ public class LikeController {
 		param.put("PJ_IDX", pjIdx);
 		param.put("USER_ID", userId);
 		String result = projectService.setLike(param);
-		System.out.println("유저 아이디*******: " + userId);
 		return result;
 	}
 }

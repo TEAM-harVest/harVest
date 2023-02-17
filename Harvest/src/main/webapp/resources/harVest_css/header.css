@@ -127,6 +127,20 @@ nav .hamburger_btn > span {
 	transition: .5s;
 	z-index:9998;
 }
+.category_icons {
+	display:grid;
+	grid-template-columns: repeat(5, 1fr);
+	border: 1px solid;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 80%;
+	height:100%;
+}
+.category_icons > div {
+	border: 1px solid red;
+}
 #hamburgerBtn:checked ~ nav {
 	box-shadow: none;
 }

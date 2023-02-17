@@ -3,7 +3,7 @@
 @font-face {
     font-family: 'Pretendard-Regular';
     src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
+/*     font-weight: 400; */
     font-style: normal;
 }
 * {font-family: 'Pretendard-Regular';}
@@ -18,6 +18,9 @@
 /* 제목 및 카테고리 */
 .prod_title {
 	text-align: center;
+}
+.prod_title h1 {
+	font-weight: 900;
 }
 /* - 카테고리 버튼 */
 .prod_title > button {
@@ -231,6 +234,15 @@ span[class^="heart"] {
 	transform: translate(-50%, -50%);
 	text-align:center;
 	padding: 20px 30px;
+	width: 300px;
+}
+.project_info_box > div:first-of-type {
+	position: absolute;
+	top:0;
+	left:0;
+	width:100%;
+	padding: 10px 0;
+	background: powderblue;
 }
 .info_x {
 	position: absolute;
@@ -250,18 +262,10 @@ span[class^="heart"] {
 	background: rgba(0,0,0,.4);
 	backdrop-filter: blur(20px);
 }
+.funding_wrap {
+	padding-top:30px;
+}
 
-.user_dona {
-	display: none;
-}
-#userDona:checked ~ .user_dona {
-	display: block;
-}
-.funding_box label {
-	padding: 5px 10px;
-	background: pink;
-	margin: 5px auto;
-}
 
 .swal2-container.swal2-center.swal2-backdrop-show {
 	position: fixed;

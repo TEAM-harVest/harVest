@@ -132,6 +132,18 @@ function hideFunding() {
 }
 
 </script>
+<script type="text/javascript">
+function pay() {
+	var a = document.getElementById('aa').value;
+	
+	document.getElementById('bb').value = a
+	
+	
+}
+
+</script>
+
+
 </head>
 <body>
 <%-- 	<c:if test="${empty sesssionScope.iD}"> --%>
@@ -327,20 +339,14 @@ function hideFunding() {
 						<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
 					</svg>
 				</span>
-				<form action="${pageContext.request.contextPath}/project/fundingPro" method="post" id="projFunding" class="funding_box">
-					<div>
-						<input type="radio" name="funding_money" style="display:none;" id="minDona" checked>
-						<label for="minDona" class="creator_box">크리에이터 박스</label>
-						</div>
-						<div>
-						<input type="radio" name="funding_money" style="display:none;" id="userDona">
-						<label for="userDona" class="prod_option">후원금액 직접 입력</label>
-						<span class="user_dona" >
-							<input type="text" placeholder="후원금액을 입력하세요." onkeyup="javascript:inputNumberFormat(this)" oninput="handleInputLength(this, 8)">원
-						</span>
-					</div>
-					<button type="submit" name="funding_submit">결제하기</button>
-				</form>
+				<div>원하는 후원 방법을 선택해주세요.</div>
+				<div class="funding_wrap">
+					<label><input type="radio" name="funding_name">최소금액 ${projectDTO.sumMoney}</label>
+					<a href="${pageContext.request.contextPath}/payment/minDona?idx=${projectDTO.idx}">후원하기</a>
+					<label><input type="radio" name="funding_name">직접 입력</label>
+					
+					
+				</div>
 			</div>
 			<div class="info_bg"></div>
 		</div>

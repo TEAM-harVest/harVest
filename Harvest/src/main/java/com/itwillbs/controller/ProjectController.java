@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.SessionScope;
 
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.PaymentDTO;
 import com.itwillbs.domain.ProjectDTO;
 import com.itwillbs.service.ProjectService;
 
@@ -35,33 +36,34 @@ public class ProjectController {
 	}
 	
 	@RequestMapping(value = "/project/projectInfo", method = RequestMethod.GET)
-	public String projectInfo(@RequestParam("idx")int idx, Model model, HttpSession session, String ID) {
+	public String projectInfo(@RequestParam("idx")int idx, Model model, HttpSession session) {
 		
 		Map<String, String> param = new HashMap<String, String>();
-		param.put("SESSIONID", session.getAttribute("iD").toString());
+		String sessionId = (String)session.getAttribute("iD");
+		if(sessionId != null) {
+			param.put("SESSIONID", sessionId);
+		}
 		param.put("IDX", idx + "");
-		param.put("ID", ID + "");
-		ProjectDTO projectDTO = projectService.getProjectInfo(param);
 		Integer sumMoney = projectService.getSumMoney(param);
 		Integer sumUser = projectService.getSumUser(param);
-		
-//		System.out.println("인티저입니다." + sum);
-		
-//		Map<String, Integer> map = new HashMap<String, Integer>();
-//		map.put("idx", idx);
-		
-		
-//		int sumMoney = projectService.getSumMoney(idx);
-//		projectDTO.setSumMoney(sumMoney);
-		
-//		int sumUser = projectService.getSumUser(idx);
-//		projectDTO.setSumUser(sumUser);
-		
-		System.out.println("몇 명?" + sumUser);
+		ProjectDTO projectDTO = projectService.getProjectInfo(param);
+		projectDTO.setSumMoney(sumMoney);
+		projectDTO.setSumUser(sumUser);
 		
 		model.addAttribute("projectDTO", projectDTO);
-		model.addAttribute("sumMoney", sumMoney);
-		model.addAttribute("sumUser", sumUser);
 		return "project/projectPage";
 	}
+	
+	@RequestMapping(value = "/payment/minDona", method = RequestMethod.GET)
+	public String minDona(HttpServletRequest request, Model model, HttpSession session,ProjectDTO projectDTO) {
+//		String donation = request.getParameter("donation");
+//		String minDona = request.getParameter("funding_money");
+//		System.out.println(request.getParameter("funding_money")+"-----");
+		String sessionId = (String)session.getAttribute("iD");
+//		model.addAttribute("donation", donation);
+//		model.addAttribute("minDona", minDona);
+		model.addAttribute("sessionId", sessionId);
+		return "payment/payment";
+	}
+
 }
