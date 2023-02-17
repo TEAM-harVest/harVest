@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwillbs.mappers.boardMapper">
+
+  	<insert id="insertBoard">
+		insert into notice_tb(idx,id,title,content,date)
+		values(#{idx},#{id},#{title},#{content},#{date})
+	</insert>
+	
+	<select id="getMaxNum" resultType="java.lang.Integer">
+		select max(num) from notice_tb
+	</select>
+	
+	<select id="getBoardList" resultType="com.itwillbs.domain.BoardDTO">
+		select * from notice_tb order by idx desc limit #{startRow},#{pageSize}
+	</select>
+	
+	<select id="getBoardCount" resultType="java.lang.Integer">
+		select count(*) from notice_tb
+	</select>
+	
+	<select id="getBoard" resultType="com.itwillbs.domain.BoardDTO">
+		select * from notice_tb where idx=#{idx}
+	</select>
+	
+	<update id="updateBoard">
+  		update notice_tb set title=#{title} and content=#{content} where idx=#{idx}
+  	</update>
+	
+</mapper>

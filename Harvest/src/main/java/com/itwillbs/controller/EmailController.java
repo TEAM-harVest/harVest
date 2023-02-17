@@ -27,16 +27,16 @@ public class EmailController {
 	@RequestMapping(value = "/email", method = RequestMethod.GET)
     public String sendMail(ProjectDTO projectDTO, HttpSession session, HttpServletRequest request) throws Exception{
         
-		// 오늘날짜 불러오기 테스트용
+		// �삤�뒛�궇吏� 遺덈윭�삤湲� �뀒�뒪�듃�슜
 		LocalDate todaysDate = LocalDate.now();
 		
 		String subject = request.getParameter("title");
-        String content = "프로젝트 후원하러가기 https://tumblbug.com/";
+		String content = "프로젝트펀딩이 시작되었습니다. https://tumblbug.com/";
         String from = "ki6532@naver.com";
         String to = (String)session.getAttribute("id");
         
         try {
-        	// 이메일 보내는 구문
+        	// �씠硫붿씪 蹂대궡�뒗 援щЦ
             MimeMessage mail = mailSender.createMimeMessage();
             MimeMessageHelper mailHelper = new MimeMessageHelper(mail,"UTF-8");
             
@@ -48,12 +48,12 @@ public class EmailController {
             mailSender.send(mail);
             
         	
-            System.out.println("성공^^");
+            System.out.println("성공");
             System.out.println(todaysDate);
             
         } catch(Exception e) {
             e.printStackTrace();
-            System.out.println("전송실패");
+            System.out.println("실패");
         }
         
         return "redirect:/projectList/expect";

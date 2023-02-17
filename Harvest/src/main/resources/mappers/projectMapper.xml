@@ -61,7 +61,8 @@
 			 ( IDX
 			 , PJ_IDX
 			 , USER_ID
-			 , TITLE)
+			 , TITLE
+			 , START)
 		     VALUES (
 		     (SELECT NUM
 			    FROM (SELECT IFNULL(MAX(IDX), 0) + 1 AS NUM
@@ -69,6 +70,7 @@
 			 , #{PJ_IDX}
 		     , #{USER_ID}
 		     , #{TITLE}
+		     , #{START}
 		     )
 	</insert>
 	
