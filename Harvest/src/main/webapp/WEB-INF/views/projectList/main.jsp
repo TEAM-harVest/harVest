@@ -48,13 +48,25 @@
 						<!-- The slideshow -->
 						<div class="carousel-inner">
 							<div class="carousel-item active">
-							 	<img src="https://tumblbug-assets.s3.ap-northeast-1.amazonaws.com/heroes/main_pc.jpg?q=80&width=768&height=280&fit=crop" alt="Los Angeles">
+							 	<img src="https://tumblbug-assets.s3.ap-northeast-1.amazonaws.com/heroes/2023stationary.jpg?q=80&width=768&height=280&fit=crop" alt="Los Angeles">
+							 	<div class="carousel-caption d-none d-md-block text-left">
+							        <h4>두근두근 새학기 준비</h4>
+							        <p>깜짝 이벤트 찾기</p>
+						        </div>
 							 </div>
 							<div class="carousel-item">
-						    	<img src="https://tumblbug-assets.s3.ap-northeast-1.amazonaws.com/heroes/early_bird_feb.jpg?q=80&width=768&height=280&fit=crop" alt="Chicago">
+						    	<img src="https://tumblbug-assets.s3.ap-northeast-1.amazonaws.com/heroes/ebfeb.jpg?q=80&width=768&height=280&fit=crop" alt="Chicago">
+						  		<div class="carousel-caption d-none d-md-block text-left">
+							        <h4>얼리버드 혜택이 가득!</h4>
+							        <p>얼리버드 선물 소개</p>
+						        </div>
 						  	</div>
 							<div class="carousel-item">
 								<img src="https://tumblbug-assets.s3.ap-northeast-1.amazonaws.com/heroes/thegrapefruit.jpg?q=80&width=768&height=280&fit=crop" alt="New York">
+								<div class="carousel-caption d-none d-md-block text-left">
+							        <h4>향긋한 자몽향 가득!</h4>
+							        <p>향수 모음전 보러가기</p>
+						        </div>
 							</div>
 						</div>
 					
@@ -81,12 +93,12 @@
 								<div class="blog-media">
 									<img src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" alt="" class="w-100">
                                    		<c:if test="${empty sesssionScope.id}">
-										<img style="position:absolute; top:5px;left:70px;z-index:9999;cursor:pointer;" width="20" height="20" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
+										<img style="position:absolute; top:5px;right:5px;z-index:9999;cursor:pointer;" width="20" height="20" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
 										</c:if>
 								</div>
                             </div>
                             <div class="mb-2">
-                            	<p class="my-2">${projectDTO.category } | ${dto.creNm }</p>
+                            	<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
                                 <h6 class="m-0">${projectDTO.title }</h6>
                                 <span class="text-danger">${Math.round(projectDTO.totalAmt / projectDTO.targetAmt * 100)}%</span>
                                 <small class="small text-danger"> 달성</small>
@@ -105,7 +117,12 @@
             	<c:forEach var="projectDTO" items="${getPopList }" begin="1" end="8">
 	                <div class="media text-left">
 	                    <a href="#" class="overlay-link"></a>
+	                    <div>
 	                    <img class="mr-3" src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" width="100px" alt="">
+	                    <c:if test="${empty sesssionScope.id}">
+										<img style="position:absolute; top:5px;left:75px;z-index:9999;cursor:pointer;" width="20" height="20" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
+										</c:if>
+	                    </div>
 	                    <div class="media-body">
 	                    	<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
 	                        <h6 class="m-0">${projectDTO.title }</h6>
@@ -121,6 +138,13 @@
         </div>
     </div>
     
+    <!-- 1번째 배너 -->
+    <div class="container">
+    	<section>
+    	<img src="https://tumblbug-assets.imgix.net/main_banners/pc_images/000/000/007/original/849fc934-c410-4143-bd8d-b08bba270aa8.jpg" alt="" class="w-100">
+    	</section>
+    </div>
+    
     <!-- 신규 마감임박 공개예정 프로젝트 -->
     <div class="container">
     <hr>
@@ -131,8 +155,8 @@
 				<!-- 찜버튼 -->
 				<div class="blog-media">
 					<img src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" alt="" class="w-100">
-                               		<c:if test="${empty sesssionScope.id}">
-						<img style="position:absolute; top:5px;left:70px;z-index:9999;cursor:pointer;" width="20" height="20" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
+                        <c:if test="${empty sesssionScope.id}">
+						<img style="position:absolute; top:5px;right:5px;z-index:9999;cursor:pointer;" width="20" height="20" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
 						</c:if>
 				</div>
               	<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
@@ -150,8 +174,8 @@
 				<!-- 찜버튼 -->
 				<div class="blog-media">
 					<img src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" alt="" class="w-100">
-                               		<c:if test="${empty sesssionScope.id}">
-						<img style="position:absolute; top:5px;left:70px;z-index:9999;cursor:pointer;" width="20" height="20" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
+                        <c:if test="${empty sesssionScope.id}">
+						<img style="position:absolute; top:5px;right:5px;z-index:9999;cursor:pointer;" width="20" height="20" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
 						</c:if>
 				</div>
               	<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
@@ -169,9 +193,6 @@
 				<!-- 찜버튼 -->
 				<div class="blog-media">
 					<img src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" alt="" class="w-100">
-	                              		<c:if test="${empty sesssionScope.id}">
-						<img style="position:absolute; top:5px;left:70px;z-index:9999;cursor:pointer;" width="20" height="20" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
-						</c:if>
 				</div>
               	<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
                 <h6 class="m-0">${projectDTO.title }</h6>
@@ -180,6 +201,13 @@
 		</c:forEach>
     </div>
 	<hr>
+    </div>
+    
+    <!-- 하단 배너 -->
+    <div class="container">
+    	<section>
+    	<img src="${pageContext.request.contextPath }/resources/assets/imgs/banner.jpg" alt="" class="w-100">
+    	</section>
     </div>
 
     <!-- Page Footer -->

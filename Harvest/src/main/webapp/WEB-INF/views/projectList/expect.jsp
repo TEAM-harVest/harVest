@@ -97,18 +97,13 @@
 			   data  : {'PJ_IDX' : pjIdx,
 				       'USER_ID' : '${sessionScope.id}',
 				       'TITLE' : title},
-// 				  	   'TITLE' : '${projectDTO.title}',
-// 				  	   'START' : '${projectDTO.start}'}, // TODO session 아이디로 바까라 좋은말 할때...
 			  //processData : true, // 데이터를 컨텐트 타입에 맞게 변환 여부
 			  success : function(data) {
-				  alert("성공");
+				  alert('성공');
 				  var src = $('#alramBtn_' + pjIdx).attr('src');
 				  src = src.substring(0, src.lastIndexOf('/') + 1) + data;
 				  $('#alramBtn_' + pjIdx).attr('src', src);
 			  }
-// 			  error : function(data) {
-// 				  console.log(data);
-// 			  }  
 			})
 	}
 	

@@ -35,7 +35,7 @@ public class AjaxController {
 		param.put("PJ_IDX", pjIdx);
 		param.put("USER_ID", userId);
 		String result = projectService.setLike(param);
-		System.out.println("아이디 " + userId);
+		System.out.println("아이디" + userId);
 		return result;
 	}
 	
@@ -51,11 +51,11 @@ public class AjaxController {
 		param.put("USER_ID", userId);
 		param.put("TITLE", title);
 		String result = projectService.setAlram(param);
-		String content = "프로젝트 후원하러가기 https://tumblbug.com/";
+		String content = "프로젝트펀딩이 시작되었습니다. https://tumblbug.com/";
         String from = "ki6532@naver.com";
 		
 		try {
-        	// 이메일 보내는 구문
+        	// �씠硫붿씪 蹂대궡�뒗 援щЦ
             MimeMessage mail = mailSender.createMimeMessage();
             MimeMessageHelper mailHelper = new MimeMessageHelper(mail,"UTF-8");
             
@@ -66,11 +66,11 @@ public class AjaxController {
             
             mailSender.send(mail);
             
-            System.out.println("성공^^");
+            System.out.println("성공");
             
         } catch(Exception e) {
             e.printStackTrace();
-            System.out.println("전송실패");
+            System.out.println("실패");
         }
 		
 		System.out.println("아이디 " + userId);

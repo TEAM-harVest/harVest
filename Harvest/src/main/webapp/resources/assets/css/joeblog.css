@@ -11886,7 +11886,7 @@ span[class^="heart"] {
   margin:10px;
 }
 .slick-slide img{
-  width:100%;
+/*   width:100%; */
   border: 0px solid #fff;
 }
 
