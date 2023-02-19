@@ -47,7 +47,9 @@
 								<input type="hidden" value="${sessionScope.id }">
 								
 								<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
-								<h5 class="card-title mb-2">${projectDTO.title }</h5>
+								<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
+									<h5 class="card-title mb-2">${projectDTO.title }</h5>
+								</a>	
 								<span class="text-muted">${projectDTO.start } 공개예정입니다.</span><br>
 								<span class="text-danger">${projectDTO.count }명 알림신청 중</span>
 								<p>

@@ -12,7 +12,13 @@
 			 , CRE_NM
 			 , TITLE
 			 , TARGET_AMT
-			 , TOTAL_AMT
+			 , case when (SELECT SUM(AMOUNT)
+						  FROM PAYMENT_TB
+                          WHERE PJ_IDX = P.IDX) = 1 THEN (SELECT SUM(AMOUNT)
+														  FROM PAYMENT_TB
+														  WHERE PJ_IDX = P.IDX)
+                                                          ELSE 0
+                                                          END AS TOTAL_AMT
 			 , START
 			 , END
 			 , IMG1
@@ -28,7 +34,7 @@
 		 <if test='! GB.equals("") and GB != null'>
 		 	  <if test='GB.equals("POP")'>
 		 	  AND END > CURDATE()
-		 	  ORDER BY total_amt / target_amt * 100 DESC
+		 	  ORDER BY TOTAL_AMT / TARGET_AMT * 100 DESC
 			  </if>
 			  <if test='GB.equals("NEW")'>  
 		   	  AND START > DATE_SUB(CURDATE(),INTERVAL 7 day) and END > CURDATE()

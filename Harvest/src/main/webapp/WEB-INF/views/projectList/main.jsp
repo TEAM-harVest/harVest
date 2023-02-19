@@ -91,7 +91,9 @@
                             <div class="card-header p-0">                                   
                                 <!-- 찜버튼 -->
 								<div class="blog-media">
-									<img src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" alt="" class="w-100">
+									<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
+										<img src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" alt="" class="w-100">
+									</a>
                                    		<c:if test="${empty sesssionScope.id}">
 										<img style="position:absolute; top:5px;right:5px;z-index:10;cursor:pointer;" width="20" height="20" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
 										</c:if>
@@ -99,7 +101,9 @@
                             </div>
                             <div class="mb-2">
                             	<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
-                                <h6 class="m-0">${projectDTO.title }</h6>
+                            	<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
+                                	<h6 class="m-0">${projectDTO.title }</h6>
+                                </a>
                                 <span class="text-danger">${Math.round(projectDTO.totalAmt / projectDTO.targetAmt * 100)}%</span>
                                 <small class="small text-danger"> 달성</small>
                             </div>
@@ -118,20 +122,24 @@
 	                <div class="media text-left">
 	                    <a href="#" class="overlay-link"></a>
 	                    <div>
-	                    <img class="mr-3" src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" width="100px" alt="">
+	                    <a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
+	                    	<img class="mr-3" src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" width="100px" alt="">
+	                    </a>
 	                    <c:if test="${empty sesssionScope.id}">
 										<img style="position:absolute; top:5px;left:75px;z-index:10;cursor:pointer;" width="20" height="20" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
 										</c:if>
 	                    </div>
 	                    <div class="media-body">
 	                    	<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
-	                        <h6 class="m-0">${projectDTO.title }</h6>
+	                    	<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
+	                        	<h6 class="m-0">${projectDTO.title }</h6>
+	                        </a>
 	                        <p class="small text-danger">${Math.round(projectDTO.totalAmt / projectDTO.targetAmt * 100)}% 달성</p>
 	                    </div>
 	                </div>
 				</c:forEach>
 				<div class="text-center">
-					<a href="#" class="btn btn-outline-secondary btn-sm rounded">전체보기</a>
+					<a href="${pageContext.request.contextPath }/projectList/popular" class="btn btn-outline-secondary btn-sm rounded">전체보기</a>
 				</div>
 				<!-- 인기 프로젝트 끝 -->
             </div>
@@ -154,13 +162,17 @@
         	<div>
 				<!-- 찜버튼 -->
 				<div class="blog-media">
-					<img src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" alt="" class="w-100">
+					<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
+						<img src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" alt="" class="w-100">
+					</a>
                         <c:if test="${empty sesssionScope.id}">
 						<img style="position:absolute; top:5px;right:5px;z-index:10;cursor:pointer;" width="20" height="20" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
 						</c:if>
 				</div>
               	<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
-                <h6 class="m-0">${projectDTO.title }</h6>
+              	<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
+                	<h6 class="m-0">${projectDTO.title }</h6>
+                </a>
                 <span class="text-danger">${Math.round(projectDTO.totalAmt / projectDTO.targetAmt * 100)}%</span>
                 <small class="small text-danger"> 달성</small>
 			</div>
@@ -173,13 +185,17 @@
         	<div>
 				<!-- 찜버튼 -->
 				<div class="blog-media">
-					<img src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" alt="" class="w-100">
+					<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
+						<img src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" alt="" class="w-100">
+					</a>
                         <c:if test="${empty sesssionScope.id}">
 						<img style="position:absolute; top:5px;right:5px;z-index:10;cursor:pointer;" width="20" height="20" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
 						</c:if>
 				</div>
               	<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
-                <h6 class="m-0">${projectDTO.title }</h6>
+              	<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
+                	<h6 class="m-0">${projectDTO.title }</h6>
+                </a>
                 <span class="text-danger">${Math.round(projectDTO.totalAmt / projectDTO.targetAmt * 100)}%</span>
                 <small class="small text-danger"> 달성</small>
 			</div>
@@ -192,10 +208,14 @@
         	<div>
 				<!-- 찜버튼 -->
 				<div class="blog-media">
+					<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
 					<img src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" alt="" class="w-100">
+					</a>
 				</div>
               	<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
-                <h6 class="m-0">${projectDTO.title }</h6>
+              	<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
+                	<h6 class="m-0">${projectDTO.title }</h6>
+                </a>
                 <span class="text-muted">${projectDTO.start } 공개예정</span>
 			</div>
 		</c:forEach>
