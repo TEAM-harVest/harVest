@@ -51,6 +51,37 @@
 	       AND USER_ID = #{USER_ID}
 	</delete>
 	
+	<select id="getAlram" resultType="HashMap" parameterType="HashMap">
+		SELECT COUNT(*)  AS CNT
+	      FROM ALRAM_TB
+	     WHERE PJ_IDX = #{PJ_IDX}
+	       AND USER_ID = #{USER_ID}
+	</select>
+	
+	<insert id="insertAlram" parameterType="HashMap">
+		INSERT INTO ALRAM_TB
+			 ( IDX
+			 , PJ_IDX
+			 , USER_ID)
+<!-- 			 , TITLE) -->
+<!-- 			 , START) -->
+		     VALUES (
+		     (SELECT NUM
+			    FROM (SELECT IFNULL(MAX(IDX), 0) + 1 AS NUM
+					    FROM ALRAM_TB) A)
+			 , #{PJ_IDX}
+		     , #{USER_ID}
+<!-- 		     , #{TITLE} -->
+<!-- 		     , #{START} -->
+		     )
+	</insert>
+	
+	<delete id="delAlram" parameterType="HashMap">
+		DELETE FROM ALRAM_TB
+	     WHERE PJ_IDX = #{PJ_IDX}
+	       AND USER_ID = #{USER_ID}
+	</delete>
+	
 <!-- 	<select id="getSumMoney" resultType="java.lang.Integer"> -->
 <!-- 		SELECT SUM(AMOUNT) AS sumMoney -->
 <!-- 	  	  FROM PAYMENT_TB -->

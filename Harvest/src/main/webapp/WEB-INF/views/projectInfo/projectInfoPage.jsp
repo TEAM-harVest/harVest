@@ -174,10 +174,11 @@ function userPayment() {
 </head>
 <body>
 <%-- 	<c:if test="${empty sesssionScope.iD}"> --%>
-	<div style="position:fixed;top:0;left:0;z-index:9999;color:red;">
-	${sessionScope.iD}님이 로그인했습니다.
-	<button onclick="location.href='${pageContext.request.contextPath}/member/logout'">로그아웃</button>
-	</div>
+	<input type="hidden" value="${sessionScope.iD}">
+<!-- 	<div style="position:fixed;top:0;left:0;z-index:9999;color:red;"> -->
+<%-- 	${sessionScope.iD}님이 로그인했습니다. --%>
+<%-- 	<button onclick="location.href='${pageContext.request.contextPath}/member/logout'">로그아웃</button> --%>
+<!-- 	</div> -->
 <%-- 	</c:if> --%>
 	<!-- 상품 이미지 및 간략 정보 -->
 	<div id="productContent">

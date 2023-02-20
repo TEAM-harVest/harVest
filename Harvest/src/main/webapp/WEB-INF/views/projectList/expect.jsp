@@ -31,32 +31,32 @@
 			<div class="page-content">
 				<!-- 주목할 만한 프로젝트 4줄 정렬-->
 				<div class="row">
-				<c:forEach var="projectDTO" items="${getExpectList }">
+				<c:forEach var="getExpectList" items="${getExpectList }">
 					<div class="col-md-3 col-sm-6">
 						<div class="card text-left">
 							<div class="card-header p-0">
 								<!-- 찜버튼 -->
 								<div class="blog-media">
-									<img src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" alt="" class="w-100">
+									<img src="${pageContext.request.contextPath }/resources/assets/imgs/${getExpectList.IMG1 }" alt="" class="w-100">
 								</div>
 							</div>
 							<div class="card-body px-0">
-								<input type="hidden" id="pjIdx_${projectDTO.idx }" value="${projectDTO.idx }">
-								<input type="hidden" id="title" value="${projectDTO.title }">
-								<input type="hidden" id="start" value="${projectDTO.start }">
+								<input type="hidden" id="pjIdx_${getExpectList.IDX }" value="${getExpectList.IDX }">
+								<input type="hidden" id="title" value="${getExpectList.TITLE }">
+								<input type="hidden" id="start" value="${getExpectList.START }">
 								<input type="hidden" value="${sessionScope.id }">
 								
-								<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
-								<a href="${pageContext.request.contextPath }/projectInfo/projectInfo?idx=${projectDTO.idx }">
-									<h5 class="card-title mb-2">${projectDTO.title }</h5>
+								<p class="my-2">${getExpectList.CATEGORY } | ${getExpectList.CRE_NM }</p>
+								<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${getExpectList.IDX }">
+									<h5 class="card-title mb-2">${getExpectList.TITLE }</h5>
 								</a>	
-								<span class="text-muted">${projectDTO.start } 공개예정입니다.</span><br>
-								<span class="text-danger">${projectDTO.count }명 알림신청 중</span>
+								<span class="text-muted">${getExpectList.START } 공개예정입니다.</span><br>
+								<span class="text-danger">${getExpectList.COUNT }명 알림신청 중</span>
 								<p>
-								<button id="btn_${projectDTO.idx }" class="alram" style="background-color:transparent; border:1px solid transparent; border-color: #adb5bd; width:100%;">
+								<button id="btn_${getExpectList.IDX }" class="alram" style="background-color:transparent; border:1px solid transparent; border-color: #adb5bd; width:100%;">
 									알림신청
 									<c:if test="${empty sesssionScope.id}">
-										<img width="16" height="16" id="alramBtn_${projectDTO.idx }" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.alram}">
+										<img width="16" height="16" id="alramBtn_${getExpectList.IDX }" src="${pageContext.request.contextPath}/resources/harVest_img/${getExpectList.ALRAM}">
 										</c:if>
 								</button>
 								</p>
@@ -88,7 +88,7 @@
 	function alram() {
 		let pjIdx = this.id.split('_')[1];
 		var title = $('#title').val();
-		var start = $('#start').val();
+// 		var start = $('#start').val();
 		if(${empty sessionScope.id}){
 			alert('로그인 후 이용해주세요');
 			return;
@@ -99,8 +99,9 @@
 			  type	: "POST", // http 요청 방식 (default: ‘GET’)
 			   data  : {'PJ_IDX' : pjIdx,
 				       'USER_ID' : '${sessionScope.id}',
-				       'TITLE' : title,
-				       'START' : start},
+				       'TITLE' : title
+// 				       'START' : start
+				       },
 			  //processData : true, // 데이터를 컨텐트 타입에 맞게 변환 여부
 			  success : function(data) {
 				  alert('성공');
