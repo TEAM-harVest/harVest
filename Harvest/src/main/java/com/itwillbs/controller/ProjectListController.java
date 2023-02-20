@@ -32,23 +32,23 @@ public class ProjectListController {
 		param.put("CATEGORY", "");
 		
 		param.put("GB", "POP");
-		List<ProjectDTO> popList=projectListService.getProjectList(param);
+		List<Map<String, String>> popList=projectListService.getProjectList(param);
 		model.addAttribute("getPopList", popList);
 		
 		param.put("GB", "NEW");
-		List<ProjectDTO> newList=projectListService.getProjectList(param);
+		List<Map<String, String>> newList=projectListService.getProjectList(param);
 		model.addAttribute("getNewList", newList);
 		
 		param.put("GB", "DEAD");
-		List<ProjectDTO> deadList=projectListService.getProjectList(param);
+		List<Map<String, String>> deadList=projectListService.getProjectList(param);
 		model.addAttribute("getDeadList", deadList);
 		
 		param.put("GB", "EXP");
-		List<ProjectDTO> expList=projectListService.getProjectList(param);
+		List<Map<String, String>> expList=projectListService.getProjectList(param);
 		model.addAttribute("getExpList", expList);
 		
 		param.put("GB", "ALL");
-		List<ProjectDTO> allList=projectListService.getProjectList(param);
+		List<Map<String, String>> allList=projectListService.getProjectList(param);
 		model.addAttribute("getAllList", allList);
 		
 		return "projectList/main";
@@ -64,7 +64,7 @@ public class ProjectListController {
 		param.put("CATEGORY", "");
 		param.put("GB", "");
 		
-		List<ProjectDTO> searchList=projectListService.getProjectList(param);
+		List<Map<String, String>> searchList=projectListService.getProjectList(param);
 		model.addAttribute("getAllList", searchList);
 		int count = projectListService.getCount(param);
 		model.addAttribute("getCount", count);
@@ -82,7 +82,7 @@ public class ProjectListController {
 		param.put("SEARCH", "");
 		param.put("GB", "");
 		
-		List<ProjectDTO> categoryList=projectListService.getProjectList(param);
+		List<Map<String, String>> categoryList=projectListService.getProjectList(param);
 		model.addAttribute("getAllList", categoryList);
 		
 		int count = projectListService.getCount(param);
@@ -100,7 +100,7 @@ public class ProjectListController {
 		param.put("SEARCH", "");
 		param.put("CATEGORY", "");
 		
-		List<ProjectDTO> popList=projectListService.getProjectList(param);
+		List<Map<String, String>> popList=projectListService.getProjectList(param);
 		model.addAttribute("getPopList", popList);
 		
 		int count = projectListService.getCount(param);
@@ -118,7 +118,7 @@ public class ProjectListController {
 		param.put("SEARCH", "");
 		param.put("CATEGORY", "");
 		
-		List<ProjectDTO> newList=projectListService.getProjectList(param);
+		List<Map<String, String>> newList=projectListService.getProjectList(param);
 		model.addAttribute("getNewList", newList);
 		
 		int count = projectListService.getCount(param);
@@ -136,7 +136,7 @@ public class ProjectListController {
 		param.put("SEARCH", "");
 		param.put("CATEGORY", "");
 		
-		List<ProjectDTO> deadList=projectListService.getProjectList(param);
+		List<Map<String, String>> deadList=projectListService.getProjectList(param);
 		model.addAttribute("getDeadList", deadList);
 		
 		int count = projectListService.getCount(param);
@@ -152,7 +152,7 @@ public class ProjectListController {
 		if(session.getAttribute("id") == null) {param.put("SESSIONID", "");}
 		else {param.put("SESSIONID", session.getAttribute("id").toString());}
 		
-		List<ProjectDTO> expectList=projectListService.getExpectList(param);
+		List<Map<String, String>> expectList=projectListService.getExpectList(param);
 		model.addAttribute("getExpectList", expectList);
 		
 		param.put("SEARCH", "");

@@ -85,26 +85,26 @@
                 <hr>
                 <h5>주목할 만한 프로젝트</h5>
                 <div class="row">
-                <c:forEach var="projectDTO" items="${getAllList }" begin="1" end="8">
+                <c:forEach var="getAllList" items="${getAllList }" begin="1" end="8">
                     <div class="col-md-3 col-sm-6">
                         <div class="card text-left">
                             <div class="card-header p-0">                                   
                                 <!-- 찜버튼 -->
 								<div class="blog-media">
-									<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
-										<img src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" alt="" class="w-100">
+									<a href="${pageContext.request.contextPath }/projectInfo/projectInfo?idx=${getAllList.IDX }">
+										<img src="${pageContext.request.contextPath }/resources/assets/imgs/${getAllList.IMG1 }" alt="" class="w-100">
 									</a>
                                    		<c:if test="${empty sesssionScope.id}">
-										<img style="position:absolute; top:5px;right:5px;z-index:10;cursor:pointer;" width="20" height="20" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
+										<img style="position:absolute; top:5px;right:5px;z-index:10;cursor:pointer;" width="20" height="20" id="likeBtn_${getAllList.IDX }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${getAllList.HEART}">
 										</c:if>
 								</div>
                             </div>
                             <div class="mb-2">
-                            	<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
-                            	<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
-                                	<h6 class="m-0">${projectDTO.title }</h6>
+                            	<p class="my-2">${getAllList.CATEGORY } | ${getAllList.CRE_NM }</p>
+                            	<a href="${pageContext.request.contextPath }/projectInfo/projectInfo?idx=${getAllList.IDX }">
+                                	<h6 class="m-0">${getAllList.TITLE }</h6>
                                 </a>
-                                <span class="text-danger">${Math.round(projectDTO.totalAmt / projectDTO.targetAmt * 100)}%</span>
+                                <span class="text-danger">${getAllList.PERCENT}%</span>
                                 <small class="small text-danger"> 달성</small>
                             </div>
                         </div>
@@ -116,25 +116,25 @@
 
             <!-- Sidebar -->
             <div class="page-sidebar text-left">
-            	<!-- 인기 프로젝트 -->
+				<!--  인기 프로젝트 -->
             	<h6 class="sidebar-title section-title">인기프로젝트</h6>
-            	<c:forEach var="projectDTO" items="${getPopList }" begin="1" end="8">
+            	<c:forEach var="getPopList" items="${getPopList }" begin="1" end="8">
 	                <div class="media text-left">
 	                    <a href="#" class="overlay-link"></a>
 	                    <div>
-	                    <a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
-	                    	<img class="mr-3" src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" width="100px" alt="">
+	                    <a href="${pageContext.request.contextPath }/project/projectInfo?idx=${getPopList.IDX }">
+	                    	<img class="mr-3" src="${pageContext.request.contextPath }/resources/assets/imgs/${getPopList.IMG1 }" width="100px" alt="">
 	                    </a>
 	                    <c:if test="${empty sesssionScope.id}">
-										<img style="position:absolute; top:5px;left:75px;z-index:10;cursor:pointer;" width="20" height="20" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
+										<img style="position:absolute; top:5px;left:75px;z-index:10;cursor:pointer;" width="20" height="20" id="likeBtn_${getPopList.IDX }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${getPopList.HEART}">
 										</c:if>
 	                    </div>
 	                    <div class="media-body">
-	                    	<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
-	                    	<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
-	                        	<h6 class="m-0">${projectDTO.title }</h6>
+	                    	<p class="my-2">${getPopList.CATEGORY } | ${getPopList.CRE_NM }</p>
+	                    	<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${getPopList.IDX }">
+	                        	<h6 class="m-0">${getPopList.TITLE }</h6>
 	                        </a>
-	                        <p class="small text-danger">${Math.round(projectDTO.totalAmt / projectDTO.targetAmt * 100)}% 달성</p>
+	                        <p class="small text-danger">${getPopList.PERCENT}% 달성</p>
 	                    </div>
 	                </div>
 				</c:forEach>
@@ -146,34 +146,34 @@
         </div>
     </div>
     
-    <!-- 1번째 배너 -->
+	<!--     1번째 배너 -->
     <div class="container">
     	<section>
     	<img src="https://tumblbug-assets.imgix.net/main_banners/pc_images/000/000/007/original/849fc934-c410-4143-bd8d-b08bba270aa8.jpg" alt="" class="w-100">
     	</section>
     </div>
     
-    <!-- 신규 마감임박 공개예정 프로젝트 -->
+	<!--     신규 마감임박 공개예정 프로젝트 -->
     <div class="container">
     <hr>
     <h5>신규 프로젝트</h5>
     <div class="items">
-    	<c:forEach var="projectDTO" items="${getNewList }">
+    	<c:forEach var="getNewList" items="${getNewList }">
         	<div>
 				<!-- 찜버튼 -->
 				<div class="blog-media">
-					<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
-						<img src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" alt="" class="w-100">
+					<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${getNewList.IDX }">
+						<img src="${pageContext.request.contextPath }/resources/assets/imgs/${getNewList.IMG1 }" alt="" class="w-100">
 					</a>
                         <c:if test="${empty sesssionScope.id}">
-						<img style="position:absolute; top:5px;right:5px;z-index:10;cursor:pointer;" width="20" height="20" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
+						<img style="position:absolute; top:5px;right:5px;z-index:10;cursor:pointer;" width="20" height="20" id="likeBtn_${getNewList.IDX }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${getNewList.HEART}">
 						</c:if>
 				</div>
-              	<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
-              	<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
-                	<h6 class="m-0">${projectDTO.title }</h6>
+              	<p class="my-2">${getNewList.CATEGORY } | ${getNewList.CRE_NM }</p>
+              	<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${getNewList.IDX }">
+                	<h6 class="m-0">${getNewList.TITLE }</h6>
                 </a>
-                <span class="text-danger">${Math.round(projectDTO.totalAmt / projectDTO.targetAmt * 100)}%</span>
+                <span class="text-danger">${getNewList.PERCENT}%</span>
                 <small class="small text-danger"> 달성</small>
 			</div>
 		</c:forEach>
@@ -181,22 +181,22 @@
 	<hr>
 	<h5>마감임박 프로젝트</h5>
 	<div class="items">
-    	<c:forEach var="projectDTO" items="${getDeadList }">
+    	<c:forEach var="getDeadList" items="${getDeadList }">
         	<div>
 				<!-- 찜버튼 -->
 				<div class="blog-media">
-					<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
-						<img src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" alt="" class="w-100">
+					<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${getDeadList.IDX }">
+						<img src="${pageContext.request.contextPath }/resources/assets/imgs/${getDeadList.IMG1 }" alt="" class="w-100">
 					</a>
                         <c:if test="${empty sesssionScope.id}">
-						<img style="position:absolute; top:5px;right:5px;z-index:10;cursor:pointer;" width="20" height="20" id="likeBtn_${projectDTO.idx }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
+						<img style="position:absolute; top:5px;right:5px;z-index:10;cursor:pointer;" width="20" height="20" id="likeBtn_${getDeadList.IDX }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${getDeadList.HEART}">
 						</c:if>
 				</div>
-              	<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
-              	<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
-                	<h6 class="m-0">${projectDTO.title }</h6>
+              	<p class="my-2">${getDeadList.CATEGORY } | ${getDeadList.CRE_NM }</p>
+              	<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${getDeadList.IDX }">
+                	<h6 class="m-0">${getDeadList.TITLE }</h6>
                 </a>
-                <span class="text-danger">${Math.round(projectDTO.totalAmt / projectDTO.targetAmt * 100)}%</span>
+                <span class="text-danger">${getDeadList.PERCENT }%</span>
                 <small class="small text-danger"> 달성</small>
 			</div>
 		</c:forEach>
@@ -204,19 +204,19 @@
 	<hr>
 	<h5>공개예정 프로젝트</h5>
 	<div class="items">
-    	<c:forEach var="projectDTO" items="${getExpList }">
+    	<c:forEach var="getExpList" items="${getExpList }">
         	<div>
 				<!-- 찜버튼 -->
 				<div class="blog-media">
-					<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
-					<img src="${pageContext.request.contextPath }/resources/assets/imgs/${projectDTO.img1 }" alt="" class="w-100">
+					<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${getExpList.IDX }">
+					<img src="${pageContext.request.contextPath }/resources/assets/imgs/${getExpList.IMG1 }" alt="" class="w-100">
 					</a>
 				</div>
-              	<p class="my-2">${projectDTO.category } | ${projectDTO.creNm }</p>
-              	<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${projectDTO.idx }">
-                	<h6 class="m-0">${projectDTO.title }</h6>
+              	<p class="my-2">${getExpList.CATEGORY } | ${getExpList.CRE_NM }</p>
+              	<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${getExpList.IDX }">
+                	<h6 class="m-0">${getExpList.TITLE }</h6>
                 </a>
-                <span class="text-muted">${projectDTO.start } 공개예정</span>
+                <span class="text-muted">${getExpList.START } 공개예정</span>
 			</div>
 		</c:forEach>
     </div>
