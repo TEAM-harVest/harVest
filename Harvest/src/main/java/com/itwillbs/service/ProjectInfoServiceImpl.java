@@ -7,14 +7,14 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.itwillbs.dao.ProjectDAO;
+import com.itwillbs.dao.ProjectInfoDAO;
 import com.itwillbs.domain.ProjectDTO;
 
 @Service
-public class ProjectServiceImpl implements ProjectService{
+public class ProjectInfoServiceImpl implements ProjectInfoService{
 	
 	@Inject
-	private ProjectDAO projectDAO;
+	private ProjectInfoDAO projectDAO;
 
 	@Override
 	public List<ProjectDTO> getProjectList() {
@@ -39,20 +39,21 @@ public class ProjectServiceImpl implements ProjectService{
 		}
 		return result;
 	}
-	
+
+//	@Override
+//	public int getSumUser(int idx) {
+//		return projectDAO.getSumUser(idx);
+//	}
+
 	@Override
-	public String setAlram(Map<String, String> param) {
-		String cnt = projectDAO.getAlram(param);
-		String result = "";
-		if(cnt.equals("0")) {
-			projectDAO.setAlram(param);
-			result = "alram_fill.svg";
-		} else {
-			projectDAO.delAlram(param);
-			result = "alram.svg";
-		}
-		return result;
+	public int getSumMoney(Map<String, String> param) {
+		return projectDAO.getSumMoney(param);
 	}
 
+	@Override
+	public int getSumUser(Map<String, String> param) {
+		return projectDAO.getSumUser(param);
+	}
+	
 	
 }
