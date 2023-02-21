@@ -59,6 +59,7 @@ public class AjaxController {
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("PJ_IDX", pjIdx);
 		param.put("USER_ID", userId);
+		param.put("CODE", "ALM2");
 		String result = projectInfoService.setAlram(param);
 		return result;
 	}

@@ -29,6 +29,7 @@ public class ProjectDTO {
 	
 	
 	private String heart;
+	private String code;
 	
 	public String getHeart() {
 		return heart;
@@ -162,6 +163,24 @@ public class ProjectDTO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	@Override
+	public String toString() {
+		return "ProjectDTO [idx=" + idx + ", id=" + id + ", creNm=" + creNm + ", crePro=" + crePro + ", creIntro="
+				+ creIntro + ", category=" + category + ", title=" + title + ", present=" + present + ", img1=" + img1
+				+ ", img2=" + img2 + ", img3=" + img3 + ", intro=" + intro + ", budget=" + budget + ", schedule="
+				+ schedule + ", minDona=" + minDona + ", targetAmt=" + targetAmt + ", start=" + start + ", end=" + end
+				+ ", status=" + status + ", sumMoney=" + sumMoney + ", sumUser=" + sumUser + ", heart=" + heart
+				+ ", code=" + code + "]";
+	}
+	
 
+	
+	
 	
 }

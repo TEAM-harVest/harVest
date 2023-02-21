@@ -56,23 +56,22 @@
 	      FROM ALRAM_TB
 	     WHERE PJ_IDX = #{PJ_IDX}
 	       AND USER_ID = #{USER_ID}
+	       AND CODE = #{CODE}
 	</select>
 	
 	<insert id="insertAlram" parameterType="HashMap">
 		INSERT INTO ALRAM_TB
 			 ( IDX
 			 , PJ_IDX
-			 , USER_ID)
-<!-- 			 , TITLE) -->
-<!-- 			 , START) -->
+			 , USER_ID
+			 , CODE)
 		     VALUES (
 		     (SELECT NUM
 			    FROM (SELECT IFNULL(MAX(IDX), 0) + 1 AS NUM
 					    FROM ALRAM_TB) A)
 			 , #{PJ_IDX}
 		     , #{USER_ID}
-<!-- 		     , #{TITLE} -->
-<!-- 		     , #{START} -->
+			 , #{CODE}
 		     )
 	</insert>
 	
@@ -80,7 +79,24 @@
 		DELETE FROM ALRAM_TB
 	     WHERE PJ_IDX = #{PJ_IDX}
 	       AND USER_ID = #{USER_ID}
+	       AND CODE = #{CODE}
 	</delete>
+	
+	<delete id="deleteAlram2">
+		<![CDATA[ DELETE A FROM ALRAM_TB AS A
+					LEFT JOIN PROJECT_TB AS P
+					ON A.pj_IDX = P.IDX
+					WHERE START < CURDATE()
+					AND A.CODE = 'ALM2']]>
+	</delete>
+	
+	<select id="getAlram2List" resultType="com.itwillbs.domain.ProjectDTO">
+		SELECT USER_ID AS ID, TITLE, CODE, START
+		  FROM ALRAM_TB A
+		  JOIN PROJECT_TB P
+		  ON A.pj_IDX = P.IDX
+		 WHERE START = curdate()
+	</select>
 	
 <!-- 	<select id="getSumMoney" resultType="java.lang.Integer"> -->
 <!-- 		SELECT SUM(AMOUNT) AS sumMoney -->

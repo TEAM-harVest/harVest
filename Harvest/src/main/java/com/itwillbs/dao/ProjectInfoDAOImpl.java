@@ -66,6 +66,17 @@ public class ProjectInfoDAOImpl implements ProjectInfoDAO {
 //		return sqlSession.selectOne(namespace + ".getSumMoney", idx);
 //	}
 
+	@Override
+	public int deleteAlram2() {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(namespace + ".deleteAlram2");
+	}
+
+	@Override
+	public List<ProjectDTO> getAlram2List(ProjectDTO projectDTO) {
+		return sqlSession.selectList(namespace + ".getAlram2List", projectDTO);
+	}
+
 //	@Override
 //	public int getSumUser(Map<String, String> param) {
 //		return sqlSession.selectOne(namespace + ".getSumUser", param);

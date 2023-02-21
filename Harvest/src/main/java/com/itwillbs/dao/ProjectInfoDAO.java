@@ -16,4 +16,6 @@ public interface ProjectInfoDAO {
 	public int delAlram(Map<String, String> param);
 //	public int getSumMoney(Map<String, String> param);
 //	public int getSumUser(Map<String, String> param);
+	public int deleteAlram2();
+	public List<ProjectDTO> getAlram2List(ProjectDTO projectDTO);
 }

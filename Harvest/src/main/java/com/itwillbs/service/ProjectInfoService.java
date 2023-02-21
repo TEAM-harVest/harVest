@@ -15,6 +15,8 @@ public interface ProjectInfoService {
 	
 	public String setLike(Map<String, String> param);
 
+	public List<ProjectDTO> getAlram2List(ProjectDTO projectDTO);
+
 //	public int getSumUser(Map<String, String> param);
 //
 //	public int getSumMoney(Map<String, String> param);
