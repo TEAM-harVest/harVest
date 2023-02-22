@@ -1,4 +1,4 @@
-package com.itwillbs.email;
+package com.itwillbs.utill;
 
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class Scheduler {
 //	@Transactional
 //	@Scheduled(cron = "0 0/1 * * * ?")
 //	public void test() {
-//		System.out.println("Ïã§Ìñâ");
+//		System.out.println("Ω««‡");
 //	}
 	
 	@Autowired
@@ -34,50 +34,55 @@ public class Scheduler {
 	@Inject
 	private ProjectInfoService projectService;
 	
-	// 1Î∂ÑÎßàÎã§ Ïã§ÌñâÎêòÍ≤å ÌÖåÏä§Ìä∏
+	// 1∫–∏∂¥Ÿ Ω««‡µ«∞‘ ≈◊Ω∫∆Æ
+//	@Scheduled(cron = "0 0/1 * * * ?")
+	
+	// ¿⁄¡§ 12Ω√∏∂¥Ÿ Ω««‡
 	@Transactional
 	@Scheduled(cron = "0 0 0 * * *")
-//	@Scheduled(cron = "0 0/1 * * * ?")
 	public void sendMail() throws Exception {
 		
 		ProjectDTO projectDTO = new ProjectDTO();
 		List<ProjectDTO> alram2List=projectService.getAlram2List(projectDTO);
 		System.out.println(alram2List.toString());
-//		System.out.println(projectDTO.getId().toString());
-		String subject = projectDTO.getTitle().toString();
-		String content = "https://tumblbug.com/";
-        String from = "ki6532@naver.com";
-        String to = projectDTO.getId().toString();
-        
-        for(int i = 0; i < alram2List.size(); i++) {
-        
-        try {
-            MimeMessage mail = mailSender.createMimeMessage();
-            MimeMessageHelper mailHelper = new MimeMessageHelper(mail,"UTF-8");
-            
-            mailHelper.setFrom(from);
-            mailHelper.setTo(to);
-            mailHelper.setSubject("["+subject+"] send");
-            mailHelper.setText(content);
-            
-            mailSender.send(mail);
-            System.out.println("success");
-            
-        } catch(Exception e) {
-            e.printStackTrace();
-            System.out.println("fail");
-            break;
-        }
-        
-        }
+		
+		for(ProjectDTO dto : alram2List) {
+			
+			String subject = dto.getTitle();
+			String content = "https://tumblbug.com/";
+	        String from = "omama69@gmail.com";
+	        String to = dto.getId();
+	        System.out.println(subject +","+content+","+from+","+to);
+	        
+	        
+	        try {
+	            MimeMessage mail = mailSender.createMimeMessage();
+	            MimeMessageHelper mailHelper = new MimeMessageHelper(mail,"UTF-8");
+	            
+	            mailHelper.setFrom(from);
+	            mailHelper.setTo(to);
+	            mailHelper.setSubject("["+subject+"] send");
+	            mailHelper.setText(content);
+	            
+	            mailSender.send(mail);
+	            System.out.println("success");
+	            
+	        } catch(Exception e) {
+	            e.printStackTrace();
+	            System.out.println("fail");
+	            break;
+	        }
+		}
+		
+       
 	}
 	
 	
 	
-	// Îß§Ïùº ÏûêÏ†ï 0ÏãúÏóê Ïã§Ìñâ
-	// ALM2 ÏΩîÎìúÏù∏ ÏïåÎûå Ïò§ÎäòÎÇ†ÏßúÎ≥¥Îã§
+	// ∏≈¿œ ªı∫Æ2Ω√ø° Ω««‡
+	// ALM2 ƒ⁄µÂ¿Œ æÀ∂˜ ø¿¥√≥Ø¬•∫∏¥Ÿ START < CURDATE() ªË¡¶
 	@Transactional
-	@Scheduled(cron = "0 0 0 * * *")
+	@Scheduled(cron = "0 0 2 * * *")
 //	@Scheduled(cron = "0 0/1 * * * ?")
 	public int deleteAlram2() {
 		System.out.println("ALRAM DELETE");

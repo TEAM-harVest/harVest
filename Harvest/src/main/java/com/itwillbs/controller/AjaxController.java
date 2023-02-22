@@ -28,8 +28,6 @@ import com.itwillbs.service.UserServiceImpl.MailSendService;
 public class AjaxController {
 	
 	@Autowired
-	private JavaMailSender mailSender;
-	@Autowired
 	private MailSendService mailService;
 	
 	@Inject

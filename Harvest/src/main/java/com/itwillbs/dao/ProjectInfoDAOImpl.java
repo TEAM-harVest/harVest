@@ -12,6 +12,7 @@ import com.itwillbs.domain.ProjectDTO;
 
 @Repository
 public class ProjectInfoDAOImpl implements ProjectInfoDAO {
+	
 	@Inject
 	private SqlSession sqlSession;
 	
@@ -61,10 +62,6 @@ public class ProjectInfoDAOImpl implements ProjectInfoDAO {
 	public int delAlram(Map<String, String> param) {
 		return sqlSession.delete(namespace + ".delAlram", param);
 	}
-//	@Override
-//	public int getSumMoney(int idx) {
-//		return sqlSession.selectOne(namespace + ".getSumMoney", idx);
-//	}
 
 	@Override
 	public int deleteAlram2() {
@@ -77,13 +74,4 @@ public class ProjectInfoDAOImpl implements ProjectInfoDAO {
 		return sqlSession.selectList(namespace + ".getAlram2List", projectDTO);
 	}
 
-//	@Override
-//	public int getSumUser(Map<String, String> param) {
-//		return sqlSession.selectOne(namespace + ".getSumUser", param);
-//	}
-//
-//	@Override
-//	public int getSumMoney(Map<String, String> param) {
-//		return sqlSession.selectOne(namespace + ".getSumMoney", param);
-//	}
 }

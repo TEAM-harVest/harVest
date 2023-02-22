@@ -171,11 +171,7 @@ public class ProjectDTO {
 	}
 	@Override
 	public String toString() {
-		return "ProjectDTO [idx=" + idx + ", id=" + id + ", creNm=" + creNm + ", crePro=" + crePro + ", creIntro="
-				+ creIntro + ", category=" + category + ", title=" + title + ", present=" + present + ", img1=" + img1
-				+ ", img2=" + img2 + ", img3=" + img3 + ", intro=" + intro + ", budget=" + budget + ", schedule="
-				+ schedule + ", minDona=" + minDona + ", targetAmt=" + targetAmt + ", start=" + start + ", end=" + end
-				+ ", status=" + status + ", sumMoney=" + sumMoney + ", sumUser=" + sumUser + ", heart=" + heart
+		return "ProjectDTO [id=" + id + ", title=" + title + ", start=" + start
 				+ ", code=" + code + "]";
 	}
 	
