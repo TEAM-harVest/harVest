@@ -39,36 +39,59 @@ public class ProjectInfoController {
 	public String projectInfo(@RequestParam("idx")int idx, Model model, HttpSession session) {
 		
 		Map<String, String> param = new HashMap<String, String>();
+		
 		String sessionId = (String)session.getAttribute("iD");
+		
 		if(sessionId != null) {
 			param.put("SESSIONID", sessionId);
 		}
 		param.put("IDX", idx + "");
-		Integer sumMoney = projectService.getSumMoney(param);
-		Integer sumUser = projectService.getSumUser(param);
+		
 		ProjectDTO projectDTO = projectService.getProjectInfo(param);
-		projectDTO.setSumMoney(sumMoney);
-		projectDTO.setSumUser(sumUser);
+		
 		model.addAttribute("projectDTO", projectDTO);
+		
 		return "projectInfo/projectInfoPage";
 	}
 	
-	@RequestMapping(value = "/payment/payment", method = RequestMethod.GET)
+	@RequestMapping(value = "/payment/payment", method = RequestMethod.POST)
 	public String minDona(@RequestParam("idx")int idx, HttpServletRequest request, Model model) {
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("IDX", idx + "");
+		
 		String userDona = request.getParameter("userDona");
-//		String idx = request.getParameter("idx");
 		String funding_name = request.getParameter("funding_name");
+		
 		ProjectDTO projectDTO = projectService.getProjectInfo(param);
+		
 		if(funding_name.equals("0")) {
 			model.addAttribute("funding_name", userDona);
 		} else {
 			model.addAttribute("funding_name", funding_name);
 		}
+		
 		model.addAttribute("idx", idx);
 		model.addAttribute("projectDTO", projectDTO);
 		return "payment/payment";
+	}
+	
+	
+	// 공개예정 페이지
+	@RequestMapping(value = "/project/projectOpen", method = RequestMethod.GET)
+	public String projectOpen(@RequestParam("idx")int idx, Model model, HttpSession session) {
+		Map<String, String> param = new HashMap<String, String>();
+		
+		String sessionId = (String)session.getAttribute("iD");
+		
+		if(sessionId != null) {
+			param.put("SESSIONID", sessionId);
+		}
+		param.put("IDX", idx + "");
+		
+		ProjectDTO projectDTO = projectService.getProjectInfo(param);
+		
+		model.addAttribute("projectDTO", projectDTO);
+		return "projectInfo/projectOpenPage";
 	}
 
 }
