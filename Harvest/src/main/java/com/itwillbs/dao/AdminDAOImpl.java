@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ProjectDTO;
 import com.itwillbs.domain.UserDTO;
-import com.itwillbs.domain.noticeDTO;
-import com.itwillbs.domain.payDTO;
+import com.itwillbs.domain.NoticeDTO;
+import com.itwillbs.domain.PayDTO;
 
 @Repository
-public class adminDAOImpl implements adminDAO {
+public class AdminDAOImpl implements AdminDAO {
 	
 	@Inject
 	private SqlSession sqlSession;
@@ -51,7 +51,7 @@ public class adminDAOImpl implements adminDAO {
 	}
 
 	@Override
-	public List<payDTO> getPayment(String userId) {
+	public List<PayDTO> getPayment(String userId) {
 		return sqlSession.selectList(namespace+".getPayment", userId);
 	}
 
@@ -92,22 +92,22 @@ public class adminDAOImpl implements adminDAO {
 	}
 
 	@Override
-	public List<payDTO> payStandby() {
+	public List<PayDTO> payStandby() {
 		return sqlSession.selectList(namespace+".payStandby");
 	}
 
 	@Override
-	public List<payDTO> paySuccess() {
+	public List<PayDTO> paySuccess() {
 		return sqlSession.selectList(namespace+".paySuccess");
 	}
 
 	@Override
-	public List<payDTO> payFinish() {
+	public List<PayDTO> payFinish() {
 		return sqlSession.selectList(namespace+".payFinish");
 	}
 
 	@Override
-	public List<noticeDTO> getNoticeList(PageDTO dto) {
+	public List<NoticeDTO> getNoticeList(PageDTO dto) {
 		return sqlSession.selectList(namespace+".getNoticeList", dto);
 	}
 
@@ -117,13 +117,13 @@ public class adminDAOImpl implements adminDAO {
 	}
 
 	@Override
-	public void insertBoard(noticeDTO noticeDTO) {
+	public void insertBoard(NoticeDTO noticeDTO) {
 		sqlSession.insert(namespace+".insertBoard", noticeDTO);
 		
 	}
 
 	@Override
-	public noticeDTO getBoard(int IDX) {
+	public NoticeDTO getBoard(int IDX) {
 		return sqlSession.selectOne(namespace+".getBoard" , IDX);
 	}
 
@@ -155,6 +155,11 @@ public class adminDAOImpl implements adminDAO {
 	@Override
 	public int getNoticeCount() {
 		return sqlSession.selectOne(namespace+".getNoticeCount");
+	}
+
+	@Override
+	public List<UserDTO> getEventUserList(UserDTO userDto) {
+		return sqlSession.selectList(namespace+".getEventUserList", userDto);
 	}
 	
 

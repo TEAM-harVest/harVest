@@ -21,24 +21,10 @@ public class BoardController {
 	@Inject
 	private BoardService boardService;
 	
-	@RequestMapping(value = "/board/info", method = RequestMethod.GET)
-	public String info() {
-		return "notice/info";
-	} 
+	// í•˜ë‹¨ í‘¸í„° ëª©ë¡
 	
-	
-	@RequestMapping(value = "/board/write", method = RequestMethod.GET)
-	public String write() {
-		return "notice/noticeWrite";
-	} 
-	
-	@RequestMapping(value = "/board/writePro", method = RequestMethod.POST)
-	public String writePro(BoardDTO boardDTO, HttpSession session) {
-		boardService.insertBoard(boardDTO);
-		return "redirect:/board/list";
-	} // insertPro ¸Ş¼­µå
-	
-	@RequestMapping(value = "/board/list", method = RequestMethod.GET)
+	// ê³µì§€ì‚¬í•­ ë¦¬ìŠ¤íŠ¸
+	@RequestMapping(value = "/board/notices", method = RequestMethod.GET)
 	public String list(Model model, HttpServletRequest request) {
 		int pageSize=5;
 		String pageNum=request.getParameter("pageNum");
@@ -48,7 +34,6 @@ public class BoardController {
 		int currentPage=Integer.parseInt(pageNum);
 		
 		PageDTO pageDTO=new PageDTO();
-		// set¸Ş¼­µå È£Ãâ
 		pageDTO.setPageSize(pageSize);
 		pageDTO.setPageNum(pageNum);
 		pageDTO.setCurrentPage(currentPage);
@@ -71,10 +56,10 @@ public class BoardController {
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pageDto",pageDTO);
-		return "notice/notice"; // Æú´õ¸í/ÆÄÀÏÀÌ¸§
-	} // insertPro ¸Ş¼­µå
+		return "board/notice";
+	} 
 	
-	
+	// ê³µì§€ì‚¬í•­ ìƒì„¸ë³´ê¸°
 	@RequestMapping(value = "/board/content", method = RequestMethod.GET)
 	public String content(Model model, HttpServletRequest request) {
 		int idx=Integer.parseInt(request.getParameter("idx"));
@@ -83,23 +68,28 @@ public class BoardController {
 		return "center/content";
 	} 
 	
-	@RequestMapping(value = "/board/update", method = RequestMethod.GET)
-	public String update(HttpServletRequest request, Model model) {
-		int idx=Integer.parseInt(request.getParameter("idx"));
-		BoardDTO boardDTO=boardService.getBoard(idx);
-		model.addAttribute("boardDTO", boardDTO);
-		return "/center/updateForm"; 
+	// ì°½ì‘ì ê°€ì´ë“œ
+	@RequestMapping(value = "/footer/guide", method = RequestMethod.GET)
+	public String guide() {
+		return "board/guide";
 	}
 	
-	@RequestMapping(value = "/board/updatePro", method = RequestMethod.POST)
-	public String updatePro(BoardDTO boardDTO, Model model, HttpServletRequest request) {
-		boardService.updateBoard(boardDTO);
-		return "center/content";
-	} // updatePro ¸Ş¼­µå
+	// ìˆ˜ìˆ˜ë£Œ ì•ˆë‚´
+	@RequestMapping(value = "/footer/feeInfo", method = RequestMethod.GET)
+	public String info() {
+		return "board/feeInfo";
+	}
 	
-	
-	
-	
-	
+//	// ì´ìš©ì•½ê´€
+//	@RequestMapping(value = "/footer/agreement", method = RequestMethod.GET)
+//	public String agreement() {
+//		return "board/agreement";
+//	}
+//	
+//	// ê°œì¸ì •ë³´ ì²˜ë¦¬ë°©ì¹¨
+//	@RequestMapping(value = "/footer/agreement", method = RequestMethod.GET)
+//	public String agreement() {
+//		return "board/agreement";
+//	}
 
 }

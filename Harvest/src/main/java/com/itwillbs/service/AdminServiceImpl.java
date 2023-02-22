@@ -9,15 +9,15 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ProjectDTO;
 import com.itwillbs.domain.UserDTO;
-import com.itwillbs.domain.noticeDTO;
-import com.itwillbs.domain.payDTO;
-import com.itwillbs.dao.adminDAO;
+import com.itwillbs.domain.NoticeDTO;
+import com.itwillbs.domain.PayDTO;
+import com.itwillbs.dao.AdminDAO;
 
 @Service
-public class adminServiceImpl implements adminService {
+public class AdminServiceImpl implements AdminService {
 	
 	@Inject
-	private adminDAO adminDAO;
+	private AdminDAO adminDAO;
 	
 	@Override
 	public List<UserDTO> getUserList(PageDTO dto) {
@@ -58,7 +58,7 @@ public class adminServiceImpl implements adminService {
 	}
 
 	@Override
-	public List<payDTO> getPayment(String userId) {
+	public List<PayDTO> getPayment(String userId) {
 		return adminDAO.getPayment(userId);
 	}
 
@@ -112,23 +112,23 @@ public class adminServiceImpl implements adminService {
 	//결제현황 페이지
 	
 	@Override
-	public List<payDTO> payStandby() {
+	public List<PayDTO> payStandby() {
 		return adminDAO.payStandby();
 	}
 
 	@Override
-	public List<payDTO> paySuccess() {
+	public List<PayDTO> paySuccess() {
 		return adminDAO.paySuccess();
 	}
 
 	@Override
-	public List<payDTO> payFinish() {
+	public List<PayDTO> payFinish() {
 		return adminDAO.payFinish();
 	}
 	
 	// 공지사항 목록
 	@Override
-	public List<noticeDTO> getNoticeList(PageDTO dto) {
+	public List<NoticeDTO> getNoticeList(PageDTO dto) {
 		return adminDAO.getNoticeList(dto);
 	}
 
@@ -138,13 +138,13 @@ public class adminServiceImpl implements adminService {
 	}
 
 	@Override
-	public void insertBoard(noticeDTO noticeDTO) {
+	public void insertBoard(NoticeDTO noticeDTO) {
 		adminDAO.insertBoard(noticeDTO);
 	}
 
 	//공지사항 글 상세보기
 	@Override
-	public noticeDTO getBoard(int IDX) {
+	public NoticeDTO getBoard(int IDX) {
 		return adminDAO.getBoard(IDX);
 	}
 
@@ -176,6 +176,11 @@ public class adminServiceImpl implements adminService {
 	@Override
 	public int getNoticeCount() {
 		return adminDAO.getNoticeCount();
+	}
+
+	@Override
+	public List<UserDTO> getEventUserList(UserDTO userDto) {
+		return adminDAO.getEventUserList(userDto);
 	}
 
 	

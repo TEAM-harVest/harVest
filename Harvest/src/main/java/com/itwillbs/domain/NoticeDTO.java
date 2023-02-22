@@ -2,15 +2,12 @@ package com.itwillbs.domain;
 
 import java.sql.Timestamp;
 
-public class noticeDTO {
+public class NoticeDTO {
 	private int IDX;
 	private String ID;
 	private String TITLE;
 	private String CONTENT;
 	private Timestamp DATE;
-	
-	
-	
 	
 	public int getIDX() {
 		return IDX;

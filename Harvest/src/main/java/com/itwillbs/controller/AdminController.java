@@ -13,11 +13,15 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,20 +35,23 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.JsonObject;
-import com.itwillbs.dao.adminDAO;
+import com.itwillbs.dao.AdminDAO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ProjectDTO;
 import com.itwillbs.domain.UserDTO;
-import com.itwillbs.domain.noticeDTO;
-import com.itwillbs.domain.payDTO;
-import com.itwillbs.service.adminService;
+import com.itwillbs.domain.NoticeDTO;
+import com.itwillbs.domain.PayDTO;
+import com.itwillbs.service.AdminService;
 
 
 @Controller
-public class adminController {
+public class AdminController {
+	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	@Inject
-	private adminService adminService;
+	private AdminService adminService;
 	
 //	관리자 메인 페이지
 	@RequestMapping(value = "/admin/userMain", method = RequestMethod.GET)	
@@ -115,7 +122,7 @@ public class adminController {
 		}
 		
 		// DB에서 payDTO 가져오기 
-		List<payDTO> payList = adminService.getPayment(userId);
+		List<PayDTO> payList = adminService.getPayment(userId);
 		if(payList != null) {
 			System.out.println(payList);
 			model.addAttribute("payList", payList); //proDTO
@@ -374,13 +381,13 @@ public class adminController {
 //	결제현황
 	@RequestMapping(value = "/admin/payStatus", method = RequestMethod.GET)	
 	public String payStatus(Model model) {
-		List<payDTO> payStandby = adminService.payStandby();
+		List<PayDTO> payStandby = adminService.payStandby();
 		model.addAttribute("payStandby", payStandby);
 		
-		List<payDTO> paySuccess = adminService.paySuccess();
+		List<PayDTO> paySuccess = adminService.paySuccess();
 		model.addAttribute("paySuccess", paySuccess);
 		
-		List<payDTO> payFinish = adminService.payFinish();
+		List<PayDTO> payFinish = adminService.payFinish();
 		model.addAttribute("payFinish", payFinish);
 		
 		return "admin/payStatus";
@@ -405,7 +412,7 @@ public class adminController {
 		dto.setPageNum(pageNum);
 		dto.setCurrentPage(currentPage);
 		
-		List<noticeDTO> noticeList = adminService.getNoticeList(dto);
+		List<NoticeDTO> noticeList = adminService.getNoticeList(dto);
 		
 		int count = adminService.getNoticeCount();
 		int pageBlock = 10; 
@@ -435,7 +442,7 @@ public class adminController {
 	}
 	//공지사항 글 insert해주는 Pro
 	@RequestMapping(value = "/admin/writePro", method = RequestMethod.POST)	
-	public String writePro(noticeDTO noticeDTO) {
+	public String writePro(NoticeDTO noticeDTO) {
 		
 		System.out.println(noticeDTO.getIDX());
 		System.out.println(noticeDTO.getTITLE());
@@ -457,15 +464,55 @@ public class adminController {
 	@RequestMapping(value = "/admin/boardDetail", method = RequestMethod.GET)	
 	public String boardDetail(@RequestParam (value="IDX") int IDX, Model model) {
 		//db에서 IDX를 기준으로 공지글 정보 가져오기 
-		noticeDTO noticeDTO = adminService.getBoard(IDX);
+		NoticeDTO noticeDTO = adminService.getBoard(IDX);
 		//View로 DTO보내기
 		model.addAttribute("noticeDTO", noticeDTO);
 		
 		return "admin/boardDetail";
 	}
 	
-	
+//	관리자 메일 보내기 페이지
+	@RequestMapping(value = "/admin/email", method = RequestMethod.GET)	
+	public String email() {
+		
+		return "admin/mailForm";
+	}
 
+//	관리자 메일 보내기 페이지
+	@RequestMapping(value = "/admin/emailPro", method = RequestMethod.POST)	
+	public String emailPro(UserDTO userDto, HttpServletRequest request) throws Exception {
+		
+		List<UserDTO> eventUserList = adminService.getEventUserList(userDto);
+		
+		for(UserDTO dto : eventUserList) {
+					
+					String subject = request.getParameter("subject");
+					String content = request.getParameter("content");
+			        String from = "omama69@gmail.com";
+			        String to = dto.getId();
+//			        System.out.println(subject +","+content+","+from+","+to);
+			        
+			        try {
+			            MimeMessage mail = mailSender.createMimeMessage();
+			            MimeMessageHelper mailHelper = new MimeMessageHelper(mail,"UTF-8");
+			            
+			            mailHelper.setFrom(from);
+			            mailHelper.setTo(to);
+			            mailHelper.setSubject(subject);
+			            mailHelper.setText(content);
+			            
+			            mailSender.send(mail);
+			            System.out.println("success");
+			            
+			        } catch(Exception e) {
+			            e.printStackTrace();
+			            System.out.println("fail");
+			            break;
+			        }
+				}
+		
+		return "admin/mailForm";
+	}
 	
 	
 }

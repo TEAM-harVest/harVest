@@ -1,13 +1,13 @@
 package com.itwillbs.domain;
 
-public class payDTO {
+public class PayDTO {
 	
-	private String PID; // ÈÄ¿øÀÚID
-	private String PTITLE; // ÈÄ¿øÇÑ ÇÁ·ÎÁ§Æ®¸í
-	private int AMOUNT; // ÈÄ¿ø±Ý¾×(°áÁ¦±Ý¾×)
-	private String PSTATUS; // °áÁ¦»óÅÂ
+	private String PID; // ï¿½Ä¿ï¿½ï¿½ï¿½ID
+	private String PTITLE; // ï¿½Ä¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½
+	private int AMOUNT; // ï¿½Ä¿ï¿½ï¿½Ý¾ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½Ý¾ï¿½)
+	private String PSTATUS; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
-	// joinÇßÀ»¶§ ÇÊ¿äÇÑ ÇÁ·ÎÁ§Æ® ÄÃ·³µé.
+	// joinï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ã·ï¿½ï¿½ï¿½.
 	private String IDX; 
 	private String FUNDSTATUS;
 	
