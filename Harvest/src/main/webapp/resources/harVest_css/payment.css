@@ -133,6 +133,9 @@ html, body {padding:0; margin:0;}
 	font-weight: 900;
 	cursor: pointer;
 }
+#payBtn:hover {
+	background: #daddca;
+}
 /* 인풋 텍스트박스 */
 form input[type="text"] {
 	border:none;
@@ -299,6 +302,9 @@ input[name^="address_"] {
 	font-weight:900;
 	font-size:20px;
 	margin-top:20px;
+}
+.total_btn:hover {
+	background: #d9376b;
 }
 /* 내용보기 안 보이게 */
 div[class$="_article"] {
