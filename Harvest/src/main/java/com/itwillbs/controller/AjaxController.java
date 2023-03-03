@@ -222,7 +222,6 @@ public class AjaxController {
 //			communityDTO.setImgB(request.getParameter(filename));
 //			communityDTO.setImgC(request.getParameter(filename));
 //			String Files = request.getParameter("allFiles");
-			System.out.println("ajax로는 옴");
 
 			communityService.insertBoard(communityDTO);
 //			redirect.addAttribute("pjIdx", request.getParameter("pjIdx"));
@@ -255,10 +254,11 @@ public class AjaxController {
 		@RequestMapping(value = "/project/CommunityListAjax", method = RequestMethod.GET)	
 		public ResponseEntity<List<CommunityDTO>> communityList(HttpServletRequest request, CommunityDTO communityDTO) {
 
+			
 			List<CommunityDTO> communityList =communityService.getComm1List(communityDTO);
-			System.out.println(communityDTO + "communityDTO");
-			System.out.println(communityList + "뭐라하지마세요");
+			System.out.println(communityList+ "ddddddd");
 			ResponseEntity<List<CommunityDTO>> entity = new ResponseEntity<List<CommunityDTO>>(communityList,HttpStatus.OK);
+			
 			return entity;
 		}
 	

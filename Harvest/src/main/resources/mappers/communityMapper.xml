@@ -8,16 +8,16 @@
 
 	<select id="getComm1List" resultType = "com.itwillbs.domain.CommunityDTO">
 			SELECT C.IDX
-				 , C.ID
-			     , UR.NAME
-			   	 , UR.PROFILE
-			     , C.CONTENT_LABEL
-			     , C.CONTENT
-			     , C.DATE
+						 , C.ID
+					     , UR.NAME
+					   	 , UR.PROFILE
+					     , C.CONTENT_LABEL
+					     , C.CONTENT
+					     , C.DATE
 			  FROM COMMUNITY_BOARD C
-			  JOIN USER_TB UR
-			    ON UR.ID = C.ID
-			 WHERE CONTENT_LABEL = #{contentLabel}
+			   JOIN USER_TB UR
+			      ON UR.ID = C.ID
+		 WHERE CONTENT_LABEL = #{contentLabel}
 			   AND PJ_IDX = #{pjIdx}
 			ORDER BY DATE DESC
 	</select>

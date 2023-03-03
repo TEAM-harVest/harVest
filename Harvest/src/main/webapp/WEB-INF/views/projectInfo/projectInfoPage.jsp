@@ -59,10 +59,12 @@ $(document).ready(function(){
 function commShowList(){
 debugger;
 $.ajax ({
+	
 	  // URL은 필수 요소이므로 반드시 구현해야 하는 Property입니다.
 	  url	: "${pageContext.request.contextPath }/project/CommunityListAjax", // 요청이 전송될 URL 주소
 	  type	: "GET", // http 요청 방식 (default: ‘GET’)
-// 	  data  :  data,  // 요청 시 포함될 데이터. contentLabel이라는 키(변수명같은거)에 id 값을 넣기 
+	  data  :  {  'pjIdx' : ${productUpdateDTO.pjIdx},
+				        'contentLabel' : this.id },  // 요청 시 포함될 데이터. contentLabel이라는 키(변수명같은거)에 id 값을 넣기 
 	  content_Type : "application/json", //false, // "application/json", // 요청 컨텐트 타입 
 //	  processData : false,
 //	  enctype : 'multipart/form-data',// 요청 컨텐트 타입 . file은 JSON에 포함될 수 없다. 그래서 FormData 안에 file과 JSON (= data)를 append 시킨다.
