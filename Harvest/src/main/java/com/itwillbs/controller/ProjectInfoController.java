@@ -75,7 +75,7 @@ public class ProjectInfoController {
 		
 		productUpdateDTO.setPjIdx(Integer.parseInt(request.getParameter("idx")));
 //		model.addAttribute("productUpdateDTO", productUpdateDTO);
-		model.addAttribute("communityDTO", communityDTO);
+//		model.addAttribute("communityDTO", communityDTO);
 		
 		
 		return "projectInfo/projectInfoPage";

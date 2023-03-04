@@ -24,15 +24,15 @@ public class CommunityDAOImpl implements CommunityDAO{
 		return sqlSession.selectList(namespace + ".getComm1List", communityDTO);
 	}
 
-//	@Override
-//	public List<CommunityDTO> getComm2List(CommunityDTO dto) {
-//		return sqlSession.selectList(namespace + ".getComm2List", dto);
-//	}
-//
-//	@Override
-//	public List<CommunityDTO> getComm3List(CommunityDTO dto) {
-//		return sqlSession.selectList(namespace + ".getComm3List", dto);
-//	}
+	@Override
+	public List<CommunityDTO> getComm2List(CommunityDTO communityDTO) {
+		return sqlSession.selectList(namespace + ".getComm2List", communityDTO);
+	}
+
+	@Override
+	public List<CommunityDTO> getComm3List(CommunityDTO communityDTO) {
+		return sqlSession.selectList(namespace + ".getComm3List", communityDTO);
+	}
 
 	@Override
 	public void insertBoard(CommunityDTO communityDTO) {
@@ -46,8 +46,8 @@ public class CommunityDAOImpl implements CommunityDAO{
 	}
 
 	@Override
-	public void deleteBoard(int num) {
-		sqlSession.delete(namespace + ".deleteBoard", num);
+	public void deleteBoard(int idx) {
+		sqlSession.delete(namespace + ".deleteBoard", idx);
 	}
 	
 	

@@ -9,15 +9,14 @@ public interface CommunityDAO {
 
 	public List<CommunityDTO> getComm1List(CommunityDTO communityDTO);
 	
-//	public List<CommunityDTO> getComm2List(CommunityDTO dto);
-//	
-//	public List<CommunityDTO> getComm3List(CommunityDTO dto);
+	public List<CommunityDTO> getComm2List(CommunityDTO communityDTO);
+	
+	public List<CommunityDTO> getComm3List(CommunityDTO communityDTO);
 	
 	public void insertBoard(CommunityDTO communityDTO);
 
 	public Integer getMaxNum();
 	
-	public void deleteBoard(int num);
-
+	public void deleteBoard(int idx);
 
 }

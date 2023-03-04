@@ -29,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.domain.CommunityDTO;
 import com.itwillbs.domain.PaymentDTO;
+import com.itwillbs.domain.ProductUpdateDTO;
 import com.itwillbs.domain.UserDTO;
 import com.itwillbs.service.CommunityService;
 import com.itwillbs.service.PaymentService;
@@ -190,7 +191,7 @@ public class AjaxController {
 //		@ResponseBody // ajax를 위한 메서드...자바 객체를 HTTP 응답 본문의 객체로 변환
 		@RequestMapping(value = "/project/CommunityWriteAjax", method = RequestMethod.POST)
 		public ResponseEntity<List<CommunityDTO>> CommunityWriteAjax(
-										 @RequestParam(value = "pjIdx") String pjIdx,
+										 @RequestParam(value = "pjIdx") int pjIdx,
 										 @RequestParam(value = "id") String id,
 										 @RequestParam(value = "content") String content,
 //										 @RequestPart(value = "file") String imgA,
@@ -253,14 +254,44 @@ public class AjaxController {
 		
 		@RequestMapping(value = "/project/CommunityListAjax", method = RequestMethod.GET)	
 		public ResponseEntity<List<CommunityDTO>> communityList(HttpServletRequest request, CommunityDTO communityDTO) {
-
 			
-			List<CommunityDTO> communityList =communityService.getComm1List(communityDTO);
-			System.out.println(communityList+ "ddddddd");
-			ResponseEntity<List<CommunityDTO>> entity = new ResponseEntity<List<CommunityDTO>>(communityList,HttpStatus.OK);
+			communityDTO.setContentLabel(request.getParameter("contentLabel"));
+			communityDTO.setPjIdx(Integer.parseInt(request.getParameter("pjIdx")));
+
+			String contentLabel = request.getParameter("contentLabel");
+			
+			List<CommunityDTO> commList = null;
+			
+			if(contentLabel.equals("commList1")) {
+				commList = communityService.getComm1List(communityDTO);
+				
+			} else if(contentLabel.equals("commList2")) {
+				commList = communityService.getComm2List(communityDTO);
+				
+			} else if(contentLabel.equals("commList3")) {
+				commList = communityService.getComm3List(communityDTO);
+				
+			}
+			
+			ResponseEntity<List<CommunityDTO>> entity = new ResponseEntity<List<CommunityDTO>>(commList,HttpStatus.OK);
 			
 			return entity;
 		}
+		
+		@RequestMapping(value = "/project/deleteAjax", method = RequestMethod.GET)	
+		public String delete(CommunityDTO communityDTO, HttpServletRequest request, RedirectAttributes redirect) {
+
+			
+			int idx = Integer.parseInt(request.getParameter("idx")); // 프로젝트 번호
+			System.out.println(idx + "잘 넘어오는지...");
+			communityService.deleteBoard(idx);
+			
+//			redirect.addAttribute("idx", request.getParameter("pjIdx"));
+
+			
+			return "success"; 
+		}
+		
 	
 						
 }

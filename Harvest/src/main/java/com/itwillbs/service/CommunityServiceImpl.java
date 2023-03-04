@@ -20,19 +20,21 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public List<CommunityDTO> getComm1List(CommunityDTO communityDTO) {
+		
+		
 		return communityDAO.getComm1List(communityDTO);
 	}
 
-//	@Override
-//	public List<CommunityDTO> getComm2List(CommunityDTO dto) {
-//		return communityDAO.getComm2List(dto);
-//	}
-//
-//	@Override
-//	public List<CommunityDTO> getComm3List(CommunityDTO dto) {
-//		return communityDAO.getComm3List(dto);
-//		
-//	}
+	@Override
+	public List<CommunityDTO> getComm2List(CommunityDTO communityDTO) {
+		return communityDAO.getComm2List(communityDTO);
+	}
+
+	@Override
+	public List<CommunityDTO> getComm3List(CommunityDTO communityDTO) {
+		return communityDAO.getComm3List(communityDTO);
+		
+	}
 
 	@Override
 	public void insertBoard(CommunityDTO communityDTO) {
@@ -52,10 +54,11 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
-	public void deleteBoard(int num) {
-		communityDAO.deleteBoard(num);
-		
+	public void deleteBoard(int idx) {
+		communityDAO.deleteBoard(idx);
 	}
+
+	
 	
 	
 	
