@@ -188,21 +188,21 @@ public class AjaxController {
 		
 
 		// 숙인
+		// 커뮤니티탭에 댓글쓰기
 //		@ResponseBody // ajax를 위한 메서드...자바 객체를 HTTP 응답 본문의 객체로 변환
 		@RequestMapping(value = "/project/CommunityWriteAjax", method = RequestMethod.POST)
 		public ResponseEntity<List<CommunityDTO>> CommunityWriteAjax(
-										 @RequestParam(value = "pjIdx") int pjIdx,
-										 @RequestParam(value = "id") String id,
-										 @RequestParam(value = "content") String content,
+//										 @RequestParam(value = "pjIdx") int pjIdx,
+//										 @RequestParam(value = "id") String id,
+//										 @RequestParam(value = "content") String content,
 //										 @RequestPart(value = "file") String imgA,
 //										 @RequestParam(value = "imgB") String imgB,
 //										 @RequestParam(value = "imgC") String imgC,
-										 @RequestParam(value = "contentLabel") String contentLabel,
-										 CommunityDTO communityDTO, 
-										 RedirectAttributes redirect,
-										 HttpServletRequest request,
-										 MultipartFile file,
-										 Model model
+//										 @RequestParam(value = "contentLabel") String contentLabel,
+										 CommunityDTO communityDTO
+//										 RedirectAttributes redirect,
+//										 HttpServletRequest request,
+//										 MultipartFile file,
 										) throws Exception {
 			
 //			// 업로드 파일명 : 랜덤문자_파일이름 (파일 이름이 중복이 안되도록 하기위함)
@@ -227,13 +227,13 @@ public class AjaxController {
 			communityService.insertBoard(communityDTO);
 //			redirect.addAttribute("pjIdx", request.getParameter("pjIdx"));
 
-			System.out.println(communityDTO.getPjIdx() + "프로젝트 번호");
-			System.out.println(id + "아이디");
-			System.out.println(content + "내용");
-//			System.out.println(imgA);
-//			System.out.println(imgB);
-//			System.out.println(imgC);
-			System.out.println(contentLabel);
+//			System.out.println(communityDTO.getPjIdx() + "프로젝트 번호");
+//			System.out.println(id + "아이디");
+//			System.out.println(content + "내용");
+////			System.out.println(imgA);
+////			System.out.println(imgB);
+////			System.out.println(imgC);
+//			System.out.println(contentLabel);
 			
 			List<CommunityDTO> communityList1 = communityService.getComm1List(communityDTO);
 //			model.addAttribute("communityList1", communityList1);
@@ -252,6 +252,7 @@ public class AjaxController {
 
 		}
 		
+		// 커뮤니티탭에 쓴 댓글 응원/문의/후기 탭마다 다르게 list보이게 하기
 		@RequestMapping(value = "/project/CommunityListAjax", method = RequestMethod.GET)	
 		public ResponseEntity<List<CommunityDTO>> communityList(HttpServletRequest request, CommunityDTO communityDTO) {
 			
@@ -278,6 +279,7 @@ public class AjaxController {
 			return entity;
 		}
 		
+		// 커뮤니티탭 댓글 삭제
 		@RequestMapping(value = "/project/deleteAjax", method = RequestMethod.GET)	
 		public String delete(CommunityDTO communityDTO, HttpServletRequest request, RedirectAttributes redirect) {
 

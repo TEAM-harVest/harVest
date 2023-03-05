@@ -468,7 +468,10 @@ span[class^="heart"] {
 	margin-bottom: 60px;
 }
 /* 댓글쓰기 */
-.cmt_write textarea {
+.cmt_list {
+	margin-bottom: 20px;
+}
+.cmt_write textarea, .re_cmt > textarea {
 	width: 100%;
 	height:4em;
 	resize: none !important;
@@ -486,6 +489,23 @@ span[class^="heart"] {
 /* 댓글쓰기 버튼 */
 .cmt_write .cmt_btn {
 	float: right;
+	border: 1.5px solid #daddca;
+	background: white;
+	font-size:12px;
+	font-weight:900;
+	padding: 5px 15px;
+	border-radius: 5px;
+	color: #ced2b9;
+}
+/* 대댓 영역 */
+.re_cmt {
+	display: none;
+	text-align: right;
+}
+
+/* 대댓 작성버튼 */
+.re_cmt_btn {
+	margin-bottom: 5px;
 	border: 1.5px solid #daddca;
 	background: white;
 	font-size:12px;

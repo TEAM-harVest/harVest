@@ -52,10 +52,23 @@ $(document).ready(function(){
 	$('.cmt_btn').on('click', commSubmit);		// 클릭하면 commSubmit 실행
 	$('#onDisplay').on('click', updateDisplay );	// 클릭하면 업데이트탭의 글쓰기폼 보여주기
 	$('#onDisplay2').on('click', CommunityDisplay2 ); // 클릭하면 커뮤니티탭(리뷰) 글쓰기폼 보여주기
-	$('#contact-tab, .list li').on('click', commShowList); // 커뮤니티탭 클릭시 응원탭에 list보이게 하기
+	$('#contact-tab').on('click', function () {
+		$('#commList1').trigger('click'); // contact-tab클릭하면 commList1을 클릭하게 됨
+	} );
+	$('.list li').on('click', commShowList); // 커뮤니티탭 클릭시 응원탭에 list보이게 하기
+	
+// 	$('.cmt_reply_btn').click(reCmtOpen)
+	
+	
 })
 
-function commShowList(){
+
+function commFightingList(list){
+	// debugger;
+	commShowList(list);	 
+}
+
+function commShowList(list){
 	
 	var commList = $(this).attr("id");
 	
@@ -97,9 +110,20 @@ function commShowList(){
 			showList += 		'<div class="cmt_content"> '
 			showList += 			'<span>' + item.content + '</span> '
 			showList += 			'<div class="cmt_cont_btn"> '
-			showList += 				'<button class="cmt_reply_btn">댓글쓰기</button> '
+			showList += 				'<button class="cmt_reply_btn" onclick="reCmtOpen()" >댓글쓰기</button> '
 			showList += 				'<button class="cmt_delete_btn" onclick="deleteComm(' + idx + ')">삭제</button> '
 			showList += 			'</div> '
+			
+			
+			showList += '<div class="re_cmt">'
+			showList += 	'<textarea>'
+			showList += 	'</textarea>'
+			showList +=		'<button class="re_cmt_btn">'
+			showList +=			'작성하기'
+			showList +=		'</button>'
+			showList += '</div>'
+			
+			
 			showList += 		'</div> '
 			showList += 	'</table> '
 			showList += '</div>'
@@ -111,6 +135,11 @@ function commShowList(){
 	  }
 	  
 	});
+}
+
+function reCmtOpen(){
+	debugger;
+	$('.re_cmt').show();
 }
 
 function deleteComm(idx){
@@ -475,24 +504,22 @@ function commSubmit(){
 				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
 				  </div>
 				  <div class="carousel-inner">
-				    <c:set var="img" value="${projectDTO.img1}"/>
-						<c:if test="${not empty img}">
-							<c:forEach var="newImg" items="${fn:split(img,'&')}">
-							    <div class="carousel-item active">
-							      <img src="${pageContext.request.contextPath}/resources/harVest_img/${newImg[0]}" class="d-block w-100" alt="...">
-							    </div>
-							    <c:if test="${not empty newImg[1]}">
-							    <div class="carousel-item">
-							      <img src="${pageContext.request.contextPath}/resources/harVest_img/${newImg[1]}" class="d-block w-100" alt="...">
-							    </div>
-							    </c:if>
-							    <c:if test="${not empty newImg[2]}">
-							    <div class="carousel-item">
-							      <img src="${pageContext.request.contextPath}/resources/harVest_img/${newImg[2]}" class="d-block w-100" alt="...">
-							    </div>
-							    </c:if>
-				    	</c:forEach>
-				    </c:if>
+				    <c:set var="img" value="${projectDTO.img1}" />
+	                  <c:if test="${not empty img}">
+	                     <div class="carousel-item active">
+	                        <img src="${pageContext.request.contextPath}/resources/upload/${fn:split(img,'&')[0]}" class="d-block w-100" alt="...">
+	                     </div>
+	                     <c:if test="${not empty fn:split(img,'&')[1]}">
+	                        <div class="carousel-item">
+	                           <img src="${pageContext.request.contextPath}/resources/upload/${fn:split(img,'&')[1]}" class="d-block w-100" alt="...">
+	                        </div>
+	                     </c:if>
+	                     <c:if test="${not empty fn:split(img,'&')[2]}">
+	                        <div class="carousel-item">
+	                           <img src="${pageContext.request.contextPath}/resources/upload/${fn:split(img,'&')[2]}" class="d-block w-100" alt="...">
+	                        </div>
+	                     </c:if>
+	                  </c:if>
 				  </div>
 				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
 				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -774,35 +801,6 @@ function commSubmit(){
 				      		</form>
 				      		<!-- if문으로 댓글 돌리기 -->
 				      		<div class="cmt_list" id="table_commList1">
-						      			<!-- 프로필 영역 -->
-<!-- 						      			<div class="cmt_profile_box"> -->
-<!-- 						      				프로필 이미지 -->
-<!-- 						      				<div class="cmt_profile_img"> -->
-<!-- 						      					<a href="#"> -->
-<%-- 						      						<img src="${pageContext.request.contextPath }/resources/upload/${dto.profile}"> --%>
-<!-- 						      					</a> -->
-<!-- 						      				</div> -->
-<!-- 						      				프로필 정보 -->
-<!-- 						      				<div class="cmt_profile_info"> -->
-<!-- 						      					닉네임/댓글 유형 -->
-<!-- 						      					<div class="cmt_info"> -->
-<%-- 						      						<span>${dto.name}</span> --%>
-<%-- 						      						<span>${dto.contentLabel}</span> --%>
-<%-- 						      						<p class="cmt_time">${dto.date}</p> --%>
-<!-- 						      					</div> -->
-<!-- 						      				</div> -->
-<!-- 						      			</div> -->
-						      			<!-- 댓글 내용 영역 -->
-<!-- 						      			<div class="cmt_content"> -->
-<!-- 						      				<span>{dto.content}</span> -->
-<!-- 						      				댓글 작성자만 볼 수 있게 하기 -->
-<!-- 						      				<div class="cmt_cont_btn"> -->
-<!-- 						      					<button class="cmt_reply_btn">댓글쓰기</button> -->
-<!-- 						      					<button class="cmt_update_btn">수정</button> -->
-<!-- 						      					<button class="cmt_delete_btn">삭제</button> -->
-<!-- 						      				</div> -->
-<!-- 						      				댓글 작성자만 볼 수 있게 하기 끝 -->
-<!-- 						      			</div> -->
 				      		</div>
 				      	</div>
 				      	<!-- if문으로 댓글 돌리기 끝 -->
@@ -823,35 +821,6 @@ function commSubmit(){
 					      		</div>
 					      		<!-- if문으로 댓글 돌리기 -->
 					      		<div class="cmt_list" id="table_commList2">
-<!-- 							      			프로필 영역 -->
-<!-- 							      			<div class="cmt_profile_box"> -->
-<!-- 							      				프로필 이미지 -->
-<!-- 							      				<div class="cmt_profile_img"> -->
-<!-- 							      					<a href="#"> -->
-<%-- 							      						<img src="${pageContext.request.contextPath }/resources/upload/${dto.profile}"> --%>
-<!-- 							      					</a> -->
-<!-- 							      				</div> -->
-<!-- 							      				프로필 정보 -->
-<!-- 							      				<div class="cmt_profile_info"> -->
-<!-- 							      					닉네임/댓글 유형 -->
-<!-- 							      					<div class="cmt_info"> -->
-<%-- 							      						<span>${dto.name}</span> --%>
-<%-- 							      						<span>${dto.contentLabel}</span> --%>
-<%-- 							      						<p class="cmt_time">${dto.date}</p> --%>
-<!-- 							      					</div> -->
-<!-- 							      				</div> -->
-<!-- 							      			</div> -->
-<!-- 							      			댓글 내용 영역 -->
-<!-- 							      			<div class="cmt_content"> -->
-<%-- 							      				<span>${dto.content}</span> --%>
-<!-- 							      				댓글 작성자만 볼 수 있게 하기 -->
-<!-- 							      				<div class="cmt_cont_btn"> -->
-<!-- 							      					<button class="cmt_reply_btn">댓글쓰기</button> -->
-<!-- 							      					<button class="cmt_update_btn">수정</button> -->
-<!-- 							      					<button class="cmt_delete_btn">삭제</button> -->
-<!-- 							      				</div> -->
-<!-- 							      				댓글 작성자만 볼 수 있게 하기 끝 -->
-<!-- 							      			</div> -->
 					      		</div>
 				      		</form>
 				      	</div>
@@ -873,35 +842,6 @@ function commSubmit(){
 					      		</div>
 					      		<!-- if문으로 댓글 돌리기 -->
 					      		<div class="cmt_list" id="table_commList3">
-<!-- 							      			프로필 영역 -->
-<!-- 							      			<div class="cmt_profile_box"> -->
-<!-- 							      				프로필 이미지 -->
-<!-- 							      				<div class="cmt_profile_img"> -->
-<!-- 							      					<a href="#"> -->
-<%-- 							      						<img src="${pageContext.request.contextPath }/resources/upload/${dto.profile}"> --%>
-<!-- 							      					</a> -->
-<!-- 							      				</div> -->
-<!-- 							      				프로필 정보 -->
-<!-- 							      				<div class="cmt_profile_info"> -->
-<!-- 							      					닉네임/댓글 유형 -->
-<!-- 							      					<div class="cmt_info"> -->
-<%-- 							      						<span>${dto.name}</span> --%>
-<%-- 							      						<span>${dto.contentLabel}</span> --%>
-<%-- 							      						<p class="cmt_time">${dto.date}</p> --%>
-<!-- 							      					</div> -->
-<!-- 							      				</div> -->
-<!-- 							      			</div> -->
-<!-- 							      			댓글 내용 영역 -->
-<!-- 							      			<div class="cmt_content"> -->
-<%-- 							      				<span>${dto.content}</span> --%>
-<!-- 							      				댓글 작성자만 볼 수 있게 하기 -->
-<!-- 							      				<div class="cmt_cont_btn"> -->
-<!-- 							      					<button class="cmt_reply_btn">댓글쓰기</button> -->
-<!-- 							      					<button class="cmt_update_btn">수정</button> -->
-<!-- 							      					<button class="cmt_delete_btn">삭제</button> -->
-<!-- 							      				</div> -->
-<!-- 							      				댓글 작성자만 볼 수 있게 하기 끝 -->
-<!-- 							      			</div> -->
 					      		</div>
 				      		</form>
 				      	</div>

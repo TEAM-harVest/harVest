@@ -9,18 +9,19 @@
 <!-- 	  FROM PROJECT_TB -->
 <!-- 	</select> -->
 	<select id="getProjectInfo" resultType="com.itwillbs.domain.ProjectDTO">
-	SELECT p.*
-          , case when (SELECT COUNT(*) AS HEARTFILL
-                        FROM LIKE_TB
-                       WHERE PJ_IDX = P.IDX
-                      AND USER_ID = #{SESSIONID}) = 1 THEN 'heart_fill.svg'
-                                                 ELSE 'heart.svg' END AS HEART
-          , COUNT(PAY.ID) AS sumUser
-          , SUM(PAY.AMOUNT) AS sumMoney
-          FROM PROJECT_TB P
-          JOIN PAYMENT_TB PAY
-          ON P.IDX = PAY.pj_IDX
-        WHERE P.IDX = #{IDX};
+		SELECT p.*
+		     , case when (SELECT COUNT(*) AS HEARTFILL
+		                    FROM LIKE_TB
+		                   WHERE PJ_IDX = P.IDX
+		                	 AND USER_ID = #{SESSIONID}) = 1 THEN 'heart_fill.svg'
+		                                          			 ELSE 'heart.svg' END AS HEART
+		     , COALESCE(COUNT(PAY.ID), 0) AS sumUser
+		     , COALESCE(SUM(PAY.AMOUNT), 0) AS sumMoney
+		  FROM PROJECT_TB P
+		  LEFT JOIN PAYMENT_TB PAY
+		    ON P.IDX = PAY.pj_IDX
+		 WHERE P.IDX = #{IDX}
+		 GROUP BY p.IDX
 	</select>
 	
 	<!-- 프로젝트에 대한 총 좋아요 수 -->
