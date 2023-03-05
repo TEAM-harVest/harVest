@@ -48,7 +48,7 @@ public class ProjectInfoController {
 		param.put("IDX", idx + "");
 		
 		ProjectDTO projectDTO = projectService.getProjectInfo(param);
-		
+		System.out.println("111111111:  "+projectDTO.getCategory());
 		model.addAttribute("projectDTO", projectDTO);
 		
 		return "projectInfo/projectInfoPage";
@@ -92,6 +92,10 @@ public class ProjectInfoController {
 		
 		model.addAttribute("projectDTO", projectDTO);
 		return "projectInfo/projectOpenPage";
+	}
+	@RequestMapping(value = "/payment/paySuccess", method = RequestMethod.GET)
+	public String paySuccess() {
+		return "payment/paySuccess";
 	}
 
 }

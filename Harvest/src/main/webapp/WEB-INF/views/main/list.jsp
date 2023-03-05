@@ -26,6 +26,9 @@
 	${sessionScope.iD}님 로그인 하셨습니다.
 	<button onclick="location.href='${pageContext.request.contextPath}/member/logout'">로그아웃</button>
 	</c:if>
+	<a href="${pageContext.request.contextPath}/project/projectOpen?idx=1">공개예정</a>
+	<a href="${pageContext.request.contextPath}/project/allProject">allProject</a>
+	<a href="${pageContext.request.contextPath}/project/main">main</a>
 	
 	
 </body>

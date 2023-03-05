@@ -6,27 +6,28 @@
 <mapper namespace="com.itwillbs.mappers.projectMapper">
 	<select id="getProjectList" resultType="com.itwillbs.domain.ProjectDTO">
 	SELECT *
-	  FROM PROJECT
+	  FROM PROJECT_TB
 	</select>
+	
 	<select id="getProjectInfo" resultType="com.itwillbs.domain.ProjectDTO">
-	 SELECT IDX
-	 	  , CATEGORY
-	 	  , TITLE
-	 	  , INTRO
-	 	  , TARGET_AMT
-	 	  , START
-	 	  , END
-	 	  , IMG1
-	 	  , IMG2
-	 	  , IMG3
-	 	  , case when (SELECT COUNT(*)
-	 	  				 FROM LIKE_TB
-	 	  				WHERE PJ_IDX = P.IDX
-	 	  				  AND USER_ID = #{SESSIONID}) = 1 THEN 'heart_fill.svg'
-		   											 	  ELSE 'heart.svg'
-		   											   	   END AS HEART  
-	  FROM PROJECT P
-	 WHERE IDX = #{IDX}
+		SELECT p.*
+			 , case when (SELECT COUNT(*) AS HEARTFILL
+			   				FROM LIKE_TB
+			  			   WHERE PJ_IDX = P.IDX
+							 AND USER_ID = #{SESSIONID}) = 1 THEN 'heart_fill.svg'
+			   												 ELSE 'heart.svg' END AS HEART
+			 , COALESCE(COUNT(PAY.ID), 0) AS sumUser
+			 , COALESCE(SUM(PAY.AMOUNT), 0) AS sumMoney
+		  FROM PROJECT_TB P
+		  LEFT JOIN PAYMENT_TB PAY
+			ON P.IDX = PAY.pj_IDX
+		 WHERE P.IDX = #{IDX}
+		 GROUP BY p.IDX;
+	</select>
+	<select id="projectOpen" resultType="com.itwillbs.domain.ProjectDTO">
+		SELECT *
+  		  FROM PROJECT_TB
+ 		 WHERE IDX = #{IDX};
 	</select>
 	
 	<select id="getLike" resultType="HashMap" parameterType="HashMap">
@@ -56,15 +57,15 @@
 	       AND USER_ID = #{USER_ID}
 	</delete>
 	
-	<select id="getSumMoney" resultType="java.lang.Integer">
-		SELECT SUM(AMOUNT) AS sumMoney
-	  	  FROM PAYMENT_TB
-	  	 WHERE PJ_IDX = #{IDX}
-	</select>
+<!-- 	<select id="getSumMoney" resultType="java.lang.Integer"> -->
+<!-- 		SELECT SUM(AMOUNT) AS sumMoney -->
+<!-- 	  	  FROM PAYMENT_TB -->
+<!-- 	  	 WHERE PJ_IDX = #{IDX} -->
+<!-- 	</select> -->
 	
-	<select id="getSumUser" resultType="java.lang.Integer">
-		SELECT COUNT(ID) AS sumUser
-		  FROM PAYMENT_TB
-		 where PJ_IDX = #{IDX};
-	</select>
+<!-- 	<select id="getSumUser" resultType="java.lang.Integer"> -->
+<!-- 		SELECT COUNT(ID) AS sumUser -->
+<!-- 		  FROM PAYMENT_TB -->
+<!-- 		 where PJ_IDX = #{IDX}; -->
+<!-- 	</select> -->
 </mapper>

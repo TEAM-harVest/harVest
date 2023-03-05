@@ -26,7 +26,7 @@ public class MemberController {
 			session.setAttribute("iD", loginDTO.getID());
 			return "redirect:/main/mainList";
 		} else {
-			return "project/projectPage";
+			return "projectInfo/projectInfoPage";
 		}
 	}
 	

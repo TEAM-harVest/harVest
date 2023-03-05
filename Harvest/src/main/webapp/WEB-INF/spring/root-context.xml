@@ -7,8 +7,8 @@
 <!-- 		db 넣어주기 -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property><!-- driverClassName -->
-		<property name="url" value="jdbc:mysql://localhost:3306/harvest?serverTimezone=Asia/Seoul"></property><!-- url, value:jsp -> meta -> context안에 있는거 -->
-		<property name="username" value="root"></property><!-- username -->
+		<property name="url" value="jdbc:mysql://db.itwillbs.dev:3306/class2_220922_team3_2?serverTimezone=Asia/Seoul"></property><!-- url, value:jsp -> meta -> context안에 있는거 -->
+		<property name="username" value="class2_220922_team3"></property><!-- username -->
 		<property name="password" value="1234"></property><!-- password -->
 	</bean>
 	

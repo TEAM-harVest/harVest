@@ -247,7 +247,7 @@ function keyDown(e) {
 											예상을 뛰어넘는 멋진 결과가 나올 수 있지만 진행 과정에서 계획이 지연, 변경되거나 무산될 수도 있습니다. 본 프로젝트를 완수할 책임과 권리는 창작자에게 있습니다.
 										</div>
 									</div>
-									<div class="total_btn" onclick="location.href='${pageContext.request.contextPath}/main/mainList'">후원하기</div>
+									<div class="total_btn" onclick="location.href='${pageContext.request.contextPath}/payment/paySuccess'">후원하기</div>
 								</div>
 							</div>
 							</div>

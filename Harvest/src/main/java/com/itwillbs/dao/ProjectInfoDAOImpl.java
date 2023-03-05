@@ -26,6 +26,7 @@ public class ProjectInfoDAOImpl implements ProjectInfoDAO {
 
 	@Override
 	public ProjectDTO getProjectInfo(Map<String, String> param) {
+		System.out.println("idx....daoimpl : "+param.get("IDX"));
 		return sqlSession.selectOne(namespace + ".getProjectInfo", param);
 	}
 
