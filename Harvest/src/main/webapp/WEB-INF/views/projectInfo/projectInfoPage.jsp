@@ -307,7 +307,7 @@ function commSubmit(){
 //		  dataType    : "json", // 응답 데이터 형식 (명시하지 않을 경우 자동으로 추측)
 		  success : function(data) { // function(data)가 성공하면 콘솔에 data찍어줘 
 // 			console.log('성공')	  //  콘솔에 data찍어줘. 컨트롤러에서 return값 돌려 받음
-			  commShowList(list);
+// 			  commShowList(list);
 		  }
 		});
 	
