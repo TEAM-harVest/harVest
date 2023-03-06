@@ -42,7 +42,7 @@
 
 $(document).ready(function(){
 // 	$(".comm").on("click", commSubmit()); // class="comm"이 적힌 버튼을 클릭하면 commSubmit이 작동됨
-// $(".comm").on('click',  functiom(){ commSubmit(); });
+// $(".comm").on('click',  function(){ commSubmit(); });
 // $(".comm").on('click',  () => { commSubmit();  });
 
 	// event start
