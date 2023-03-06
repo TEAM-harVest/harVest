@@ -13,5 +13,9 @@ public interface ProductUpdateDAO {
 	public List<ProductUpdateDTO> getUpdateList(ProductUpdateDTO productUpdateDTO);
 
 	public void deleteBoard(ProductUpdateDTO productUpdateDTO);
+	
+	public ProductUpdateDTO getUpdate(int num);
+	
+	public void updateBoard(ProductUpdateDTO productUpdateDTO);
 
 }

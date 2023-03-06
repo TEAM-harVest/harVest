@@ -13,15 +13,18 @@
 <title>productPage.jsp</title>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/harVest_js/jquery-3.6.3.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/harVest_js/projectInfoPage.js"></script>
+<script src="https://cdn.tiny.cloud/1/6d0eescgzo66t0hqfeu0aeu5fyxbu2c0415q0gzufzi1uyaa/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <link href="${pageContext.request.contextPath}/resources/harVest_css/projectInfoPage.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/harVest_css/app.d69b58d686469c0a1bc8.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/harVest_css/productUpdate.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/assets/css/joeblog.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
+
 <style>
 nav {position: relative !important;}
 </style>
+
 <script type="text/javascript">
 $(document).ready(function(){
 	// 찜하기 버튼
@@ -49,122 +52,15 @@ $(document).ready(function(){
 	$('#secBtn3').click(pageScroll3)
 	
 	// 숙인
-	$('.cmt_btn').on('click', commSubmit);		// 클릭하면 commSubmit 실행
+	$('.cmt_btn').on('click', commSubmit );		// 클릭하면 commSubmit 실행
 	$('#onDisplay').on('click', updateDisplay );	// 클릭하면 업데이트탭의 글쓰기폼 보여주기
 	$('#onDisplay2').on('click', CommunityDisplay2 ); // 클릭하면 커뮤니티탭(리뷰) 글쓰기폼 보여주기
 	$('#contact-tab').on('click', function () {
 		$('#commList1').trigger('click'); // contact-tab클릭하면 commList1을 클릭하게 됨
-	} );
+	});
 	$('.list li').on('click', commShowList); // 커뮤니티탭 클릭시 응원탭에 list보이게 하기
 	
-// 	$('.cmt_reply_btn').click(reCmtOpen)
-	
-	
 })
-
-
-function commFightingList(list){
-	// debugger;
-	commShowList(list);	 
-}
-
-function commShowList(list){
-	
-	var commList = $(this).attr("id");
-	
-	$.ajax ({
-	
-	  // URL은 필수 요소이므로 반드시 구현해야 하는 Property입니다.
-	  url	: "${pageContext.request.contextPath }/project/CommunityListAjax", // 요청이 전송될 URL 주소
-	  type	: "GET", // http 요청 방식 (default: ‘GET’)
-	  data  :  { 'contentLabel' : $(this).attr("id"),
-		         'pjIdx' : ${productUpdateDTO.pjIdx} },  // 요청 시 포함될 데이터
-	  content_Type : "application/json", //false, // "application/json", // 요청 컨텐트 타입 
-//	  processData : false,
-//	  enctype : 'multipart/form-data',// 요청 컨텐트 타입 . file은 JSON에 포함될 수 없다. 그래서 FormData 안에 file과 JSON (= data)를 append 시킨다.
-	  dataType    : "JSON", // 응답 데이터 형식 (명시하지 않을 경우 자동으로 추측)
-	  success : function(list) { // function(data)가 성공하면 콘솔에 data찍어줘 
-		console.log(list);	  //  콘솔에 data찍어줘. 컨트롤러에서 return값 돌려 받음
-		
-	  	var showList = ""; 
-		
-		$.each(list,function(index,item){
-			var idx = item.idx;
-			var dt=new Date(item.date);
-	        var d=dt.getFullYear()+"-"+(dt.getMonth()+1)+"-"+dt.getDate()+" "+dt.getHours()+":"+dt.getMinutes()+":"+dt.getSeconds();
-			
-			showList += '<div class="cmt_list"> '
-			showList += 	'<table id="table_COM1"> '
-			showList += 		'<div class="cmt_profile_box"> '
-			showList += 			'<div class="cmt_profile_img"> '
-			showList += 				'<a href="#"><img src="${pageContext.request.contextPath }/resources/upload/' + item.profile + '"></a> '
-			showList += 			'</div> '
-			showList += 			'<div class="cmt_profile_info"> '
-			showList += 				'<div class="cmt_info"> '
-			showList += 					'<span>' + item.name + '</span> '
-			showList += 					'<span>' + item.contentLabel + '</span> '
-			showList += 					'<p class="cmt_time">' + d + '</p> '
-			showList += 				'</div> '
-			showList += 			'</div> '
-			showList += 		'</div> '
-			showList += 		'<div class="cmt_content"> '
-			showList += 			'<span>' + item.content + '</span> '
-			showList += 			'<div class="cmt_cont_btn"> '
-			showList += 				'<button class="cmt_reply_btn" onclick="reCmtOpen()" >댓글쓰기</button> '
-			showList += 				'<button class="cmt_delete_btn" onclick="deleteComm(' + idx + ')">삭제</button> '
-			showList += 			'</div> '
-			
-			
-			showList += '<div class="re_cmt">'
-			showList += 	'<textarea>'
-			showList += 	'</textarea>'
-			showList +=		'<button class="re_cmt_btn">'
-			showList +=			'작성하기'
-			showList +=		'</button>'
-			showList += '</div>'
-			
-			
-			showList += 		'</div> '
-			showList += 	'</table> '
-			showList += '</div>'
-		  });
-		
-		$('#table_' + commList).empty();
-		$('#table_' + commList).append(showList);
-		
-	  }
-	  
-	});
-}
-
-function reCmtOpen(){
-	debugger;
-	$('.re_cmt').show();
-}
-
-function deleteComm(idx){
-	
-	$.ajax ({
-		
-		  // URL은 필수 요소이므로 반드시 구현해야 하는 Property입니다.
-		  url	: "${pageContext.request.contextPath }/project/deleteAjax", // 요청이 전송될 URL 주소
-		  type	: "GET", // http 요청 방식 (default: ‘GET’)
-		  data  :  { 'idx' : idx },  // 요청 시 포함될 데이터
-// 		  content_Type : "application/json", //false, // "application/json", // 요청 컨텐트 타입 
-//		  processData : false,
-//		  enctype : 'multipart/form-data',// 요청 컨텐트 타입 . file은 JSON에 포함될 수 없다. 그래서 FormData 안에 file과 JSON (= data)를 append 시킨다.
-		  dataType    : "JSON", // 응답 데이터 형식 (명시하지 않을 경우 자동으로 추측)
-		  success : function(result) { // function(data)가 성공하면 콘솔에 data찍어줘 
-			console.log(list);	  //  콘솔에 data찍어줘. 컨트롤러에서 return값 돌려 받음
-			commShowList();
-		  },
-		  error : function(result){
-			  alert(result + "에러");
-		  }
-	});
-			
-	
-}
 
 function btnColor() {
 // 	$('html, body').animate({scrollTop: $($.attr(this, 'href')).offset(top:50)},100);
@@ -243,7 +139,7 @@ function like() {
 		  url	: "${pageContext.request.contextPath}/project/likePro", // 요청이 전송될 URL 주소
 		  type	: "POST", // http 요청 방식 (default: ‘GET’)
 		  data  : {'PJ_IDX' : $('#pjIdx').val(),
-			  	   'USER_ID' : '${sessionScope.iD}'}, // TODO session 아이디로 바까라 좋은말 할때...
+			  	  		 'USER_ID' : '${sessionScope.iD}'}, // TODO session 아이디로 바까라 좋은말 할때...
 		  //processData : true, // 데이터를 컨텐트 타입에 맞게 변환 여부
 		  success : function(data) {
 			  var src = $('#likeBtn').attr('src');
@@ -382,7 +278,7 @@ function CommunityDisplay2(){
 	}
 }
 
-// 업데이트탭 글쓰기창 보여주기
+// 업데이트탭 글쓰기창 보여주기/숨기기
 function updateDisplay(){
 	if($("#U_write").css("display") == "none"){
 		$('#U_write').show();
@@ -395,14 +291,15 @@ function updateDisplay(){
 	}
 }
 
-// 커뮤니티탭 응원/문의/리뷰 댓글달고 리스트 띄우기
+// 커뮤니티탭 응원/문의/리뷰 댓글달고 리스트 바로 띄우기
 function commSubmit(){
-	
 	var data = {  pjIdx : ${productUpdateDTO.pjIdx},
-				     id : '${sessionScope.id}', // String은 '  ' 안에 넣어줌
-			    content : $('#content_' + this.id).val(),  // 아... $()안에 든게 id=""였군....
-		   contentLabel : this.id }
+				             id : '${sessionScope.id}', // String은 '  ' 안에 넣어줌
+			    	 	  	content : $('#content_' + this.id).val(),  // 아... $()안에 든게 id=""였군....
+		 				    contentLabel : this.id }
 	
+	var index = this.id.replace("COM", ""); // id COM1, COM2, COM3에 COM빼고 숫자 1, 2, 3만 index에 담기
+
 	$.ajax ({
 		  // URL은 필수 요소이므로 반드시 구현해야 하는 Property입니다.
 		  url	: "${pageContext.request.contextPath }/project/CommunityWriteAjax", // 요청이 전송될 URL 주소
@@ -413,45 +310,189 @@ function commSubmit(){
 // 		  enctype : 'multipart/form-data',// 요청 컨텐트 타입 . file은 JSON에 포함될 수 없다. 그래서 FormData 안에 file과 JSON (= data)를 append 시킨다.
 //		  dataType    : "json", // 응답 데이터 형식 (명시하지 않을 경우 자동으로 추측)
 		  success : function(data) { // function(data)가 성공하면 콘솔에 data찍어줘 
-			console.log('성공')	  //  콘솔에 data찍어줘. 컨트롤러에서 return값 돌려 받음
-			
-// 			var showList = ""; 
-		  	
-// 			$.each(data,function(index,item){
-// 				showList += '<div class="cmt_list"> '
-// 				showList += 	'<table id="table_COM1"> '
-// 				showList += 		'<div class="cmt_profile_box"> '
-// 				showList += 			'<div class="cmt_profile_img"> '
-// 				showList += 				'<a href="#"><img src="${pageContext.request.contextPath }/resources/upload/' + item.profile + '"></a> '
-// 				showList += 			'</div> '
-// 				showList += 			'<div class="cmt_profile_info"> '
-// 				showList += 				'<div class="cmt_info"> '
-// 				showList += 					'<span>' + item.name + '</span> '
-// 				showList += 					'<span>' + item.contentLabel + '</span> '
-// 				showList += 					'<p class="cmt_time">' + item.date + '</p> '
-// 				showList += 				'</div> '
-// 				showList += 			'</div> '
-// 				showList += 		'</div> '
-// 				showList += 		'<div class="cmt_content"> '
-// 				showList += 			'<span>' + item.content + '</span> '
-// 				showList += 			'<div class="cmt_cont_btn"> '
-// 				showList += 				'<button class="cmt_reply_btn">댓글쓰기</button> '
-// 				showList += 				'<button class="cmt_delete_btn">삭제</button> '
-// 				showList += 			'</div> '
-// 				showList += 		'</div> '
-// 				showList += 	'</table> '
-// 				showList += '</div> '
-// 			  });
-			
-// 			$('#table_commList1').empty();
-// 			$('#table_commList1').append(data);
+// 			console.log('성공')	  //  콘솔에 data찍어줘. 컨트롤러에서 return값 돌려 받음
+			  $('#commList' + index).click(); // 댓글 쓰자마자 commList1, 2, 3(탭id)이 클릭되게 하기
 		  }
 		});
 	
 	$('#content_' + this.id).val('');
-	
-	
 }
+
+//커뮤니티탭 댓글 list 보이게 하기
+function commShowList(){
+	
+	 commList = $(this).attr("id");
+	
+	$.ajax ({
+	  url	: "${pageContext.request.contextPath }/project/CommunityListAjax", // 요청이 전송될 URL 주소
+	  type	: "GET", // http 요청 방식 (default: ‘GET’)
+	  data  :  { 'contentLabel' : $(this).attr("id"),
+		         'pjIdx' : ${productUpdateDTO.pjIdx} },  // 요청 시 포함될 데이터
+	  content_Type : "application/json", //false, // "application/json", // 요청 컨텐트 타입 
+//	  processData : false,
+//	  enctype : 'multipart/form-data',// 요청 컨텐트 타입 . file은 JSON에 포함될 수 없다. 그래서 FormData 안에 file과 JSON (= data)를 append 시킨다.
+	  dataType    : "JSON", // 응답 데이터 형식 (명시하지 않을 경우 자동으로 추측)
+	  success : function(list) { // function(data)가 성공하면 콘솔에 data찍어줘 
+		console.log(list);	  //  콘솔에 data찍어줘. 컨트롤러에서 return값 돌려 받음
+		
+	  	var showList = ""; 
+		
+		$.each(list,function(index,item){
+			var idx = item.idx;
+			var dt=new Date(item.date);
+	        var d=dt.getFullYear()+"-"+(dt.getMonth()+1)+"-"+dt.getDate()+" "+dt.getHours()+":"+dt.getMinutes()+":"+dt.getSeconds();
+			
+			showList += '<div class="cmt_list"> '
+			showList += 	'<table id="table_COM1"> '
+			showList += 		'<div class="cmt_profile_box"> '
+			showList += 			'<div class="cmt_profile_img"> '
+			showList += 				'<a href="#"><img src="${pageContext.request.contextPath }/resources/upload/' + item.profile + '"></a> '
+			showList += 			'</div> '
+			showList += 			'<div class="cmt_profile_info"> '
+			showList += 				'<div class="cmt_info"> '
+			showList += 					'<span>' + item.name + '</span> '
+			showList += 					'<span>' + item.contentLabel + '</span> '
+			showList += 					'<p class="cmt_time">' + d + '</p> '
+			showList += 				'</div> '
+			showList += 			'</div> '
+			showList += 		'</div> '
+			showList += 		'<div class="cmt_content"> '
+			showList += 			'<span>' + item.content + '</span> '
+			showList += 			'<div class="cmt_cont_btn"> '
+			showList += 				'<button class="cmt_reply_btn" onclick="reCmtOpenClose()" >댓글쓰기</button> '
+			showList += 				'<button class="cmt_delete_btn" id = "commDelete" onclick="deleteComm(' + idx + ')">삭제</button> '
+			showList += 			'</div> '
+			
+			showList += 			'<div class="re_cmt"> '
+			showList += 				'<textarea></textarea> '
+			showList +=					'<button class="re_cmt_btn">작성하기</button> '
+			showList += 			'</div> '
+			showList += 		'</div> '
+			showList += 	'</table> '
+			showList += '</div>'
+		  });
+		
+		$('#table_' + commList).empty();
+		$('#table_' + commList).append(showList);
+		
+	  }
+	});
+}
+
+// 커뮤니티탭 댓글쓰기 클릭하면 대댓글창 여닫기 
+function reCmtOpenClose(){
+	if($('.re_cmt').css('display') == 'block'){
+		$('.re_cmt').hide();
+		
+	} else {
+		$('.re_cmt').show();
+
+	}
+}
+
+// 커뮤니티탭 댓글 삭제하기
+function deleteComm(idx){
+// 	var = this.id.replace("Delete", "");
+// 	debugger;
+	$.ajax ({
+		  url	: "${pageContext.request.contextPath }/project/deleteAjax", // 요청이 전송될 URL 주소
+		  type	: "GET", // http 요청 방식 (default: ‘GET’ POST PUT DELETE)
+		  data  :  { 'idx' : idx },  // 요청 시 포함될 데이터
+		  dataType    : "text", // 응답 데이터 형식 (명시하지 않을 경우 자동으로 추측)
+		  success : function(result) { // function(data)가 성공하면 콘솔에 data찍어줘 
+			console.log(result);	  //  콘솔에 data찍어줘. 컨트롤러에서 return값 돌려 받음
+			alert(result);	  //  콘솔에 data찍어줘. 컨트롤러에서 return값 돌려 받음
+		  },
+		  error : function(result, error){
+			  alert(error);
+			  alert(result + "에러");
+		  }
+	});
+}
+
+// 업데이트 글쓰기창에 텍스트 에디터
+$(function() {
+         var plugins = [ "advlist", "autolink", "lists", "link", "image",
+               "charmap", "print", "preview", "anchor", "searchreplace",
+               "visualblocks", "code", "fullscreen", "insertdatetime",
+               "media", "table", "paste", "code", "help", "wordcount",
+               "save" ];
+         var edit_toolbar = 'formatselect fontselect fontsizeselect |'
+               + ' forecolor backcolor |'
+               + ' bold italic underline strikethrough |'
+               + ' alignjustify alignleft aligncenter alignright |'
+               + ' bullist numlist |' + ' table tabledelete |'
+               + ' link image';
+
+         tinyMCE.init({
+                  forced_root_block : false,
+                  force_br_newlines : true,
+                  force_p_newlines : false,
+                  language : "ko_KR", //한글판으로 변경
+                  mode : "specific_textareas",
+                  editor_selector : 'mceEditor',
+                  height : 500,
+                  menubar : false,
+                  plugins : plugins,
+                  toolbar : edit_toolbar,
+
+                  /*** image upload ***/
+                  image_title : true,
+                  
+                  /* enable automatic uploads of images represented by blob or data URIs*/
+                  automatic_uploads : true,
+                  /*
+                      URL of our upload handler (for more details check: https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_url)
+                      images_upload_url: 'postAcceptor.php',
+                      here we add custom filepicker only to Image dialog
+                   */
+                  file_picker_types : 'image',
+                  
+                  /* and here's our custom image picker*/
+                  file_picker_callback : function(cb, value, meta) {
+                     var input = document.createElement('input');
+                     input.setAttribute('type', 'file');
+                     input.setAttribute('accept', 'image/*');
+
+                     /*
+                     Note: In modern browsers input[type="file"] is functional without
+                     even adding it to the DOM, but that might not be the case in some older
+                     or quirky browsers like IE, so you might want to add it to the DOM
+                     just in case, and visually hide it. And do not forget do remove it
+                     once you do not need it anymore.
+                      */
+                     input.onchange = function() {
+                        var file = this.files[0];
+
+                        var reader = new FileReader();
+                        reader.onload = function() {
+                           /*
+                           Note: Now we need to register the blob in TinyMCEs image blob
+                           registry. In the next release this part hopefully won't be
+                           necessary, as we are looking to handle it internally.
+                            */
+                           var id = 'blobid' + (new Date()).getTime();
+                           var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                           var base64 = reader.result.split(',')[1];
+                           var blobInfo = blobCache.create(id, file,
+                                 base64);
+                           blobCache.add(blobInfo);
+
+                           /* call the callback and populate the Title field with the file name */
+                           cb(blobInfo.blobUri(), {
+                              title : file.name
+                           });
+                        };
+                        reader.readAsDataURL(file);
+                     };
+                     input.click();
+                  },
+                  /*** image upload ***/
+
+                  content_style : 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+               });
+      });
+
 </script>
 
 <script type="text/javascript">
@@ -634,7 +675,7 @@ function commSubmit(){
 				<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">프로젝트 계획</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">진행사항</button>
+				<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">창작자 공지</button>
 		  	</li>
 			<li class="nav-item" role="presentation">
 				<button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">커뮤니티</button>
@@ -644,28 +685,20 @@ function commSubmit(){
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
 					<div id="secCont1" class="section target">
-			<div class="scroll_btn">
-				<div id="secBtn1" class="section1">프로젝트 소개</div>
-				<div id="secBtn2" class="section2">예산</div>
-				<div id="secBtn3" class="section3">일정</div>
-			</div>
+						<div class="scroll_btn">
+							<div id="secBtn1" class="section1">프로젝트 소개</div>
+							<div id="secBtn2" class="section2">예산</div>
+							<div id="secBtn3" class="section3">일정</div>
+						</div>
 						${projectDTO.intro}
-						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 					</div>
 					<div id="secCont2" class="section target">
 					<hr>
-					${projectDTO.budget}원
+					${projectDTO.budget}
 					</div>
 					<div id="secCont3" class="section target">
 					<hr>
-					${projectDTO.start}~${projectDTO.end}
+					${projectDTO.schedule}
 					</div>
 				</div>
 				<div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
@@ -689,16 +722,18 @@ function commSubmit(){
 									</div>
 								</div>
 								<!-- 창작자 로그인 시 보이게 해주기 -->
+								<c:if test="${!empty sessionScope.id }">
 								<div class="write_btn_wrapper">
-									<button type="submit" class="update_write_btn" onclick="location.href='${pageContext.request.contextPath }/project/update?idx1=${productUpdateDTO.pjIdx}&num1=${dto.idx}'">수정</button>
-									<button type="submit" class="delete_write_btn" onclick="location.href='${pageContext.request.contextPath }/project/delete?idx1=${productUpdateDTO.pjIdx}&num1=${dto.idx}'">삭제</button>
+									<button type="submit" class="update_write_btn" onclick="location.href='${pageContext.request.contextPath }/project/update?idx=${productUpdateDTO.pjIdx}&num=${dto.idx}'">수정</button>
+									<button type="submit" class="delete_write_btn" onclick="location.href='${pageContext.request.contextPath }/project/delete?idx=${productUpdateDTO.pjIdx}&num=${dto.idx}'">삭제</button>
 								</div>
+								</c:if>
 							</div>
 							<div class="creator_cont">
 								${dto.content}
 							</div>
-								<input type="hidden" name="pjIdx" value="${productUpdateDTO.pjIdx }">
-								<input type="hidden" name="idx" value="${dto.idx }">
+<%-- 								<input type="hidden" name="pjIdx" value="${productUpdateDTO.pjIdx }"> --%>
+<%-- 								<input type="hidden" name="idx" value="${dto.idx }"> --%>
 						</c:forEach>
 						
 						<!-- 창작자 로그인 시 보이게 해주기 -->
@@ -732,9 +767,9 @@ function commSubmit(){
 												<div class="EditorLayout__Body-sc-9ka57a-2 etJmpB">
 													<div class="EditorLayout__LeftSide-sc-9ka57a-3 bKAMOw">
 														<div class="InputWithGuideAndLengthCheck__Wrapper-sc-9nmfrw-0 eCSxwJ">
-															<div class="InputWithGuideAndLengthCheck__InputWrapper-sc-9nmfrw-3 bBnjVq">
-																<div class="Textarea__Wrapper-sc-1mj6ym2-0 vnOMO InputWithGuideAndLengthCheck__StyledTextarea-sc-9nmfrw-2 eyRDXi">
-																	<textarea name="content" placeholder="프로젝트 및 창작자님에 대해 어떤 이야기가 하고 싶으신가요?" class="Textarea__StyledTextArea-sc-1mj6ym2-1 cjoUaQ"></textarea>
+															<div>
+																<div>
+																	<textarea class="mceEditor" name="content" placeholder="프로젝트 및 창작자님에 대해 어떤 이야기가 하고 싶으신가요?" class="Textarea__StyledTextArea-sc-1mj6ym2-1 cjoUaQ"></textarea>
 																</div>
 															</div>
 														</div>

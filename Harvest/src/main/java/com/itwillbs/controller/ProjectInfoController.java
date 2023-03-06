@@ -22,6 +22,7 @@ import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.CommunityDTO;
 import com.itwillbs.domain.PaymentDTO;
 import com.itwillbs.domain.ProductUpdateDTO;
@@ -96,24 +97,7 @@ public class ProjectInfoController {
 //	}
 	
 	@RequestMapping(value = "/project/productUpdateWritePro", method = RequestMethod.POST)
-	public String productUpdateWritePro(ProductUpdateDTO productUpdateDTO, RedirectAttributes redirect, HttpServletRequest request, MultipartFile file, Model model) throws Exception {
-		
-//		// 업로드 파일명 : 랜덤문자_파일이름 (파일 이름이 중복이 안되도록 하기위함)
-//		UUID uuid = UUID.randomUUID();// UUID : 자바에서 랜덤으로 뽑아오기 위함
-//		String filename = uuid.toString() + "_" + file.getOriginalFilename();
-//		
-//		// 원본파일을 복사해서 upload폴더에 붙여넣기
-////		FileCopyUtils.copy(원본, 복사해서 새롭게 파일 만든 거);
-////		FileCopyUtils.copy(file.getBytes(), new File(경로, 파일이름)); //.getBytes() : 원본파일,
-////		FileCopyUtils.copy(file.getBytes(), new File(uploadPath, filename));
-//		
-//		// BoardDTO 객체 생성 <= 저장
-//		ProductUpdateDTO productUpdateDTO = new ProductUpdateDTO();
-//		productUpdateDTO.setId(request.getParameter("id"));
-//		productUpdateDTO.setContent(request.getParameter("content"));
-////		productUpdateDTO.setIdx(Integer.parseInt(request.getParameter("idx")));
-//		productUpdateDTO.setPjIdx(Integer.parseInt(request.getParameter("pjIdx")));
-//		productUpdateDTO.setFile(filename);
+	public String productUpdateWritePro(ProductUpdateDTO productUpdateDTO, RedirectAttributes redirect, HttpServletRequest request, Model model) {
 		
 		productUpdateService.insertBoard(productUpdateDTO);
 		redirect.addAttribute("idx", request.getParameter("pjIdx"));
@@ -122,19 +106,43 @@ public class ProjectInfoController {
 		return "redirect:/project/projectInfo";
 	}
 	
+	@RequestMapping(value = "/project/update", method = RequestMethod.GET)	
+	public String update(HttpServletRequest request,Model model) {
+		
+		int idx = Integer.parseInt(request.getParameter("idx")); // 프로젝트 번호
+		int num = Integer.parseInt(request.getParameter("num")); // 프로젝트의 인덱스번호
+		
+		
+		ProductUpdateDTO productUpdateDTO = productUpdateService.getUpdate(num);
+		
+		model.addAttribute("dto", productUpdateDTO);
+		
+		// 기본 이동방식 : 주소변경 없이 이동 
+		return "project/updatePro";
+	}
+	
+	@RequestMapping(value = "/project/updatePro", method = RequestMethod.POST)	
+	public String updatePro(ProductUpdateDTO productUpdateDTO) {
+		// updateBoard(boardDTO) 메서드 호출
+		productUpdateService.updateBoard(productUpdateDTO);
+		
+		return "redirect:/project/projectInfo";
+	}
+	
+	
 	@RequestMapping(value = "/project/delete", method = RequestMethod.GET)	
-	public String delete(ProductUpdateDTO productUpdateDTO, HttpServletRequest request, RedirectAttributes redirect) {
+	public String delete(ProductUpdateDTO productUpdateDTO
+					   , HttpServletRequest request
+					   , RedirectAttributes redirect) {
 
-		int idx = Integer.parseInt(request.getParameter("idx1")); // 프로젝트 번호
-		int num = Integer.parseInt(request.getParameter("num1")); // 프로젝트의 인덱스번호
+		int idx = Integer.parseInt(request.getParameter("idx")); // 프로젝트 번호
+		int num = Integer.parseInt(request.getParameter("num")); // 프로젝트의 인덱스번호
 		
 		productUpdateDTO.setIdx(num);
 		productUpdateDTO.setPjIdx(idx);
 		productUpdateService.deleteBoard(productUpdateDTO);
 		
-		redirect.addAttribute("idx", request.getParameter("pjIdx"));
-
-		productUpdateDTO.setPjIdx(Integer.parseInt(request.getParameter("idx")));
+		redirect.addAttribute("idx", idx);
 		
 		
 		return "redirect:/project/projectInfo"; 

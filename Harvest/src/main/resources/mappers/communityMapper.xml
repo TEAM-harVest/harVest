@@ -81,7 +81,7 @@
 			  FROM COMMUNITY_BOARD
 	</select>	
 	
-	<delete id="deleteComm">
+	<delete id="deleteBoard">
 	  	DELETE FROM COMMUNITY_BOARD
 	  	 WHERE IDX = #{idx}
 	</delete>

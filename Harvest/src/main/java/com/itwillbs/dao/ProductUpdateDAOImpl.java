@@ -38,6 +38,17 @@ public class ProductUpdateDAOImpl implements ProductUpdateDAO{
 		
 	}
 
+	@Override
+	public ProductUpdateDTO getUpdate(int num) {
+		return sqlSession.selectOne(namespace + ".getUpdateList", num);
+	}
+
+	@Override
+	public void updateBoard(ProductUpdateDTO productUpdateDTO) {
+		sqlSession.update(namespace + ".updateBoard", productUpdateDTO);
+	}
+
+	
 	
 	
 	

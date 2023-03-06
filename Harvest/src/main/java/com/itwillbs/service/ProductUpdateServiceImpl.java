@@ -44,6 +44,18 @@ public class ProductUpdateServiceImpl implements ProductUpdateService{
 		productUpdateDAO.deleteBoard(productUpdateDTO);
 		
 	}
+
+	@Override
+	public ProductUpdateDTO getUpdate(int num) {
+		return productUpdateDAO.getUpdate(num);
+	}
+
+	@Override
+	public void updateBoard(ProductUpdateDTO productUpdateDTO) {
+		productUpdateDAO.updateBoard(productUpdateDTO);
+	}
+	
+	
 	
 	
 

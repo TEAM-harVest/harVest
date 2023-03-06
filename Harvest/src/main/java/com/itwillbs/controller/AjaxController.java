@@ -281,17 +281,18 @@ public class AjaxController {
 		
 		// 커뮤니티탭 댓글 삭제
 		@RequestMapping(value = "/project/deleteAjax", method = RequestMethod.GET)	
-		public String delete(CommunityDTO communityDTO, HttpServletRequest request, RedirectAttributes redirect) {
+		public ResponseEntity<String> delete(CommunityDTO communityDTO, HttpServletRequest request, RedirectAttributes redirect) {
 
-			
 			int idx = Integer.parseInt(request.getParameter("idx")); // 프로젝트 번호
 			System.out.println(idx + "잘 넘어오는지...");
 			communityService.deleteBoard(idx);
-			
 //			redirect.addAttribute("idx", request.getParameter("pjIdx"));
 
-			
-			return "success"; 
+			String result = "확인";
+					
+			ResponseEntity<String> entity = new ResponseEntity<String>(result,HttpStatus.OK);
+
+			return entity; 
 		}
 		
 	
