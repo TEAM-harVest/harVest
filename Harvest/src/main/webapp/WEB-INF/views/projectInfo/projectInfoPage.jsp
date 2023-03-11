@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- 시스템 시간 -->
 <jsp:useBean id="now" class="java.util.Date" />
@@ -39,6 +40,7 @@ $(document).ready(function(){
 	$('#minPayment').click(minPayment)
 	// 금액 직접 입력
 	$('#userPayment').click(userPayment)
+	// 프로젝트 내 버튼 클릭 시 색 변경
 	$('div[id^="secBtn"]').click(btnColor)
 	$('#secBtn1').click(pageScroll1)
 	$('#secBtn2').click(pageScroll2)
@@ -46,12 +48,9 @@ $(document).ready(function(){
 })
 
 function btnColor() {
-// 	$('html, body').animate({scrollTop: $($.attr(this, 'href')).offset(top:50)},100);
-// 	var offset = $('div[id="secCont1"]').offset();
-// 	$('html, body').animate({scrollTop: offset.top}, 100);
 	if($(this).click){
-		$('div[class^="section"]').css('background','white')
-		$(this).css('background', '#a4bb73')
+		$('div[class^="section_btn"]').css('background','white').css('border','1px solid #daddca')
+		$(this).css({'background':'#a4bb73', 'border':'1px solid #a4bb73'})
 	}
 }
 function pageScroll1() {
@@ -69,7 +68,6 @@ function pageScroll3() {
 
 
 function changeBtn() {
-// 	$('#donaBtn').attr('type', 'button');
 	if (!$('#userDona').val() && $('#userPayment').is(':checked') == true){ // 후원금액 미입력 시 
 		Swal.fire({
 			title: '후원금액을 입력해주세요.',
@@ -91,7 +89,6 @@ function changeBtn() {
 			if(result.value) return false;
 		})
 	} else {
-// 		document.getElementById('fundingForm').submit();
 		$('#fundingForm').submit();
 	}
 }
@@ -105,7 +102,7 @@ function keyDown(e) {
 
 // 좋아요 버튼
 function like() {
-	if(${empty sessionScope.iD}) {
+	if(${empty sessionScope.id}) {
 		Swal.fire({
 			title: '로그인 후 사용할 수 있습니다.',
 			icon: 'warning',
@@ -122,12 +119,12 @@ function like() {
 		  url	: "${pageContext.request.contextPath}/project/likePro", // 요청이 전송될 URL 주소
 		  type	: "POST", // http 요청 방식 (default: ‘GET’)
 		  data  : {'PJ_IDX' : $('#pjIdx').val(),
-			  	   'USER_ID' : '${sessionScope.iD}'}, // TODO session 아이디로 바까라 좋은말 할때...
+			  	   'USER_ID' : '${sessionScope.id}'}, // TODO session 아이디로 바까라 좋은말 할때...
 		  //processData : true, // 데이터를 컨텐트 타입에 맞게 변환 여부
 		  success : function(data) {
 			  var src = $('#likeBtn').attr('src');
 			  src = src.substring(0, src.lastIndexOf('/') + 1) + data;
-			  if(${!empty sessionScope.iD}) {
+			  if(${!empty sessionScope.id}) {
 				  $('#likeBtn').attr('src', src);
 			  }
 		  }
@@ -187,34 +184,10 @@ function handleInputLength(el, max) {
 	  el.value = el.value.substr(0, max);
 	}
 }
-//후원금액 ',' 표시
-// function inputNumberFormat(obj) {
-// 	obj.value = comma(uncomma(obj.value));
-// }
-// function comma(str) {
-// 	str = String(str);
-// 	return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-// }
-// function uncomma(str) {
-// 	str = String(str);
-// 	return str.replace(/[^\d]+/g, '');
-// }
-// 후원금액 ',' 없애기
-// function cf_getNumberOnly (str) {
-//     var len      = str.length;
-//     var sReturn  = "";
-
-//     for (var i=0; i < len; i++){
-//         if ( (str.charAt(i) >= "0") && (str.charAt(i) <= "9") ){
-//             sReturn += str.charAt(i);
-//         }
-//     }
-//     return sReturn;
-// }
 
 // 후원하기 나타내기
 function showFunding() {
-	if(${empty sessionScope.iD}) {
+	if(${empty sessionScope.id}) {
 		Swal.fire({
 			title: '로그인 후 사용할 수 있습니다.',
 			icon: 'warning',
@@ -228,7 +201,7 @@ function showFunding() {
 		})
 	}
 	
-	if(${!empty sessionScope.iD}) {
+	if(${!empty sessionScope.id}) {
 		if($(".project_info_box").css("display") == "none") {
 			$(".project_info_box, .info_bg").show();
 		}
@@ -250,7 +223,6 @@ function showFunding() {
 function hideFunding() {
 	if($(".project_info_box").css("display") != "none") {
 		$(".project_info_box, .info_bg").hide();
-// 		return false;
 	}
 }
 
@@ -268,39 +240,8 @@ function userPayment() {
 }
 </script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-<script type="text/javascript">
-// function pay() {
-// 	var a = document.getElementById('aa').value;
-// 	document.getElementById('bb').value = a
-// };
-
-// $(document).ready(function() {
-// 	$('#fundingName').click(function() {
-// 		if(
-// 			$(this).is(':checked')== true
-// 		) {
-// 			$('#userDona').val('');
-// 			$('#userDona').attr('readonly',true);
-// 		}
-// 	});
-// 	$('#fundingName2').click(function() {
-// 		if(
-// 			$(this).is(':checked')== true
-// 		) {
-// 			$('#userDona').attr('readonly',false);
-// 		}
-// 	});
-// });
-</script>
-
 </head>
 <body>
-<%-- 	<c:if test="${empty sesssionScope.iD}"> --%>
-<!-- 	<div style="position:fixed;top:0;left:0;z-index:9999;color:red;"> -->
-<%-- 	${sessionScope.iD}님이 로그인했습니다. --%>
-<%-- 	<button onclick="location.href='${pageContext.request.contextPath}/member/logout'">로그아웃</button> --%>
-<!-- 	</div> -->
-<%-- 	</c:if> --%>
 <jsp:include page="../inc/header.jsp"></jsp:include>
 	<!-- 상품 이미지 및 간략 정보 -->
 	<div id="productContent">
@@ -318,15 +259,20 @@ function userPayment() {
 				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
 				  </div>
 				  <div class="carousel-inner">
-				    <div class="carousel-item active">
-				      <img src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.img1}" class="d-block w-100" alt="...">
-				    </div>
-				    <div class="carousel-item">
-				      <img src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.img2}" class="d-block w-100" alt="...">
-				    </div>
-				    <div class="carousel-item">
-				      <img src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.img3}" class="d-block w-100" alt="...">
-				    </div>
+<!-- 				    <div class="carousel-item active"> -->
+<%-- 				      <img src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.img1}" class="d-block w-100" alt="..."> --%>
+<!-- 				    </div> -->
+<!-- 				    <div class="carousel-item"> -->
+<%-- 				      <img src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.img2}" class="d-block w-100" alt="..."> --%>
+<!-- 				    </div> -->
+<!-- 				    <div class="carousel-item"> -->
+<%-- 				      <img src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.img3}" class="d-block w-100" alt="..."> --%>
+<!-- 				    </div> -->
+						<c:forEach var="newImg" items="${fn:split(projectDTO.img1,'&')}">
+							    <div class="carousel-item active">
+							      <img src="${pageContext.request.contextPath}/resources/upload/${newImg}" class="d-block w-100" alt="...">
+							    </div>
+				    	</c:forEach>
 				  </div>
 				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
 				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -450,12 +396,12 @@ function userPayment() {
 		<div class="fundingInfo">
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+					<div class="scroll_btn">
+							<div id="secBtn1" class="section_btn1">프로젝트 소개</div>
+							<div id="secBtn2" class="section_btn2">예산</div>
+							<div id="secBtn3" class="section_btn3">일정</div>
+					</div>
 					<div id="secCont1" class="section target">
-						<div class="scroll_btn">
-							<div id="secBtn1" class="section1">프로젝트 소개</div>
-							<div id="secBtn2" class="section2">예산</div>
-							<div id="secBtn3" class="section3">일정</div>
-						</div>
 						${projectDTO.intro}
 					</div>
 					<div id="secCont2" class="section target">

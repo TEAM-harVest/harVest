@@ -349,6 +349,7 @@ span[class^="heart"] {
 	position: sticky;
 	top:60px;
 	padding-bottom: 30px;
+	z-index:999;
 }
 .scroll_btn div {
 	text-decoration: none;
