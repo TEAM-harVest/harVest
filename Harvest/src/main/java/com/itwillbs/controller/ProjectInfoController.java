@@ -1,5 +1,8 @@
 package com.itwillbs.controller;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,8 +51,22 @@ public class ProjectInfoController {
 		param.put("IDX", idx + "");
 		
 		ProjectDTO projectDTO = projectService.getProjectInfo(param);
-		System.out.println("111111111:  "+projectDTO.getCategory());
 		model.addAttribute("projectDTO", projectDTO);
+		
+		
+		Date date = projectDTO.getEnd();
+		SimpleDateFormat sdfYMD = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		
+		// 결제일 계산
+		cal.add(Calendar.DATE, 1);
+		String payDate = sdfYMD.format(cal.getTime());
+		
+		model.addAttribute("projectDTO", projectDTO);
+		model.addAttribute("payDate", payDate);
+		
 		
 		return "projectInfo/projectInfoPage";
 	}
@@ -81,7 +98,7 @@ public class ProjectInfoController {
 	public String projectOpen(@RequestParam("idx")int idx, Model model, HttpSession session) {
 		Map<String, String> param = new HashMap<String, String>();
 		
-		String sessionId = (String)session.getAttribute("iD");
+		String sessionId = (String)session.getAttribute("id");
 		
 		if(sessionId != null) {
 			param.put("SESSIONID", sessionId);
