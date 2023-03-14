@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.itwillbs.mappers.userMapper">
+
+	<insert id="insertUser">
+		insert into USER_TB( IDX
+					       , NAME
+					       , ID
+					       , PASS <!-- DB 컬럼명 -->
+					       , PROFILE
+					       , PHONE
+					       , PREFER
+					       , EVENT_ALR)
+					    
+				 	 values( #{idx}
+				 	       , #{name}
+					       , #{id}
+					       , #{pass} <!-- DTO 멤버변수, user_status랑 date는 디폴트라 넣을 필요X -->
+					       , #{profile}
+					       , #{phone}
+					       , #{prefer}
+					       , #{eventAlr})
+	</insert>
+	
+	
+	<insert id="insertAddress">
+		insert into ADDRESS_TB( IDX
+							  , ID
+							  , ADDRESS_NM
+							  , NAME
+							  , PHONE
+							  , ADDRESS
+							  , ZIP_CODE)
+							  
+					 	values( #{idx}
+					 		  , #{id}
+					 		  , #{addressNm}
+					 		  , #{name}
+					 		  , #{phone}
+					 		  , #{address}
+					 		  , #{zipCode})		  
+	</insert>
+	
+
+
+	<select id="userCheck" resultType="com.itwillbs.domain.UserDTO">
+		select * 
+		  from USER_TB
+		 
+		 where ID=#{id}
+		   and PASS=#{pass}
+	</select>
+	
+	
+	<select id="getUser" resultType="com.itwillbs.domain.UserDTO">
+		select *
+		  from USER_TB
+		 where ID=#{id}
+	</select>
+	
+	
+	
+<!-- 	비밀번호 찾기 -->
+	<select id="passCheck" resultType="com.itwillbs.domain.UserDTO">
+		select * 
+		  from USER_TB
+		 where ID=#{id}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+<!-- 	<select id="mailCheck" resultType="com.itwillbs.domain.UserDTO"> -->
+<!-- 		select * -->
+<!-- 		  from user -->
+<!-- 		 where ID=#{id} -->
+		   
+<!-- 	</select> -->
+	
+	
+<!-- 	<update id="updatePass"> -->
+<!-- 		update user -->
+<!-- 		   set PASS=#{pass} -->
+<!-- 		 where ID=#{id} -->
+<!-- 	</update> -->
+	
+	
+</mapper>
