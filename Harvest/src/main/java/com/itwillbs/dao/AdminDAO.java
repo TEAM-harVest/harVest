@@ -46,5 +46,8 @@ public interface AdminDAO {
 	
 	public List<UserDTO> getEventUserList(UserDTO userDto);
 	
+	public int statusFail();
+	public int statusSuccess();
+	
 	
 }

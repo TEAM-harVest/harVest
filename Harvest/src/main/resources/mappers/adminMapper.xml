@@ -191,6 +191,26 @@
 		 WHERE EVENT_ALR = 'Y';
 	</select>
 	
+	<update id="statusFail">
+		UPDATE PROJECT_TB PJ
+		 SET PJ.STATUS = 'FD00'
+		WHERE PJ.TARGET_AMT > (
+		  SELECT COALESCE(SUM(PAY.AMOUNT), 0)
+		    FROM PAYMENT_TB PAY
+		   WHERE PAY.PJ_IDX = PJ.IDX
+		)
+		AND CURDATE() > PJ.END;
+	</update>
+	
+	<update id="statusSuccess">
+		UPDATE PROJECT_TB PJ
+		 SET PJ.STATUS = 'FD01'
+		WHERE (SELECT COALESCE(SUM(PAY.AMOUNT), 0)
+		         FROM PAYMENT_TB PAY
+		        WHERE PAY.PJ_IDX = PJ.IDX) > PJ.TARGET_AMT
+		AND CURDATE() > PJ.END;
+	</update>
+	
 	
 </mapper>
 

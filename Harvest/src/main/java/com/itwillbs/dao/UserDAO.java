@@ -15,6 +15,7 @@ public interface UserDAO {
 //	public UserDTO mailCheck(UserDTO userDto);
 
 //	public void updatePass(UserDTO userDto);
+	
 
 
 	

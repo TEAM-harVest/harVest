@@ -161,7 +161,16 @@ public class AdminDAOImpl implements AdminDAO {
 	public List<UserDTO> getEventUserList(UserDTO userDto) {
 		return sqlSession.selectList(namespace+".getEventUserList", userDto);
 	}
+
+	@Override
+	public int statusFail() {
+		return sqlSession.update(namespace+".statusFail");
+	}
 	
+	@Override
+	public int statusSuccess() {
+		return sqlSession.update(namespace+".statusSuccess");
+	}
 
 
 

@@ -13,8 +13,16 @@ public class UserDTO {
 //	private String authKey;		//이메일 인증키
 //	private String authSt;		//이메일 인증상태(default 0 / 인증완료 시 1)
 //	private String getEmail;	//이메일 인증
+	private String profile;
 	
 	
+	
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
 	// 멤버함수(메서드)
 	// set() : 멤버변수에 외부의 데이터를 저장
 	// get() : 외부에서 멤버변수 데이터를 가져다 사용

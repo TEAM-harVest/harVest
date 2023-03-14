@@ -12,8 +12,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.itwillbs.dao.AdminDAO;
 import com.itwillbs.dao.ProjectInfoDAO;
 import com.itwillbs.domain.ProjectDTO;
+import com.itwillbs.service.AdminService;
 import com.itwillbs.service.ProjectInfoService;
 
 @Component
@@ -33,6 +35,9 @@ public class Scheduler {
 	
 	@Inject
 	private ProjectInfoService projectService;
+	
+	@Inject
+	private AdminDAO adminDAO;
 	
 	// 1�и��� ����ǰ� �׽�Ʈ
 //	@Scheduled(cron = "0 0/1 * * * ?")
@@ -87,5 +92,18 @@ public class Scheduler {
 	public int deleteAlram2() {
 		System.out.println("ALRAM DELETE");
 		return projectDAO.deleteAlram2();
+	}
+	
+	// 자정마다
+	@Transactional
+	@Scheduled(cron = "0 0 0 * * *")
+	public int statusFail() {
+		return adminDAO.statusFail();
+	}
+	
+	@Transactional
+	@Scheduled(cron = "0 0 0 * * *")
+	public int statusSuccess() {
+		return adminDAO.statusSuccess();
 	}
 }
