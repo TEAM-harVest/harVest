@@ -1,18 +1,26 @@
 package com.itwillbs.controller;
 
 
+import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.itwillbs.domain.AddressDTO;
 import com.itwillbs.domain.RegisterRequest;
 import com.itwillbs.domain.UserDTO;
 import com.itwillbs.service.UserService;
@@ -24,6 +32,10 @@ public class UserController {
 	@Inject
 	private UserService userService;
 	
+	//xml 업로드 경로 (자원이름)=> 변수 저장
+	@Resource(name = "uploadPath")
+	private String uploadPath;
+	
 	
 //	[회원가입]
 	@RequestMapping(value="/user/insert", method=RequestMethod.GET)
@@ -33,13 +45,36 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/user/insertPro", method=RequestMethod.POST)
-	public String insertPro(UserDTO userDto) {
+	public String insertPro(HttpServletRequest request, UserDTO userDto, AddressDTO addressDto, MultipartFile file) throws Exception{
 		// 이벤트 수신 알람
 		if (userDto.getEventAlr() == null) {
 			userDto.setEventAlr("N");
 		}
+		System.out.println("userDto.getName(); "+ userDto.getName());
+		// 우편번호 + 배송지
+		String address = addressDto.getAddress();
+		
+		// 파일 업로드 => 랜덤문자_파일이름 => 파일이름 중복 안됨
+		UUID uuid = UUID.randomUUID();
+		
+		String filename = uuid.toString() + "_" + file.getOriginalFilename();
+		
+		
+		// 원본 파일 복사 => upload 복사
+//		FileCopyUtils.copy(원본, 복사해서 새롭게 파일 만들기);
+		// 저장된 파일 바로 ajax로 화면에 보여줄 때 필요함
+		FileCopyUtils.copy(file.getBytes(), new File(uploadPath, filename));
+		
+		userDto.setId(request.getParameter("id"));
+		userDto.setPass(request.getParameter("pass"));
+		userDto.setName(request.getParameter("name"));
+		userDto.setPhone(request.getParameter("phone"));
+		userDto.setProfile(filename);
+		
+
 		
 		userService.insertUser(userDto);
+		userService.insertAddress(addressDto);  // 우편번호 + 주소
 		
 		return "redirect:/user/login";
 	}
@@ -101,24 +136,11 @@ public class UserController {
 	}
 	
 	
-	
-//	[이메일 입력하고 userCheck]
-//	@RequestMapping(value = "/finding/findpassPro", method = RequestMethod.POST)
-//	public String findpassPro(@RequestParam(value = "email_vericode", required=false) String email_vericode,
-//			@RequestParam(value = "num") String num) throws IOException {
-//
-//		if(email_vericode.equals(num)) {
-//			return "redirect:/finding/showPass";
-//		}else {
-//			return "user/mainPage";	
-//		}
-//	}
-	
-	
-//	[이메일 입력하고 userCheck]
+//	[이메일 입력하고 passCheck]
 	@RequestMapping(value = "/finding/findpassPro", method = RequestMethod.POST)
 	public String findpassPro(UserDTO userDto, HttpSession session) {
-		// DB에서 userCheck(userDTO)
+		System.out.println(userDto.getId().toString());
+		// DB에서 passCheck(userDto)
 		UserDTO dto2 = userService.passCheck(userDto);
 		if(dto2 != null) {
 			session.setAttribute("id", dto2.getId());

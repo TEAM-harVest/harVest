@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.UserDAO;
+import com.itwillbs.domain.AddressDTO;
 import com.itwillbs.domain.UserDTO;
 
 @Service
@@ -22,17 +23,44 @@ public class UserServiceImpl implements UserService {
 	@Inject
 	private UserDAO userDAO;
 	
+//	[회원가입]	
 	@Override
 	public void insertUser(UserDTO userDto) {
-		System.out.println("MemberServiceImpl insertUser()");
+		System.out.println("UserServiceImpl insertUser()");
 		System.out.println(userDto.getName());
 		System.out.println(userDto.getId());
 		System.out.println(userDto.getPass());
 		System.out.println(userDto.getPhone());
 		
+//		if(userDAO.getUser() == null) {
+//			userDto.setIdx(userDAO.getUser() + 1);
+//		}
+		
 		// MemberController => MemberService => MemberDAO
 		userDAO.insertUser(userDto);
 	}
+	
+	
+	// [배송지 입력]
+	@Override
+	public void insertAddress(AddressDTO addressDto) {
+		System.out.println("UserServiceImpl insertAddress()");
+		System.out.println(addressDto.getAddress());
+		System.out.println(addressDto.getAddressNm());
+		System.out.println(addressDto.getZipCode());
+		
+		userDAO.insertAddress(addressDto);
+	}
+	
+	
+//	// [프로필사진 등록]
+//	@Override
+//	public void insertProfile(UserDTO userDto) {
+//		System.out.println("UserServiceImpl insertProfile()");
+//		System.out.println(userDto.getProfile());
+//		
+//		userDAO.insertUser(userDto);
+//	}
 	
 	
 	@Override
@@ -97,22 +125,24 @@ public class UserServiceImpl implements UserService {
 				return Integer.toString(authNumber);
 			}
 			
-//			//비밀번호 찾기 인증 이메일 보낼 양식! 
-//			public String findEmail(String email) {
-//				makeRandomNumber();
-//				String setFrom = ".com"; // email-config에 설정한 자신의 이메일 주소를 입력 
-//				String toMail = email;
-//				String title = "비밀번호 찾기 인증 이메일 입니다."; // 이메일 제목 
-//				String content = 
-//						"홈페이지를 방문해주셔서 감사합니다." + 	//html 형식으로 작성 ! 
-//		                "<br><br>" + 
-//					    "인증 번호는 " + authNumber + "입니다." + 
-//					    "<br>" + 
-//					    "해당 인증번호를 인증번호 확인란에 기입하여 주세요."; //이메일 내용 삽입
-//				mailSend(setFrom, toMail, title, content);
-//				return Integer.toString(authNumber);
-//			}
 			
+			//비밀번호 찾기 인증 이메일 보낼 양식! 
+			public String findEmail(String email) {
+				makeRandomNumber();
+				String setFrom = ".com"; // email-config에 설정한 자신의 이메일 주소를 입력 
+				String toMail = email;
+				String title = "비밀번호 찾기 인증 이메일 입니다."; // 이메일 제목 
+				String content = 
+						"홈페이지를 방문해주셔서 감사합니다." + 	//html 형식으로 작성 ! 
+		                "<br><br>" + 
+					    "인증 번호는 " + authNumber + "입니다." + 
+					    "<br>" + 
+					    "해당 인증번호를 인증번호 확인란에 기입하여 주세요."; //이메일 내용 삽입
+				mailSend(setFrom, toMail, title, content);
+				return Integer.toString(authNumber);
+			}
+			
+
 			//이메일 전송 메소드
 			public void mailSend(String setFrom, String toMail, String title, String content) { 
 				MimeMessage message = mailSender.createMimeMessage();
@@ -129,6 +159,8 @@ public class UserServiceImpl implements UserService {
 					e.printStackTrace();
 				}
 			}
+
+
 	
 	}
 
@@ -136,9 +168,7 @@ public class UserServiceImpl implements UserService {
 
 
 
-	
 
 
 
-	
 }

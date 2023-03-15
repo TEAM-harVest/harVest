@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.itwillbs.domain.AddressDTO;
 import com.itwillbs.domain.UserDTO;
 
 @Repository
@@ -24,6 +25,15 @@ public class UserDAOImpl implements UserDAO {
 		System.out.println("UserDAOImpl insertUser()");
 		
 		sqlSession.insert(namespace + ".insertUser", userDto); 
+	}
+	
+	
+	// [배송지 입력]
+	@Override
+	public void insertAddress(AddressDTO addressDto) {
+		System.out.println("UserDAOImpl insertAddress()");
+		
+		sqlSession.insert(namespace + ".insertAddress", addressDto);
 	}
 
 	
@@ -47,23 +57,6 @@ public class UserDAOImpl implements UserDAO {
 
 		return sqlSession.selectOne(namespace + ".passCheck", userDto);
 	}
-
-
-
-	
-//	@Override
-//	public UserDTO mailCheck(UserDTO dto) {
-//
-//		return sqlSession.selectOne(namespace + ".mailCheck", dto);
-//	}
-
-	
-//	@Override
-//	public void updatePass(UserDTO dto) {
-//		
-//		sqlSession.update(namespace + ".updateMember", dto);
-//	}
-
 
 
 	

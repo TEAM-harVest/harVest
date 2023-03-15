@@ -102,6 +102,32 @@
 				
 <!-- 로그인 API 끝 -->		
 
+
+
+<!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
+<dependency>
+    <groupId>javax.annotation</groupId>
+    <artifactId>javax.annotation-api</artifactId>
+    <version>1.3.1</version>
+</dependency>
+
+
+
+<!-- 프로필 사진 파일 업로드 라이브러리 -->
+<!-- 사진 드래그 앤 드롭 -->
+<!-- Commons FileUpload -->
+<dependency>
+    <groupId>commons-fileupload</groupId>
+    <artifactId>commons-fileupload</artifactId>
+    <version>1.3.2</version>
+</dependency>
+
+<dependency>
+    <groupId>commons-io</groupId>
+    <artifactId>commons-io</artifactId>
+    <version>2.5</version>
+</dependency>
+
 		
 				
 		<!-- AspectJ -->

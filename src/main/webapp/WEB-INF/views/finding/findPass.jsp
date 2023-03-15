@@ -75,7 +75,7 @@ div.position {
 		
 		$.ajax({
 			type : 'get',
-			url : '${pageContext.request.contextPath }/user/mailCheck?email=' + email,
+			url : '${pageContext.request.contextPath }/user/findPassCheck?email=' + email,
 			success : function (data) {
 				console.log("data : " +  data);
 				checkInput.attr('disabled',false);
@@ -91,7 +91,6 @@ div.position {
 		
 		const inputCode = $('#codeCheck').val();
 		const $resultMsg = $('#mail-check-warn');
-		debugger;
 		if(inputCode === code){
 			$resultMsg.html('인증번호가 일치합니다.');
 			$resultMsg.css('color','green');

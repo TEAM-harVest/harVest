@@ -7,20 +7,23 @@ public class UserDTO {
 	private String name;
 	private String id;
 	private String pass;
+	private String profile;		 //프로필사진
 	private String phone;
-	private String prefer;		//유저취향
-	private String eventAlr;		//이벤트알람
-//	private String authKey;		//이메일 인증키
-//	private String authSt;		//이메일 인증상태(default 0 / 인증완료 시 1)
-//	private String getEmail;	//이메일 인증
+	private String prefer;		 //유저취향
+	private String unregist;	 //탈퇴
+	private String unregistDate; //탈퇴일자
+	private String eventAlr;	 //이벤트알람
+
 	
 	
 	// 멤버함수(메서드)
 	// set() : 멤버변수에 외부의 데이터를 저장
 	// get() : 외부에서 멤버변수 데이터를 가져다 사용
+	
 	public int getIdx() {
 		return idx;
 	}
+	
 	public void setIdx(int idx) {
 		this.idx = idx;
 	}
@@ -46,6 +49,13 @@ public class UserDTO {
 		this.pass = pass;
 	}
 	
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+	
 	public String getPhone() {
 		return phone;
 	}
@@ -60,6 +70,19 @@ public class UserDTO {
 		this.prefer = prefer;
 	}
 	
+	public String getUnregist() {
+		return unregist;
+	}
+	public void setUnregist(String unregist) {
+		this.unregist = unregist;
+	}
+	
+	public String getUnregistDate() {
+		return unregistDate;
+	}
+	public void setUnregistDate(String unregistDate) {
+		this.unregistDate = unregistDate;
+	}
 	
 	public String getEventAlr() {
 		return eventAlr;
@@ -67,19 +90,14 @@ public class UserDTO {
 	public void setEventAlr(String eventAlr) {
 		this.eventAlr = eventAlr;
 	}
-//	public String getAuthKey() {
-//		return authKey;
-//	}
-//	public void setAuthKey(String authKey) {
-//		this.authKey = authKey;
-//	}
-//	
-//	public String getAuthSt() {
-//		return authSt;
-//	}
-//	public void setAuthSt(String authSt) {
-//		this.authSt = authSt;
-//	}
+
+	@Override
+	public String toString() {
+		return "UserDTO [idx=" + idx + ", name=" + name + ", id=" + id + ", pass=" + pass + ", profile=" + profile
+				+ ", phone=" + phone + ", prefer=" + prefer + ", unregist=" + unregist + ", unregistDate="
+				+ unregistDate + ", eventAlr=" + eventAlr + "]";
+	}
+	
 	
 	// 테스트
 //	@Override
@@ -96,5 +114,6 @@ public class UserDTO {
 //	}
 
 
+	
 
 }

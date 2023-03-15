@@ -6,23 +6,49 @@
 <mapper namespace="com.itwillbs.mappers.userMapper">
 
 	<insert id="insertUser">
-		insert into user( name
-					    , id
-					    , pass
-					    , phone <!-- DB 컬럼명 -->
-					    , event_alr)
+		insert into USER_TB( IDX
+					       , NAME
+					       , ID
+					       , PASS <!-- DB 컬럼명 -->
+					       , PROFILE
+					       , PHONE
+					       , PREFER
+					       , EVENT_ALR)
 					    
-			 	 values( #{name}
-			 	       , #{id}
-				       , #{pass}
-				       , #{phone} <!-- DTO 멤버변수, user_status랑 date는 디폴트라 넣을 필요X -->
-				       , #{eventAlr})
+				 	 values( #{idx}
+				 	       , #{name}
+					       , #{id}
+					       , #{pass} <!-- DTO 멤버변수, user_status랑 date는 디폴트라 넣을 필요X -->
+					       , #{profile}
+					       , #{phone}
+					       , #{prefer}
+					       , #{eventAlr})
 	</insert>
+	
+	
+	<insert id="insertAddress">
+		insert into ADDRESS_TB( IDX
+							  , ID
+							  , ADDRESS_NM
+							  , NAME
+							  , PHONE
+							  , ADDRESS
+							  , ZIP_CODE)
+							  
+					 	values( #{idx}
+					 		  , #{id}
+					 		  , #{addressNm}
+					 		  , #{name}
+					 		  , #{phone}
+					 		  , #{address}
+					 		  , #{zipCode})		  
+	</insert>
+	
 
 
 	<select id="userCheck" resultType="com.itwillbs.domain.UserDTO">
 		select * 
-		  from user
+		  from USER_TB
 		 
 		 where ID=#{id}
 		   and PASS=#{pass}
@@ -31,7 +57,7 @@
 	
 	<select id="getUser" resultType="com.itwillbs.domain.UserDTO">
 		select *
-		  from user
+		  from USER_TB
 		 where ID=#{id}
 	</select>
 	
@@ -40,7 +66,7 @@
 <!-- 	비밀번호 찾기 -->
 	<select id="passCheck" resultType="com.itwillbs.domain.UserDTO">
 		select * 
-		  from user
+		  from USER_TB
 		 where ID=#{id}
 	</select>
 	

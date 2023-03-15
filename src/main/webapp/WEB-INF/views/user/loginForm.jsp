@@ -104,10 +104,10 @@ div.position {
                     <h2 class="mb-4">로그인</h2>
 			            <form action="${pageContext.request.contextPath }/user/loginPro" method="post" name="login">
 			                <div class="form-group">
-			                    <input type="email" name="id" class="form-control form-control-sm" id="id" aria-describedby="" placeholder="이메일 계정을 입력해주세요" onkeyup="emailCheck()">
+			                    <input type="email" name="id" class="form-control form-control-sm" id="id" aria-describedby="" placeholder="이메일 계정을 입력해주세요">
 			                </div>
 			                <div class="input form-group">
-			                    <input type="password" name="pass" id="pass" class="form-control form-control-sm" aria-describedby="" placeholder="비밀번호를 입력해주세요" onkeyup="passCheck()">
+			                    <input type="password" name="pass" id="pass" class="form-control form-control-sm" aria-describedby="" placeholder="비밀번호를 입력해주세요">
 			                </div>
 			                
 			                <div class="col-md-12 mb-3">
