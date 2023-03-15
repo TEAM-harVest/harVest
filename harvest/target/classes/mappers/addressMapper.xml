@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.itwillbs.mappers.addressMapper">	<!-- 파일위치(패키지명)을 가리키는게 아니라 파일이름임 -->
+  
+  <insert id="insertAddress">
+  	insert into ADDRESS_TB(idx
+  						  ,id
+  						  ,address_nm as addressNm
+  						  ,name
+  						  ,phone
+  						  ,address
+  						  ,zip_code)
+  	values(#{idx}
+  		  ,#{id}
+  		  ,#{addressNm}
+  		  ,#{name}
+  		  ,#{phone}
+  		  ,#{address1}
+  		  ,#{address2}
+  		  ,#{address3}
+  		  ,#{zipCode})
+  </insert>
+  
+  <select id="getAddressList" resultType="com.itwillbs.domain.AddressDTO"> <!-- MemberDAOImpl.java 파일에서 selectList안에 담길 파일형식인 MemberDTO를 resultType에 담아야함 -->
+   select * from ADDRESS_TB where id=#{id}
+  </select>
+  
+  <select id="getMaxIdx" resultType="java.lang.Integer">
+  	select max(idx) from ADDRESS_TB
+  </select>
+  
+  <delete id="deleteAddress">
+   delete from ADDRESS_TB where idx=#{idx}
+  </delete>
+  
+  <select id="getAddressCount" resultType="java.lang.Integer">
+  	select count(*) from ADDRESS_TB where id=#{id}
+  </select>
+  
+</mapper>
