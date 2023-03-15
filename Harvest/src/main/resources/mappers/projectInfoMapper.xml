@@ -17,6 +17,12 @@
 		                                          			 ELSE 'heart.svg' END AS HEART
 		     , COALESCE(COUNT(PAY.ID), 0) AS sumUser
 		     , COALESCE(SUM(PAY.AMOUNT), 0) AS sumMoney
+		     , case when EXISTS(SELECT *
+											  FROM PAYMENT_TB
+											 WHERE PJ_IDX = #{IDX}
+							                   AND ID = #{SESSIONID}
+											   AND STATUS = 'PAY01') THEN 'Y'
+																	 ELSE 'N' END AS SPON
 		  FROM PROJECT_TB P
 		  LEFT JOIN PAYMENT_TB PAY
 		    ON P.IDX = PAY.pj_IDX

@@ -22,13 +22,21 @@ public class ProjectDTO {
 	private Date start;
 	private Date end;
 	private String status;
+	// 스폰 여부 추가로 조회했음
+	private String spon;
 	
 	private int sumMoney;
 	private int sumUser;
 	
-	
-	
 	private String heart;
+	
+	
+	public String getSpon() {
+		return spon;
+	}
+	public void setSpon(String spon) {
+		this.spon = spon;
+	}
 	
 	public String getHeart() {
 		return heart;
@@ -162,6 +170,16 @@ public class ProjectDTO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
+	@Override
+	public String toString() {
+		return "ProjectDTO [idx=" + idx + ", id=" + id + ", creNm=" + creNm + ", crePro=" + crePro + ", creIntro="
+				+ creIntro + ", category=" + category + ", title=" + title + ", present=" + present + ", img1=" + img1
+				+ ", img2=" + img2 + ", img3=" + img3 + ", intro=" + intro + ", budget=" + budget + ", schedule="
+				+ schedule + ", minDona=" + minDona + ", targetAmt=" + targetAmt + ", start=" + start + ", end=" + end
+				+ ", status=" + status + ", spon=" + spon + ", sumMoney=" + sumMoney + ", sumUser=" + sumUser
+				+ ", heart=" + heart + "]";
+	}
+	
+	
 	
 }

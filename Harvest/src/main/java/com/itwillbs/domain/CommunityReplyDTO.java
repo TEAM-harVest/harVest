@@ -2,28 +2,31 @@ package com.itwillbs.domain;
 
 import java.sql.Timestamp;
 
-public class CommunityDTO {
-	
+public class CommunityReplyDTO {
+
 	private int idx;
+	private int commIdx;
 	private int pjIdx;
 	private String name;
 	private String profile;
 	private String id;
 	private String content;
-	private String imgA;
-	private String imgB;
-	private String imgC;
 	private Timestamp date;
 	private String contentLabel;
 	// 스폰 여부 추가로 조회했음
 	private String spon;
 	
-
 	public int getIdx() {
 		return idx;
 	}
 	public void setIdx(int idx) {
 		this.idx = idx;
+	}
+	public int getCommIdx() {
+		return commIdx;
+	}
+	public void setCommIdx(int commIdx) {
+		this.commIdx = commIdx;
 	}
 	public int getPjIdx() {
 		return pjIdx;
@@ -55,24 +58,6 @@ public class CommunityDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getImgA() {
-		return imgA;
-	}
-	public void setImgA(String imgA) {
-		this.imgA = imgA;
-	}
-	public String getImgB() {
-		return imgB;
-	}
-	public void setImgB(String imgB) {
-		this.imgB = imgB;
-	}
-	public String getImgC() {
-		return imgC;
-	}
-	public void setImgC(String imgC) {
-		this.imgC = imgC;
-	}
 	public Timestamp getDate() {
 		return date;
 	}
@@ -91,21 +76,7 @@ public class CommunityDTO {
 	public void setSpon(String spon) {
 		this.spon = spon;
 	}
-	@Override
-	public String toString() {
-		return "CommunityDTO [idx=" + idx + ", pjIdx=" + pjIdx + ", name=" + name + ", profile=" + profile + ", id="
-				+ id + ", content=" + content + ", imgA=" + imgA + ", imgB=" + imgB + ", imgC=" + imgC + ", date="
-				+ date + ", contentLabel=" + contentLabel + ", spon=" + spon + "]";
-	}
-	
-	
 	
 	
 
-	
-	
-	
-	
-	
-	
 }

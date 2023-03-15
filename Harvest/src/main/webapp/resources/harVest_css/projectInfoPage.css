@@ -584,9 +584,35 @@ span[class^="heart"] {
 	border-radius: 5px;
 	color: #ced2b9;
 }
+
 .cmt_cont_btn button:hover {
 	background: #daddca;
 	color: #95977d;
+}
+
+/* 대댓글 내용 */
+.reply {
+/* 	border-top: 1px solid #daddca; 나중에 색상 바꿔주기 */
+	padding: 20px 0;
+}
+
+.reply_under {
+/* 	border-top: 1px solid #daddca; 나중에 색상 바꿔주기 */
+	padding: 10px 0;
+}
+
+
+/* 대댓글 닉네임 */
+.nickname {
+	background: #daddca;
+	padding: 3px 6px;
+	border-radius: 10px;
+	margin-bottom: 10px;
+}
+
+/* 대댓글 내용 */
+.re_comment {
+	margin-left: 10px;
 }
 
 

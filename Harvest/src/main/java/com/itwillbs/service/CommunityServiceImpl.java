@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.CommunityDAO;
 import com.itwillbs.domain.CommunityDTO;
+import com.itwillbs.domain.PaymentDTO;
 
 @Service
 public class CommunityServiceImpl implements CommunityService {
@@ -20,21 +21,19 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public List<CommunityDTO> getComm1List(CommunityDTO communityDTO) {
-		
-		
 		return communityDAO.getComm1List(communityDTO);
 	}
 
-	@Override
-	public List<CommunityDTO> getComm2List(CommunityDTO communityDTO) {
-		return communityDAO.getComm2List(communityDTO);
-	}
-
-	@Override
-	public List<CommunityDTO> getComm3List(CommunityDTO communityDTO) {
-		return communityDAO.getComm3List(communityDTO);
-		
-	}
+//	@Override
+//	public List<CommunityDTO> getComm2List(CommunityDTO communityDTO) {
+//		return communityDAO.getComm2List(communityDTO);
+//	}
+//
+//	@Override
+//	public List<CommunityDTO> getComm3List(CommunityDTO communityDTO) {
+//		return communityDAO.getComm3List(communityDTO);
+//		
+//	}
 
 	@Override
 	public void insertBoard(CommunityDTO communityDTO) {
@@ -57,6 +56,14 @@ public class CommunityServiceImpl implements CommunityService {
 	public void deleteBoard(int idx) {
 		communityDAO.deleteBoard(idx);
 	}
+
+
+	@Override
+	public PaymentDTO getPaymentInfo(PaymentDTO paymentDTO) {
+		return communityDAO.getPaymentInfo(paymentDTO);
+	}
+	
+	
 
 	
 	

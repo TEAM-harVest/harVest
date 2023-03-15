@@ -1,6 +1,8 @@
 package com.itwillbs.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +11,11 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -22,6 +27,7 @@ import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.CommunityDTO;
 import com.itwillbs.domain.PaymentDTO;
 import com.itwillbs.domain.ProductUpdateDTO;
@@ -35,10 +41,10 @@ import com.itwillbs.service.ProjectInfoService;
 public class ProjectInfoController {
 	
 	@Inject
-	private ProjectInfoService projectService;
+	private ProjectInfoService projectInfoService;
 	
 //	@Inject
-//	private CommunityService communityService;
+	private CommunityService communityService;
 	
 	@Inject
 	private ProductUpdateService productUpdateService;
@@ -49,7 +55,7 @@ public class ProjectInfoController {
 		
 	@RequestMapping(value = "/main/mainList", method = RequestMethod.GET)
 	public String mainList(HttpServletRequest request, Model model) {
-		List<ProjectDTO> projectList = projectService.getProjectList();
+		List<ProjectDTO> projectList = projectInfoService.getProjectList();
 		model.addAttribute("projectList", projectList);
 		return "main/list";
 	}
@@ -58,18 +64,19 @@ public class ProjectInfoController {
 	public String projectInfo(@RequestParam("idx")int idx, Model model, HttpSession session, CommunityDTO communityDTO, ProductUpdateDTO productUpdateDTO, HttpServletRequest request) {
 		
 		Map<String, String> param = new HashMap<String, String>();
-		String sessionId = (String)session.getAttribute("iD");
+		String sessionId = (String)session.getAttribute("id");
+		
 		if(sessionId != null) {
 			param.put("SESSIONID", sessionId);
 		}
 		param.put("IDX", idx + "");
 		
-		ProjectDTO projectDTO = projectService.getProjectInfo(param);
+		ProjectDTO projectDTO = projectInfoService.getProjectInfo(param);
+		
+		model.addAttribute("projectDTO", projectDTO);
 
 		// 숙
 		List<ProductUpdateDTO> productUpdateList = productUpdateService.getUpdateList(productUpdateDTO);
-		
-		model.addAttribute("projectDTO", projectDTO);
 		
 		model.addAttribute("productUpdateList", productUpdateList);
 		
@@ -77,69 +84,52 @@ public class ProjectInfoController {
 //		model.addAttribute("productUpdateDTO", productUpdateDTO);
 //		model.addAttribute("communityDTO", communityDTO);
 		
+		// 프로젝트 창작자만 '창작자 공지탭' 글쓰기/수정/삭제 하기위해 id 가져오기
+		ProjectDTO creatorWrite = productUpdateService.getCreatorWrite(idx);
+		model.addAttribute("creatorWrite", creatorWrite);
 		
 		return "projectInfo/projectInfoPage";
 	}
 
 	// 숙인
-//	@RequestMapping(value = "/project/productStory", method = RequestMethod.GET)
-//	public String productStory(HttpServletRequest request, Model model, CommunityDTO communityDTO, ProductUpdateDTO productUpdateDTO) {
-//		
-//		List<ProductUpdateDTO> productUpdateList = productUpdateService.getUpdateList(productUpdateDTO);
-//		model.addAttribute("productUpdateList", productUpdateList);
-//		
-//		model.addAttribute("productUpdateDTO", productUpdateDTO);
-//		model.addAttribute("communityDTO", communityDTO);
-//		
-//		// 기본 이동방식 : 주소변경 없이 이동
-//		return "project/productStory"; 	// 실제 이동 주소
-//	}
-	
+	// 창작자 공지 인서트,업데이트 동시에 하기
 	@RequestMapping(value = "/project/productUpdateWritePro", method = RequestMethod.POST)
-	public String productUpdateWritePro(ProductUpdateDTO productUpdateDTO, RedirectAttributes redirect, HttpServletRequest request, MultipartFile file, Model model) throws Exception {
+	public String productUpdateWritePro(ProductUpdateDTO productUpdateDTO, 
+										RedirectAttributes redirect, 
+										HttpServletRequest request, 
+										Model model,
+										HttpServletResponse response,
+										@RequestParam("text")int idx) {
 		
-//		// 업로드 파일명 : 랜덤문자_파일이름 (파일 이름이 중복이 안되도록 하기위함)
-//		UUID uuid = UUID.randomUUID();// UUID : 자바에서 랜덤으로 뽑아오기 위함
-//		String filename = uuid.toString() + "_" + file.getOriginalFilename();
-//		
-//		// 원본파일을 복사해서 upload폴더에 붙여넣기
-////		FileCopyUtils.copy(원본, 복사해서 새롭게 파일 만든 거);
-////		FileCopyUtils.copy(file.getBytes(), new File(경로, 파일이름)); //.getBytes() : 원본파일,
-////		FileCopyUtils.copy(file.getBytes(), new File(uploadPath, filename));
-//		
-//		// BoardDTO 객체 생성 <= 저장
-//		ProductUpdateDTO productUpdateDTO = new ProductUpdateDTO();
-//		productUpdateDTO.setId(request.getParameter("id"));
-//		productUpdateDTO.setContent(request.getParameter("content"));
-////		productUpdateDTO.setIdx(Integer.parseInt(request.getParameter("idx")));
-//		productUpdateDTO.setPjIdx(Integer.parseInt(request.getParameter("pjIdx")));
-//		productUpdateDTO.setFile(filename);
 		
+		productUpdateDTO.setIdx(idx);
 		productUpdateService.insertBoard(productUpdateDTO);
+		
+		
 		redirect.addAttribute("idx", request.getParameter("pjIdx"));
 		
 		// 기본 이동방식 : 주소변경 없이 이동
 		return "redirect:/project/projectInfo";
 	}
 	
+	
+	// 창작자 공지글 삭제하기
 	@RequestMapping(value = "/project/delete", method = RequestMethod.GET)	
-	public String delete(ProductUpdateDTO productUpdateDTO, HttpServletRequest request, RedirectAttributes redirect) {
+	public String delete(ProductUpdateDTO productUpdateDTO
+					   , HttpServletRequest request
+					   , RedirectAttributes redirect) {
 
-		int idx = Integer.parseInt(request.getParameter("idx1")); // 프로젝트 번호
-		int num = Integer.parseInt(request.getParameter("num1")); // 프로젝트의 인덱스번호
+		int idx = Integer.parseInt(request.getParameter("idx")); // 프로젝트 번호
+		int num = Integer.parseInt(request.getParameter("num")); // 프로젝트의 인덱스번호
 		
 		productUpdateDTO.setIdx(num);
 		productUpdateDTO.setPjIdx(idx);
 		productUpdateService.deleteBoard(productUpdateDTO);
 		
-		redirect.addAttribute("idx", request.getParameter("pjIdx"));
-
-		productUpdateDTO.setPjIdx(Integer.parseInt(request.getParameter("idx")));
+		redirect.addAttribute("idx", idx);
 		
 		
 		return "redirect:/project/projectInfo"; 
 	}
 	
-	
-
 }
