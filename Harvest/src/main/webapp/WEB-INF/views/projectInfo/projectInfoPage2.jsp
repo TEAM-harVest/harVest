@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -14,8 +13,12 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/harVest_js/jquery-3.6.3.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/harVest_js/projectInfoPage.js"></script>
 <link href="${pageContext.request.contextPath}/resources/harVest_css/projectInfoPage.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/harVest_css/app.d69b58d686469c0a1bc8.css" rel="stylesheet">
+<script src="https://cdn.tiny.cloud/1/6d0eescgzo66t0hqfeu0aeu5fyxbu2c0415q0gzufzi1uyaa/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<link href="${pageContext.request.contextPath}/resources/harVest_css/productUpdate.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/assets/css/joeblog.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
 <style>
 nav {position: relative !important;}
 </style>
@@ -40,7 +43,6 @@ $(document).ready(function(){
 	$('#minPayment').click(minPayment)
 	// 금액 직접 입력
 	$('#userPayment').click(userPayment)
-	// 프로젝트 내 버튼 클릭 시 색 변경
 	$('div[id^="secBtn"]').click(btnColor)
 	$('#secBtn1').click(pageScroll1)
 	$('#secBtn2').click(pageScroll2)
@@ -55,12 +57,13 @@ $(document).ready(function(){
 	});
 	$('.list li').on('click', commShowList); // 커뮤니티탭 클릭시 응원탭에 list보이게 하기
 	$('.update_write_btn').on('click', updateUpdate);
-});
+})
+
 
 function btnColor() {
 	if($(this).click){
-		$('div[class^="section_btn"]').css('background','white').css('border','1px solid #daddca')
-		$(this).css({'background':'#a4bb73', 'border':'1px solid #a4bb73'})
+		$('div[class^="section"]').css('background','white')
+		$(this).css('background', '#a4bb73')
 	}
 }
 function pageScroll1() {
@@ -78,6 +81,7 @@ function pageScroll3() {
 
 
 function changeBtn() {
+// 	$('#donaBtn').attr('type', 'button');
 	if (!$('#userDona').val() && $('#userPayment').is(':checked') == true){ // 후원금액 미입력 시 
 		Swal.fire({
 			title: '후원금액을 입력해주세요.',
@@ -88,7 +92,7 @@ function changeBtn() {
 		}).then((result) => {
 			if(result.value)	return false;
 		})
-	} else if($('#userDona').val() <= ${projectParam.MIN_DONA} && $('#userPayment').is(':checked') == true) { // 최소 후원금 이하일 경우 
+	} else if($('#userDona').val() <= ${projectDTO.minDona} && $('#userPayment').is(':checked') == true) { // 최소 후원금 이하일 경우 
 		Swal.fire({
 			title: '최소금액보다 큰 금액을 입력해주세요.',
 			icon: 'warning',
@@ -99,6 +103,7 @@ function changeBtn() {
 			if(result.value) return false;
 		})
 	} else {
+// 		document.getElementById('fundingForm').submit();
 		$('#fundingForm').submit();
 	}
 }
@@ -158,16 +163,16 @@ function offDisplay() {
 }
 // 공유하기 - 트위터
 function shareTwitter() {
-    var sendText = "${projectParam.TITLE}"; // 전달할 텍스트
-    var sendUrl = "http://localhost:8080/main/project/projectInfo?idx=${projectParam.IDX}"; // 전달할 URL
+    var sendText = "${projectDTO.title}"; // 전달할 텍스트
+    var sendUrl = "http://localhost:8080/main/project/projectInfo?idx=${projectDTO.idx}"; // 전달할 URL
     window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
 }
 //공유하기 - 페이스북
 function shareFacebook() {
-    var sendUrl = "http://localhost:8080/main/project/projectInfo?idx=${projectParam.IDX}"; // 전달할 URL
+    var sendUrl = "http://localhost:8080/main/project/projectInfo?idx=${projectDTO.idx}"; // 전달할 URL
     window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
 }
-// 공유하기 - 카카오톡 
+//공유하기 - 카카오톡 
 function shareKakao() {
   // 사용할 앱의 JavaScript 키 설정
   Kakao.init('c6695526da12e98bb7f09606bb9a0d92');
@@ -179,10 +184,10 @@ function shareKakao() {
     content: {
       title: "harVest", // 보여질 제목
       description: "펀딩사이트, harVest", // 보여질 설명
-      imageUrl: "http://localhost:8080/${pageContext.request.contextPath}/project/projectInfo?idx=${projectParam.IDX}", // 콘텐츠 URL
+      imageUrl: "http://localhost:8080/${pageContext.request.contextPath}/project/projectInfo?idx=${projectDTO.idx}", // 콘텐츠 URL
       link: {
-         mobileWebUrl: "http://localhost:8080/${pageContext.request.contextPath}/project/projectInfo?idx=${projectParam.IDX}",
-         webUrl: "http://localhost:8080/${pageContext.request.contextPath}/project/projectInfo?idx=${projectParam.IDX}"
+         mobileWebUrl: "http://localhost:8080/${pageContext.request.contextPath}/project/projectInfo?idx=${projectDTO.idx}",
+         webUrl: "http://localhost:8080/${pageContext.request.contextPath}/project/projectInfo?idx=${projectDTO.idx}"
       }
     }
   });
@@ -226,6 +231,7 @@ function showFunding() {
 		$(".user_donation").hide();
 	})
 	$("#userPayment").click(function(){
+		$('#userDona').val('');
 		$(".user_donation").show();
 	})
 }
@@ -233,13 +239,14 @@ function showFunding() {
 function hideFunding() {
 	if($(".project_info_box").css("display") != "none") {
 		$(".project_info_box, .info_bg").hide();
+// 		return false;
 	}
 }
 
 // 후원하기 값 선택
 function minPayment() {
 	if($(this).is(':checked')== true) {
-		$('#userDona').val('');
+		$('#userDona').val($('#minPayment').val());	// 최소금액
 		$('#userDona').attr('readonly',true);
 	}
 }
@@ -249,8 +256,8 @@ function userPayment() {
 	}
 }
 
-//숙인
-//창작자 공지 페이지 수정
+// 숙인
+// 창작자 공지 페이지 수정
 function updateUpdate(){
 	$('#U_write').show();
 	$('#U_list').hide();
@@ -265,14 +272,14 @@ function updateUpdate(){
 	return;
 }
 
-//창작자공지 글쓰기창 들어와서 '<- 창작자 공지로 돌아가기' 버튼 눌렀을 때
+// 창작자공지 글쓰기창 들어와서 '<- 창작자 공지로 돌아가기' 버튼 눌렀을 때
 function gobackUpdate(){
 	$('#U_list').show();
 	$('#U_write').hide();
 	$('#updateWriteForm')[0].reset();
 }
 
-//창작자 공지 글쓰기창 보여주기/숨기기
+// 창작자 공지 글쓰기창 보여주기/숨기기
 function updateDisplay(){
 	if($("#U_write").css("display") == "none"){
 		$('#U_write').show();
@@ -286,13 +293,13 @@ function updateDisplay(){
 	}
 }
 
-//커뮤니티탭 응원/문의/리뷰 댓글달고 리스트 바로 띄우기
+// 커뮤니티탭 응원/문의/리뷰 댓글달고 리스트 바로 띄우기
 function commSubmit(){
 	debugger;
- var form = $('#review_file')[0];
- var formData = new FormData();
- formData.append("attachedImg", form.files[0]);
- 
+    var form = $('#review_file')[0];
+    var formData = new FormData();
+    formData.append("attachedImg", form.files[0]);
+    
 	var data = { 
 							'pjIdx' : ${productUpdateDTO.pjIdx},
 				             'id' : '${sessionScope.id}', // String은 '  ' 안에 넣어줌
@@ -310,13 +317,13 @@ function commSubmit(){
 		  type	: "POST", // http 요청 방식 (default: ‘GET’)
 		  data  :  {data,
 		  				formData},// 요청 시 포함될 데이터. contentLabel이라는 키(변수명같은거)에 id 값을 넣기 
-//		  content_Type : "application/json", // 요청 컨텐트 타입 
+// 		  content_Type : "application/json", // 요청 컨텐트 타입 
 		  content_Type : false, // false 로 선언 시 content-type 헤더가 multipart/form-data로 전송
 		  processData : false, // false로 선언 시 formData를 string으로 변환하지 않음
 		  enctype : 'multipart/form-data',// 요청 컨텐트 타입 . file은 JSON에 포함될 수 없다. 그래서 FormData 안에 file과 JSON (= data)를 append 시킨다.
-//		  dataType    : "json", // 응답 데이터 형식 (명시하지 않을 경우 자동으로 추측)
+// 		  dataType    : "json", // 응답 데이터 형식 (명시하지 않을 경우 자동으로 추측)
 		  success : function(data) { // function(data)가 성공하면 콘솔에 data찍어줘 
-//			console.log('성공')	  //  콘솔에 data찍어줘. 컨트롤러에서 return값 돌려 받음
+// 			console.log('성공')	  //  콘솔에 data찍어줘. 컨트롤러에서 return값 돌려 받음
 				$('#commList' + index).click(); // 댓글 쓰자마자 commList1, 2, 3(탭id)이 클릭되게 하기
 		  },
 		  error : function(data){
@@ -347,7 +354,7 @@ function commShowList(){
 //	     enctype : 'multipart/form-data',// 요청 컨텐트 타입 . file은 JSON에 포함될 수 없다. 그래서 FormData 안에 file과 JSON (= data)를 append 시킨다.
 	     dataType    : "JSON", // 응답 데이터 형식 (명시하지 않을 경우 자동으로 추측)
 	     success : function(list) { // function(data)가 성공하면 콘솔에 data찍어줘 
-//		 console.log(list);	  //  콘솔에 data찍어줘. 컨트롤러에서 return값 돌려 받음
+// 		 console.log(list);	  //  콘솔에 data찍어줘. 컨트롤러에서 return값 돌려 받음
 		
 	  	var showList = ""; 
 		
@@ -355,8 +362,8 @@ function commShowList(){
 			var idx = item.idx;
 			var dt=new Date(item.date);
 	        var d=dt.getFullYear()+"-"+(dt.getMonth()+1)+"-"+dt.getDate()+" "+dt.getHours()+":"+dt.getMinutes()+":"+dt.getSeconds();
-//			showList += '<div class="cmt_list"> '
-//			showList += 	'<table id="table_COM1"> '
+// 			showList += '<div class="cmt_list"> '
+// 			showList += 	'<table id="table_COM1"> '
 			showList += 		'<div class="cmt_profile_box"> '
 			showList += 			'<div class="cmt_profile_img"> '
 			showList += 				'<a href="#"><img src="${pageContext.request.contextPath }/resources/upload/' + item.profile + '"></a> '
@@ -364,7 +371,7 @@ function commShowList(){
 			showList += 			'<div class="cmt_profile_info"> '
 			showList += 				'<div class="cmt_info"> '
 			showList += 					'<span>' + item.name + '</span> '
-			showList +=                		'<span>' + item.codeNm + '</span> '
+			showList += 					'<span>' + item.contentLabel + '</span> '
 			showList += 					'<p class="cmt_time">' + d + '</p> '
 			showList += 				'</div> '
 			showList += 			'</div> '
@@ -389,8 +396,8 @@ function commShowList(){
 			showList +=					'<div class="reply" id="reply_' + idx + '"></div> '
 			showList += 			'</div> '
 			showList += 		'</div> '
-//			showList += 	'</table> '
-//			showList += '</div>'
+// 			showList += 	'</table> '
+// 			showList += '</div>'
 		  });
 		
 		$('#table_' + commList).empty();
@@ -400,7 +407,7 @@ function commShowList(){
 	});
 }
 
-//커뮤니티 댓글의 댓글쓰기
+// 커뮤니티 댓글의 댓글쓰기
 function submitReply(idx){
 	var commTab = $('.tab_active').attr('id').replace("commList", "COM"); // class="tab_active"의 id가지고 와서 commList를 COM으로 바꾸기
 	var data = {  pjIdx : ${productUpdateDTO.pjIdx}, // 프로젝트 번호
@@ -466,7 +473,7 @@ function submitReplyList(idx){
 	});
 }
 
-//커뮤니티탭 댓글쓰기 클릭하면 대댓글창 여닫기 
+// 커뮤니티탭 댓글쓰기 클릭하면 대댓글창 여닫기 
 function reCmtOpenClose(idx){
 	
 	var writeBtn = $('#reply_cmt_' + idx)
@@ -481,9 +488,9 @@ function reCmtOpenClose(idx){
 	}
 }
 
-//커뮤니티탭 댓글 삭제하기
+// 커뮤니티탭 댓글 삭제하기
 function deleteComm(idx){
-//	var del = this.id.replace("Delete", "");
+// 	var del = this.id.replace("Delete", "");
 	$.ajax ({
 		  url	: "${pageContext.request.contextPath }/project/deleteAjax", // 요청이 전송될 URL 주소
 		  type	: "GET", // http 요청 방식 (default: ‘GET’ POST PUT DELETE)
@@ -492,86 +499,109 @@ function deleteComm(idx){
 		  success : function(result) { // function(data)가 성공하면 콘솔에 data찍어줘 
 			console.log(result);	  //  콘솔에 data찍어줘. 컨트롤러에서 return값 돌려 받음
 			alert('댓글이 삭제되었습니다.');	  //  콘솔에 data찍어줘. 컨트롤러에서 return값 돌려 받음
-//			commShowList();
+// 			commShowList();
 			location.reload();
 		  }
 	});
 	
 }
 
-//업데이트 글쓰기창에 텍스트 에디터
+// 업데이트 글쓰기창에 텍스트 에디터
 $(function() {
-      var plugins = [ "advlist", "autolink", "lists", "link", "image",
-            "charmap", "print", "preview", "anchor", "searchreplace",
-            "visualblocks", "code", "fullscreen", "insertdatetime",
-            "media", "table", "paste", "code", "help", "wordcount",
-            "save" ];
-      var edit_toolbar = 'formatselect fontselect fontsizeselect |'
-            + ' forecolor backcolor |'
-            + ' bold italic underline strikethrough |'
-            + ' alignjustify alignleft aligncenter alignright |'
-            + ' bullist numlist |' + ' table tabledelete |'
-            + ' link image';
+         var plugins = [ "advlist", "autolink", "lists", "link", "image",
+               "charmap", "print", "preview", "anchor", "searchreplace",
+               "visualblocks", "code", "fullscreen", "insertdatetime",
+               "media", "table", "paste", "code", "help", "wordcount",
+               "save" ];
+         var edit_toolbar = 'formatselect fontselect fontsizeselect |'
+               + ' forecolor backcolor |'
+               + ' bold italic underline strikethrough |'
+               + ' alignjustify alignleft aligncenter alignright |'
+               + ' bullist numlist |' + ' table tabledelete |'
+               + ' link image';
 
-      tinyMCE.init({
-//      	 	 selector: "content", 
-               forced_root_block : false,
-               force_br_newlines : true,
-               force_p_newlines : false,
-               language : "ko_KR", //한글판으로 변경
-               mode : "specific_textareas",
-               editor_selector : 'mceEditor',
-               height : 500,
-               menubar : false,
-               plugins : plugins,
-               toolbar : edit_toolbar,
+         tinyMCE.init({
+//         	 	 selector: "content", 
+                  forced_root_block : false,
+                  force_br_newlines : true,
+                  force_p_newlines : false,
+                  language : "ko_KR", //한글판으로 변경
+                  mode : "specific_textareas",
+                  editor_selector : 'mceEditor',
+                  height : 500,
+                  menubar : false,
+                  plugins : plugins,
+                  toolbar : edit_toolbar,
 
-               image_title : true,
-               
-               automatic_uploads : true,
-               file_picker_types : 'image',
-               
-               file_picker_callback : function(cb, value, meta) {
-                  var input = document.createElement('input');
-                  input.setAttribute('type', 'file');
-                  input.setAttribute('accept', 'image/*');
+                  /*** image upload ***/
+                  image_title : true,
+                  
+                  /* enable automatic uploads of images represented by blob or data URIs*/
+                  automatic_uploads : true,
+                  /*
+                      URL of our upload handler (for more details check: https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_url)
+                      images_upload_url: 'postAcceptor.php',
+                      here we add custom filepicker only to Image dialog
+                   */
+                  file_picker_types : 'image',
+                  
+                  /* and here's our custom image picker*/
+                  file_picker_callback : function(cb, value, meta) {
+                     var input = document.createElement('input');
+                     input.setAttribute('type', 'file');
+                     input.setAttribute('accept', 'image/*');
 
-                  input.onchange = function() {
-                     var file = this.files[0];
+                     /*
+                     Note: In modern browsers input[type="file"] is functional without
+                     even adding it to the DOM, but that might not be the case in some older
+                     or quirky browsers like IE, so you might want to add it to the DOM
+                     just in case, and visually hide it. And do not forget do remove it
+                     once you do not need it anymore.
+                      */
+                     input.onchange = function() {
+                        var file = this.files[0];
 
-                     var reader = new FileReader();
-                     reader.onload = function() {
-                        var id = 'blobid' + (new Date()).getTime();
-                        var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-                        var base64 = reader.result.split(',')[1];
-                        var blobInfo = blobCache.create(id, file,
-                              base64);
-                        blobCache.add(blobInfo);
+                        var reader = new FileReader();
+                        reader.onload = function() {
+                           /*
+                           Note: Now we need to register the blob in TinyMCEs image blob
+                           registry. In the next release this part hopefully won't be
+                           necessary, as we are looking to handle it internally.
+                            */
+                           var id = 'blobid' + (new Date()).getTime();
+                           var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                           var base64 = reader.result.split(',')[1];
+                           var blobInfo = blobCache.create(id, file,
+                                 base64);
+                           blobCache.add(blobInfo);
 
-                        cb(blobInfo.blobUri(), {
-                           title : file.name
-                        });
+                           /* call the callback and populate the Title field with the file name */
+                           cb(blobInfo.blobUri(), {
+                              title : file.name
+                           });
+                        };
+                        reader.readAsDataURL(file);
                      };
-                     reader.readAsDataURL(file);
-                  };
-                  input.click();
-               },
+                     input.click();
+                  },
+                  /*** image upload ***/
 
-               content_style : 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-            });
-   });
-   
+                  content_style : 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+               });
+      });
+      
 </script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 </head>
 <body>
 <jsp:include page="../inc/header.jsp"></jsp:include>
 	<!-- 상품 이미지 및 간략 정보 -->
-	<div id="productContent">
+	
 		<div class="prod_title">
-			<button>${projectParam.CATEGORY}</button>
-			<h1>${projectParam.TITLE}</h1>
-			<input type="hidden" id="pjIdx" value="${projectParam.IDX}">
+			<button>${projectDTO.category}</button>
+			<h1>${projectDTO.title}</h1>
+			<input type="hidden" id="pjIdx" value="${projectDTO.idx}">
 		</div>
 		<div class="prod_cont">
 			<div> <!-- 이미지 캐러셀 -->
@@ -582,7 +612,7 @@ $(function() {
 				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
 				  </div>
 				  <div class="carousel-inner">
-						<c:set var="img" value="${projectParam.IMG1}"/>
+				    <c:set var="img" value="${projectDTO.img1}"/>
 	                  <c:if test="${not empty img}">
 	                     <div class="carousel-item active">
 	                        <img src="${pageContext.request.contextPath}/resources/upload/${fn:split(img,'&')[0]}" class="d-block w-100" alt="...">
@@ -613,70 +643,73 @@ $(function() {
 				<div class="project_info">
 					<div class="info_price">
 						<span class="info_tit">모인 금액</span>
-						<span style="font-size: 1em !important;"><span class="point_font">${projectParam.PERCENT}%</span></span>
+						<span style="font-size: 1em !important;"><span class="point_font">${Math.round(projectDTO.sumMoney / projectDTO.targetAmt * 100)}%</span></span>
 						<h2>
-							<fmt:formatNumber value="${projectParam.sumMoney}" />원
+							<fmt:formatNumber value="${projectDTO.sumMoney}" />원
 						</h2>
 					</div>
 					<div class="info_time">
 						<span class="info_tit">남은 시간</span>
 						<h2>
-						<c:set var="DATEDIFF" value="${projectParam.DATEDIFF}"/>
-							<c:if test="${DATEDIFF > 0}">
-								<span class="days">${DATEDIFF}일</span>
+							<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="nowDtParse" scope="request"/>
+							<fmt:parseNumber value="${projectDTO.end.time/ (1000*60*60*24)}" integerOnly="true" var="dbDtParse" scope="request"/>
+							<c:if test="${(dbDtParse - nowDtParse) + 1 > 0}">
+								<span class="days">${(dbDtParse - nowDtParse) + 1}일</span>
 							</c:if>
-							<c:if test="${DATEDIFF == 0}">
+							<c:if test="${(dbDtParse - nowDtParse) + 1 == 0}">
 								<span class="deadline">오늘 마감</span>
 							</c:if>
-							<c:if test="${DATEDIFF < 0}">
+							<c:if test="${(dbDtParse - nowDtParse) + 1 < 0}">
 								<span class="deadline">펀딩 종료</span>
 							</c:if>
 						</h2>
 					</div>
 					<div class="info_support">
 						<span class="info_tit">후원자</span>
-						<h2><fmt:formatNumber value="${projectParam.sumUser}" />명</h2>
+						<h2><fmt:formatNumber value="${projectDTO.sumUser}" />명</h2>
 					</div>
 				</div>
 				<div class="project_summary">
 					<div>
 						<div>목표 금액</div>
-						<div>${projectParam.formatAMT}원</div>
-						<div><span class="point_font">${projectParam.PERCENT}%</span></div>
+						<div><fmt:formatNumber value="${projectDTO.sumMoney}"/>원</div>
+						<div><span class="point_font">${Math.round(projectDTO.sumMoney / projectDTO.targetAmt * 100)}%</span></div>
 					</div>
 					<div>
 						<div>펀딩 기간</div>
-						<div>${projectParam.START}~${projectParam.END}</div>
+						<div>${projectDTO.start}~${projectDTO.end}</div>
 						<div>
-							<c:if test="${DATEDIFF > 0}">
-							<span class="deadline_box">${DATEDIFF}일 남음</span>
+							<c:if test="${(dbDtParse - nowDtParse) + 1 > 0}">
+							<span class="deadline_box">${(dbDtParse - nowDtParse) + 1}일 남음</span>
 							</c:if>
-							<c:if test="${DATEDIFF == 0}">
-							<span class="deadline_box">${DATEDIFF}일 남음</span>
+							<c:if test="${(dbDtParse - nowDtParse) + 1 == 0}">
+							<span class="deadline_box">${(dbDtParse - nowDtParse) + 1}일 남음</span>
 							</c:if>
-							<c:if test="${DATEDIFF < 0}">
+							<c:if test="${(dbDtParse - nowDtParse) + 1 < 0}">
 							<span class="deadline_box">펀딩 종료</span>
 							</c:if>
 						</div>
 					</div>
 					<div>
 						<div>결제 일시</div>
-						<div>목표금액 달성시 <span class="point_font">${projectParam.PAYDATE}</span>에 결제 진행</div>
-						<c:if test="${DATEDIFF < 0}">
-							<c:if test="${projectParam.sumMoney >= projectParam.TARGET_AMT}">
+						<div>목표금액 달성시 <span class="point_font">${payDate }</span>에 결제 진행</div>
+						<c:if test="${(dbDtParse - nowDtParse) + 1 < 0}">
+							<c:if test="${projectDTO.sumMoney >= projectDTO.targetAmt}">
 							<div>목표 달성</div>
 							</c:if>
-							<c:if test="${projectParam.sumMoney < projectParam.TARGET_AMT}">
+							<c:if test="${projectDTO.sumMoney < projectDTO.targetAmt}">
 							<div>달성 실패</div>
 							</c:if>
 						</c:if>
-						<c:if test="${DATEDIFF >= 0}">
+						<c:if test="${(dbDtParse - nowDtParse) + 1 >= 0}">
+<%-- 							<c:if test="${projectDTO.sumMoney < projectDTO.targetAmt}"> --%>
 							<div>진행 중</div>
+<%-- 							</c:if> --%>
 						</c:if>
 					</div>
 				</div>
 				<div class="project_btn">
-					<img id="likeBtn" src="${pageContext.request.contextPath}/resources/harVest_img/${projectParam.HEART}">
+					<img id="likeBtn" src="${pageContext.request.contextPath}/resources/harVest_img/${projectDTO.heart}">
 					<div id="shareBtn" class="share_btn">
 						<span>
 							<img id=shareBtn" src="${pageContext.request.contextPath}/resources/harVest_img/share.svg">
@@ -699,7 +732,7 @@ $(function() {
 				</div>
 			</div>
 		</div>
-	</div>
+<!-- 	</div> -->
 	<!-- 탭 메뉴 -->
 	<div id="productInfoMore">
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -716,24 +749,24 @@ $(function() {
 		<div class="fundingInfo">
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-					<div class="scroll_btn">
-							<div id="secBtn1" class="section_btn1">프로젝트 소개</div>
-							<div id="secBtn2" class="section_btn2">예산</div>
-							<div id="secBtn3" class="section_btn3">일정</div>
-					</div>
 					<div id="secCont1" class="section target">
-					${projectParam.INTRO}
+						<div class="scroll_btn">
+							<div id="secBtn1" class="section1">프로젝트 소개</div>
+							<div id="secBtn2" class="section2">예산</div>
+							<div id="secBtn3" class="section3">일정</div>
+						</div>
+						${projectDTO.intro}
 					</div>
 					<div id="secCont2" class="section target">
 					<hr>
-					${projectParam.BUDGET}
+					${projectDTO.budget}
 					</div>
 					<div id="secCont3" class="section target">
 					<hr>
-					${projectParam.SCHEDULE}
+					${projectDTO.schedule}
 					</div>
 				</div>
-				<!-- 숙인쿤 -->
+				<!-- 숙인 -->
 				<div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
 					<!-- if문으로 공지 있을 때, 없을 때 구분해주기 -->
 					<div class="notice_wrapper" id="U_list">
@@ -860,7 +893,7 @@ $(function() {
 						      	</div>
 					      	</c:if>
 					    <!-- 로그인하고 후원자만 댓글쓰기-->
-				      		<c:if test="${!empty sessionScope.id and projectParam.spon =='Y'}">
+				      		<c:if test="${!empty sessionScope.id and projectDTO.spon =='Y'}">
 					      		<div class="cmt_write">
 					      			<textarea id="content_COM1" name="content" placeholder="후원자만 글을 쓸 수 있어요."></textarea>
 					      			<div>
@@ -886,7 +919,7 @@ $(function() {
 						      	</div>
 					      	</c:if>
 					      	<!-- 로그인하고 후원자만 댓글쓰기-->
-				      		<c:if test="${!empty sessionScope.id and projectParam.spon =='Y'}">
+				      		<c:if test="${!empty sessionScope.id and projectDTO.spon =='Y'}">
 					      		<div class="cmt_write">
 					      			<textarea id="content_COM2" name="content" placeholder="후원자만 글을 쓸 수 있어요." ></textarea>
 					      			<div>
@@ -911,7 +944,7 @@ $(function() {
 						      	</div>
 					      	</c:if>
 					      	<!-- 로그인하고 후원자만 댓글쓰기-->
-				      		<c:if test="${!empty sessionScope.id and projectParam.spon =='Y'}">
+				      		<c:if test="${!empty sessionScope.id and projectDTO.spon =='Y'}">
 					      		<div class="cmt_write">
 					      			<input type="hidden" name="id" value="${sessionScope.id}">
 					      			<textarea id="content_COM3" name="content" placeholder="후원자만 글을 쓸 수 있어요." ></textarea>
@@ -941,27 +974,28 @@ $(function() {
 						<path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
 					</svg>
 				</span>
-   				<div>원하는 후원 방법을 선택해주세요.</div>
-	            <div class="funding_wrap">
-	               <form action="${pageContext.request.contextPath}/payment/payment?idx=${projectParam.IDX}" id="fundingForm" method="post">
-	                  <div>
-	                     <input type="hidden" name="idx" value="${projectParam.IDX}">
-	                     <label>
-	                        <!-- value랑 최소금액 값 받아오기 -->
-	                        <input type="radio" name="funding_name" value="${projectParam.MIN_DONA}" id="minPayment" checked>
-	                        <span class="min_check"></span><span class="min_title">최소금액 | ${projectParam.MIN_DONA}원</span>
-	                     </label>
-	                     <label>
-	                        <input type="radio" name="funding_name" value="0" id="userPayment">
-	                        <span class="user_check"></span><span class="user_title">후원금액 직접 입력</span>
-	                     </label>
-	                     <span class="user_donation">
-	                        <input type="text" name="userDona" id="userDona" maxlength="7" oninput="handleInputLength(this, 7)"><span>원</span>
-	                     </span>
-	                  </div>
-	                  <button type="button" id="donaBtn">후원하기</button>
-	               </form>
-	            </div>
+				<div>원하는 후원 방법을 선택해주세요.</div>
+				<div class="funding_wrap">
+					<form action="${pageContext.request.contextPath}/payment/payment?idx=${projectDTO.idx}" id="fundingForm" method="post">
+						<div>
+							<input type="hidden" name="idx" value="${projectDTO.idx}">
+							<label>
+								<!-- value랑 최소금액 값 받아오기 -->
+								<input type="radio" name="funding_name" value="${projectDTO.sumMoney}" id="minPayment" checked>
+								<span class="min_check"></span><span class="min_title">최소금액 | ${projectDTO.sumMoney}원</span>
+							</label>
+							<label>
+								<input type="radio" name="funding_name" value="0" id="userPayment">
+								<span class="user_check"></span><span class="user_title">후원금액 직접 입력</span>
+							</label>
+							<span class="user_donation">
+								<input type="text" name="userDona" id="userDona" maxlength="7" oninput="handleInputLength(this, 7)" onkeyup="javascript:inputNumberFormat(this)" onkeydown="cf_getNumberOnly"><span>원</span>
+								<!--  onkeyup="javascript:inputNumberFormat(this)" onkeydown="cf_getNumberOnly" -->
+							</span>
+						</div>
+						<button type="button" id="donaBtn">후원하기</button>
+					</form>
+				</div>
 			</div>
 			<div class="info_bg"></div>
 		</div>

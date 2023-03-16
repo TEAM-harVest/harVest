@@ -39,7 +39,6 @@ public class AddressController {
 	
 	@RequestMapping(value = "/myPage/insertAddressPro", method = RequestMethod.POST)
 	public String insertAddressPro(AddressDTO addressDto) {
-		System.out.println("AddressController insertAddressPro() ");
 		addressService.insertAddress(addressDto);
 		
 		return "redirect:/myPage/myAddress";  
@@ -47,7 +46,6 @@ public class AddressController {
 	
 	@RequestMapping(value = "/myPage/deleteAddressPro", method = RequestMethod.POST)
 	public String deleteAddressPro(AddressDTO addressDto) {
-		System.out.println("AddressDTO Controller" + addressDto);
 		addressService.deleteAddress(addressDto);
 		
 		return "redirect:/myPage/myAddress";

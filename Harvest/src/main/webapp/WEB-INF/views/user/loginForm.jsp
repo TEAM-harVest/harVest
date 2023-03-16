@@ -115,7 +115,7 @@ div.position {
 			                </div>
 			                <div>
 			                <!-- 네이버 로그인 버튼 -->
-			         		 <a href='${urlNaver}'><img height="50px" src="${ pageContext.request.contextPath }/resources/harVest_img/btnG_완성형.png"></a>
+			         		 <a href='${urlNaver}'><img height="50px" src="${ pageContext.request.contextPath }/resources/harVest_img/btnG.png"></a>
 			                </div>
 			                <br>
 			                <div>

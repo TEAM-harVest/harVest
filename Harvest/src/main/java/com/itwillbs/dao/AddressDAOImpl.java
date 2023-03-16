@@ -19,7 +19,6 @@ public class AddressDAOImpl implements AddressDAO  {
 	// 지현
 	@Override
 	public List<AddressDTO> getAddressList(String id) {
-		System.out.println("AddressDAOImpl" + id);
 		return sqlSession.selectList(namespace+".getAddressList", id);
 	}
 	
@@ -35,7 +34,6 @@ public class AddressDAOImpl implements AddressDAO  {
 
 	@Override
 	public void deleteAddress(AddressDTO addressDto) {
-		System.out.println("AddressDAOImpl" + addressDto);
 		sqlSession.delete(namespace+".deleteAddress", addressDto);
 	}
 

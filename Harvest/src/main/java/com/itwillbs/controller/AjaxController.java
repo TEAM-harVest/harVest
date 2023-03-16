@@ -119,7 +119,6 @@ public class AjaxController {
 	@GetMapping("/user/mailCheck")
 	@ResponseBody
 	public String mailCheck(String email) {
-		System.out.println("이메일 인증 요청이 들어옴!");
 		return mailService.joinEmail(email);
 			
 	}
@@ -157,7 +156,6 @@ public class AjaxController {
 		Date payDate1 = format.parse(payDate);
 		dto.setPayDate(payDate1);
 		dto.setStatus(status);
-		System.out.println(dto.toString());
 		
 		paymentService.insertPayment(dto);
 	
@@ -188,8 +186,6 @@ public class AjaxController {
 		communityDTO.setContent(request.getParameter("content"));
 		communityDTO.setContentLabel(request.getParameter("contentLabel"));
 		communityDTO.setImgA(fileName);
-		
-		System.out.println("asdasd" + communityDTO.toString());
 		
 		
 		// 커뮤니티 글 넣기

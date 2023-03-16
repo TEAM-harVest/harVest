@@ -85,20 +85,9 @@ public class ProjectInfoController {
 		}
 		param.put("IDX", idx + "");
 		
-		ProjectDTO projectDTO = ProjectInfoService.getProjectInfo(param);
+		param = ProjectInfoService.getProjectInfo(param);
 		
-		Date date = projectDTO.getEnd();
-		SimpleDateFormat sdfYMD = new SimpleDateFormat("yyyy-MM-dd");
-		
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		
-		// 결제일 계산
-		cal.add(Calendar.DATE, 1);
-		String payDate = sdfYMD.format(cal.getTime());
-		
-		model.addAttribute("projectDTO", projectDTO);
-		model.addAttribute("payDate", payDate);
+		model.addAttribute("projectParam", param);
 		
 		// 쑥
 		List<ProductUpdateDTO> productUpdateList = productUpdateService.getUpdateList(productUpdateDTO);
@@ -106,8 +95,8 @@ public class ProjectInfoController {
 		model.addAttribute("productUpdateList", productUpdateList);
 		
 		productUpdateDTO.setPjIdx(Integer.parseInt(request.getParameter("idx")));
-//		model.addAttribute("productUpdateDTO", productUpdateDTO);
-//		model.addAttribute("communityDTO", communityDTO);
+		model.addAttribute("productUpdateDTO", productUpdateDTO);
+		model.addAttribute("communityDTO", communityDTO);
 		
 		return "projectInfo/projectInfoPage";
 	}

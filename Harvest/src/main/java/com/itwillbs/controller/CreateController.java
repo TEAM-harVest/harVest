@@ -139,7 +139,7 @@ public class CreateController {
 			String multiImg = "";
 			
 			for(MultipartFile file : mtfRequest.getFiles("images")) {
-				multiImg += UploadFile.fileUpload(file, uploadPath, Path) + "&";
+				multiImg += UploadFile.fileUpload(file, uploadPath, Path) + "*";
 			}
 			projectDto.setImg1(multiImg);
 		}

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- 시스템 시간 -->
 <jsp:useBean id="now" class="java.util.Date" />
@@ -296,22 +297,20 @@ function address(){
 				<div class="payment_cont">
 					<div class="proj_info">
 						<div>
-							<img onclick="location.href='${pageContext.request.contextPath}/project/projectInfo?idx=${pdto.idx}'" src="${pageContext.request.contextPath}/resources/harVest_css/gosim.JPG" width="150">
+							<img onclick="location.href='${pageContext.request.contextPath}/project/projectInfo?idx=${projectParam.IDX}'" src="${pageContext.request.contextPath}/resources/upload/${fn:split(projectParam.IMG1,'&')[0]}" width="150">
 						</div>
 						<div>
-						<!-- TODO: onclick하면 어디로 가는 것?? -->
-							<span class="category" onclick="location.href='${pageContext.request.contextPath}/main/mainList'">${pdto.category}</span>
-							<h3 onclick="location.href='${pageContext.request.contextPath}/project/projectInfo?idx=${pdto.idx}'">${pdto.title}</h3>
+							<span class="category" onclick="location.href='${pageContext.request.contextPath}/projectList/category?category=${projectParam.CATEGORY}'">${projectParam.CATEGORY}</span>
+							<h3 onclick="location.href='${pageContext.request.contextPath}/project/projectInfo?idx=${projectParam.IDX}'">${projectParam.TITLE}</h3>
 							<div>
-								<strong><fmt:formatNumber value="${pdto.minDona}" />원</strong>
+								<strong>${userDona}"원</strong>	<!-- TODO: 여기 후원금액자리 맞나욤? -->
 <%-- 								<span class="point" style="font-weight:900;">${Math.round(projectDTO.sumMoney / projectDTO.targetAmt * 100)}%</span> --%>
+								<c:set var="DATEDIFF" value="${projectParam.DATEDIFF}"/>
 								<span>
-								<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="nowDtParse" scope="request"/>
-								<fmt:parseNumber value="${projectDTO.end.time / (1000*60*60*24)}" integerOnly="true" var="dbDtParse" scope="request"/>
-								<c:if test="${(dbDtParse - nowDtParse) + 1 > 0}">
-									<span class="days"> | ${(dbDtParse - nowDtParse) + 1}일 남음</span>
+								<c:if test="${DATEDIFF > 0}">
+									<span class="days"> | ${DATEDIFF}일 남음</span>
 								</c:if>
-								<c:if test="${(dbDtParse - nowDtParse) + 1 == 0}">
+								<c:if test="${DATEDIFF == 0}">
 									<span class="point"> | 오늘 마감</span>
 								</c:if></span>
 							</div>
@@ -337,11 +336,11 @@ function address(){
 									<table>
 										<tr>
 											<th>아이디</th>
-											<td>${dto.name}</td>
+											<td>${UserDto.name}</td>
 										</tr>
 										<tr>
 											<th>연락처</th>
-											<td>${dto.phone}</td>
+											<td>${UserDto.phone}</td>
 										</tr>
 									</table>
 								</div>
@@ -358,11 +357,11 @@ function address(){
 												<div>
 													<p style="margin-top:0;">받는 사람</p>
 <!-- 													<input type="text" name="user_name"> -->
-														<c:if test="${empty dto.address}">
+														<c:if test="${empty UserDto.address}">
 															<input type="text" id="rName" name="name" onclick="address()">
 														</c:if>
-														<c:if test="${! empty dto.address}">
-															<input type="text" id="rName" name="name" value="${dto.name}">
+														<c:if test="${! empty UserDto.address}">
+															<input type="text" id="rName" name="name" value="${UserDto.name}">
 <!-- 															<input type="button" value="변경" id="address" -->
 <%-- 																onclick="window.open('${pageContext.request.contextPath }/payment/address','배송지','width=445, height=400, left=500, top=100');"> --%>
 <%-- 															<button type="button" class="postBtn" onclick="window.open('${pageContext.request.contextPath }/payment/address','배송지','width=445, height=400, left=500, top=100');">변경</button>	 --%>
@@ -377,18 +376,18 @@ function address(){
 											<td>
 												<div>
 													<p>주소</p>
-														<c:if test="${empty dto.address}">
+														<c:if test="${empty UserDto.address}">
 																	<button type="button" class="postBtn" onclick="address()">변경</button>
 														</c:if>
-														<c:if test="${! empty dto.address}">
-																<input type="text" name="zipCode" id="rZipCode" value="${dto.zipCode}" readonly>
+														<c:if test="${! empty UserDto.address}">
+																<input type="text" name="zipCode" id="rZipCode" value="${UserDto.zipCode}" readonly>
 																<button type="button" class="postBtn" onclick="address()">변경</button><br>
-																<input type="text" name="address" id="rAddress" value="${dto.address}" readonly><br>
+																<input type="text" name="address" id="rAddress" value="${UserDto.address}" readonly><br>
 																<input type="text" name="detail" id="rDetail">
 														</c:if>
-														<c:if test="${! empty dto.address}">
+														<c:if test="${! empty UserDto.address}">
 														<p>전화번호</p>
-																<input type="text" name="phone" id="rPhone" value="${dto.phone}" readonly>
+																<input type="text" name="phone" id="rPhone" value="${UserDto.phone}" readonly>
 														</c:if>
 												</div>
 												<!-- 우편 모달창 -->
@@ -400,9 +399,9 @@ function address(){
 														 <input type="button"  class="postBtn" name="address" id="addAddress" value="배송지 추가하기" onclick="address()">
 													 	 <input type="button"  class="postBtn" id="addBtn" value="저장" onclick='changeAdd()'>
 														 </div>
-														 <input type="hidden" name="idx" value="${pdto.idx}">
+														 <input type="hidden" name="idx" value="${projectParam.IDX}">
 														 <input type="hidden" name="userDona" value="${userDona}">
-														 <input type="hidden" name="id" value="${dto.id}">
+														 <input type="hidden" name="id" value="${UserDto.id}">
 														 <div id="addr">
 													 	</div>
 <!-- 													 </form> -->
@@ -437,7 +436,7 @@ function address(){
 									</table>
 								</div>
 								<div class="pay_notice">
-									<p>프로젝트 성공시, 결제는 <span class="point" style="font-weight:600;">${payDate}</span> 에 진행됩니다. 프로젝트가 무산되거나 중단된 경우, 예약된 결제는 자동으로 취소됩니다.</p>
+									<p>프로젝트 성공시, 결제는 <span class="point" style="font-weight:600;">${projectParam.PAYDATE}</span> 에 진행됩니다. 프로젝트가 무산되거나 중단된 경우, 예약된 결제는 자동으로 취소됩니다.</p>
 									<div class="pay_checkbox">
 										<div class="allcheck_box">
 											<input type="checkbox" id="allBtn" style="display:none;">
@@ -489,29 +488,29 @@ function address(){
 						<path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
 					</svg>
 				</div>
-				<form action="${pageContext.request.contextPath}/payment/payment?idx=${pdto.idx}" id="payForm" method="post">
-					<input type="hidden" name="idx" value="${pjdto.idx}">
-					<input type="hidden" name="funding_name" value="0" id="userPayment" checked>
-					<div>
-						<div>
-							<input type="text" name="userDona" id="userDona" placeholder="후원금액을 입력해주세요." maxlength="7"><span style="color:#c8cbb6;font-weight:900;">원</span>
-						</div>
-						<div>
-							<button id="payBtn" type="submit">변경하기</button>
-						</div>
-					</div>
-				</form>
+<%-- 				<form action="${pageContext.request.contextPath}/payment/payment?idx=${projectParam.IDX}" id="payForm" method="post"> --%>
+<%-- 					<input type="hidden" name="idx" value="${pjdto.idx}"> --%>
+<!-- 					<input type="hidden" name="funding_name" value="0" id="userPayment" checked> -->
+<!-- 					<div> -->
+<!-- 						<div> -->
+<!-- 							<input type="text" name="userDona" id="userDona" placeholder="후원금액을 입력해주세요." maxlength="7"><span style="color:#c8cbb6;font-weight:900;">원</span> -->
+<!-- 						</div> -->
+<!-- 						<div> -->
+<!-- 							<button id="payBtn" type="submit">변경하기</button> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</form> -->
 			</div>
 		</div>
 	</div>
-	<input type="hidden" name="idx" class="idx" value="${pdto.idx}"> 
-	<input type="hidden" name="pjIdx" class="pjIdx" value="${pdto.idx}">
-	<input type="hidden" name="id" class="id" value="${dto.id}">
+<%-- 	<input type="hidden" name="idx" class="idx" value="${pdto.idx}">  --%>
+	<input type="hidden" name="pjIdx" class="pjIdx" value="${projectParam.IDX}">
+	<input type="hidden" name="id" class="id" value="${UserDto.id}">
 	<input type="hidden" name="userDona" class="userDona" value="${userDona}">
-	<input type="hidden" name="address" class="address" value="${dto.address}">
-	<input type="hidden" name="phone" class="phone" value="${dto.phone}">
-	<input type="hidden" name="payDate" class="payDate" value="${payDate}">
-	<input type="hidden" name="status" class="status" value="Y">
+	<input type="hidden" name="address" class="address" value="${UserDto.address}">
+	<input type="hidden" name="phone" class="phone" value="${UserDto.phone}">
+	<input type="hidden" name="payDate" class="payDate" value="${projectParam.PAYDATE}">
+	<input type="hidden" name="status" class="status" value="PAY00">
 	
 <!-- footer 들어갈 부분 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>

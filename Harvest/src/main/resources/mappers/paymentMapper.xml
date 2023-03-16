@@ -17,16 +17,16 @@
       WHERE u.ID=#{id}
   </select>	
   
-   <select id="getProject" resultType="com.itwillbs.domain.ProjectDTO">
-     SELECT CRE_NM
-          , TITLE
-          , INTRO
-          , MIN_DONA
-          , IMG1
-          , END
-       FROM PROJECT_TB
-      WHERE IDX=#{pj_idx}
-  </select>	
+<!--    <select id="getProject" resultType="com.itwillbs.domain.ProjectDTO"> -->
+<!--      SELECT CRE_NM -->
+<!--           , TITLE -->
+<!--           , INTRO -->
+<!--           , MIN_DONA -->
+<!--           , IMG1 -->
+<!--           , END -->
+<!--        FROM PROJECT_TB -->
+<!--       WHERE IDX=#{pj_idx} -->
+<!--   </select>	 -->
   
    <insert id="insertPayment">
   	INSERT INTO PAYMENT_TB
