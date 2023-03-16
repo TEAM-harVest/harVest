@@ -12,10 +12,9 @@
 <link href="${pageContext.request.contextPath}/resources/harVest_css/payment.css" rel="stylesheet">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/harVest_js/jquery-3.6.3.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function() {
-// 	let addrCnt = 0; 
-
 	// 금액 변경창 열기
 	$(".pay_change").click(modalOpen)
 	// 금액 변경창 닫기
@@ -34,11 +33,7 @@ $(document).ready(function() {
 	$(".postBtn").click(modaladdOpen)
 	// 우편 모달창 닫기
 	$(".close_modal").click(modaladdClose)
-	$("#addBtn").click(changeAdd)
-	
-	$('input[type^=radio]').click(function() { 
-// 		alert("동작"); 
-	});
+// 	$("#addBtn").click(changeAdd)
 })
 
 function modaladdOpen() {
@@ -110,42 +105,6 @@ function changePay() {
 	}
 }
 
-function changeAdd(){
-	
-	if($(".name").val() == ''){
-		alert("이름을 입력해주세요");
-		return false;
-	} 
-	
-	if($(".phone").val() == ''){
-		alert("전화번호를 입력해주세요");
-		return false;
-	}
-}
-
-/* 전화번호 제어 */
-function phoneCheck(){
-	
-	var phone = $("#phone").value;
-	var phoneElem = $("#phone");
-	var phoneRegex = /^(010|011|016|017|018|019)[0-9]{3,4}[0-9]{4}$/;
-	var span = $("#checkPhone");
-
-	phoneElem.value = phone.replaceAll('-', '');		
-	
-	if(phoneRegex.exec(phone)){
-		checkPhoneResult = true;
-		
-		span.innerHTML = '';
-		
-	} else {
-		span.innerHTML = '전화번호를 제대로 입력해주세요.';
-		span.style.color = 'RED';
-		checkPhoneResult = false;
-	}
-
-}
-
 function keyDown(e) {
     if(e.key == 'Enter'||e.keyCode == 13){
     	changePay();
@@ -177,19 +136,6 @@ function address(){
 					   	    input += '</table></div>';
 					   	    input += '<input type="hidden" class="name1" id="name1" name="name1" value="${dto.name}">';
 							$('#addr').append(input); 
-							
-// 							var input = '<div class="selAdd">';
-//	 						input += '<input type="radio" name="radd" value="' + addrCnt + '" checked id="radd' + addrCnt + '"><br> '; 
-//	 						input += '우편번호 : <input type="text" class="zipCode" name="zipCode" id="zipCode" value="'+data.zonecode+'"><br>';
-//	 						input += '받는 사람 : <input type="text" class="name1" id="name1" name="name1"><br>'; 
-//	 						input += '주소 : <input type="text" class="address1" id="address' + addrCnt + '" name="address' + addrCnt + '" readonly="" value="' + data.address + '"><br> ';
-//  						input += '주소지 이름 : <input type="text" class="addressNm" id="address' + addrCnt + '" name="addressNm' + addrCnt + '" readonly="" value="' + data.address + '"><br> ';
-//	 						input += '상세주소 : <input type="text" class="detail1" id="detail' + addrCnt + '" name="detail"><br> '; 
-//	 						input += '전화번호 : <input type="text" class="phone1" id="phone'+addrCnt+'" name="phone" maxlength="13"><br>'; 
-//	 						input += '</div></br> '; 
-//	 						$('#addr').append(input); 	
-						
-						
 					} 
 		}).open(); 
 	});
@@ -200,7 +146,6 @@ function address(){
 <!-- iamport API -->
 <script type="text/javascript"
 	src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-<!-- 					<P>아임포트 테스트</P> -->
 <script type="text/javascript">
 		IMP.init("imp22281850");
 		function requestPay() {
@@ -210,36 +155,39 @@ function address(){
 					pay_method : "card", //결제수단
 					merchant_uid : 'merchant_'
 							+ new Date().getTime(),
-					name : "${pdto.creNm}",
-					customer_uid : "${dto.name}" + new Date().getTime(),
-					buyer_email : "${dto.id}", //주문자 이메일
-					buyer_name : "${dto.name}", //주문자 이름
-					buyer_tel : "${dto.address}", //주문자 전화번호
-					buyer_addr : "${dto.phone}", //주문자 주소
+					name : "${projectParam.TITLE}",
+					customer_uid : "${UserDto.name}" + new Date().getTime(),
+					buyer_email : "${UserDto.id}", //주문자 이메일
+					buyer_name : "${UserDto.name}", //주문자 이름
+					buyer_tel : "${UserDto.address}", 
+					buyer_addr : "${UserDto.phone}", 
 					},
 					function(rsp) { // callback
 						if (rsp.success) {
 							// 결제 성공 시 로직
-							var msg = "후원이 완료되었습니다! 결제는 ${payDate}일에 진행 됩니다.";
+							var msg = "후원이 완료되었습니다! 결제는 ${projectParam.PAYDATE}일에 진행 됩니다.";
 							alert(msg);
 					        	$.ajax({
 									url : "${pageContext.request.contextPath}/payment/paySuccessPro", // 결제저장경로
 									data : {
-										 'pjIdx' : $('.idx').val(),
+										 'pjIdx' : $('.pjIdx').val(),
 										    'id' : $('.id').val(),
-										'amount' : ${userDona},
+										'amount' : $('.userDona').val(),
 									   'address' : $('#rAddress').val(),
 // 									   'address' : $('#rAddress').val(),
 										 'phone' : $('#rPhone').val(),
-										  'date' : $('.date').val(),
-									   'payDate' : $('.payDate').val(),
+// 										  'date' : $('.date').val(),
+									   'payDate' : $('.paydate').val(),
 										'status' : $('.status').val(),
-									  'userDona' : $('.userDona').val(),
+// 									  'userDona' : $('.userDona').val(),
 // 									   'zipCode' : $('#zipCode').val()
 									}, 
 									success : function(data) { 
 										location.href = "${pageContext.request.contextPath}/payment/paySuccess"; 
-									}
+									},
+									error :  function(request,status,error){
+							              alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+							              }
 								});
 							} else {
 								alert("결제 실패: " + rsp.error_msg);
@@ -263,7 +211,7 @@ function address(){
 			        	'id' : $('.id').val(),
 			     	   'idx' : $('.idx').val(),
 			       	 'name' : name,
-		    	 'addressNm' : addressNm,
+		        'addressNm' : addressNm,
 			      'address' : address,
 				   'detail' : detail,
 				    'phone' : phone,
@@ -271,7 +219,7 @@ function address(){
 				}, 
 				
 				success : function(data) { 
-					$('#rName').val(name);
+					$('#rName').val(addressNm);
 					$('#rPhone').val(phone);
 					$('#rAddressNm').val(addressNm);
 					$('#rAddress').val(address);
@@ -303,7 +251,7 @@ function address(){
 							<span class="category" onclick="location.href='${pageContext.request.contextPath}/projectList/category?category=${projectParam.CATEGORY}'">${projectParam.CATEGORY}</span>
 							<h3 onclick="location.href='${pageContext.request.contextPath}/project/projectInfo?idx=${projectParam.IDX}'">${projectParam.TITLE}</h3>
 							<div>
-								<strong>${userDona}"원</strong>	<!-- TODO: 여기 후원금액자리 맞나욤? -->
+								<strong>${userDona}원</strong>	<!-- TODO: 여기 후원금액자리 맞나욤? -->
 <%-- 								<span class="point" style="font-weight:900;">${Math.round(projectDTO.sumMoney / projectDTO.targetAmt * 100)}%</span> --%>
 								<c:set var="DATEDIFF" value="${projectParam.DATEDIFF}"/>
 								<span>
@@ -356,16 +304,11 @@ function address(){
 											<td>
 												<div>
 													<p style="margin-top:0;">받는 사람</p>
-<!-- 													<input type="text" name="user_name"> -->
-														<c:if test="${empty UserDto.address}">
+														<c:if test="${empty AddDto.address}">
 															<input type="text" id="rName" name="name" onclick="address()">
 														</c:if>
-														<c:if test="${! empty UserDto.address}">
+														<c:if test="${! empty AddDto.address}">
 															<input type="text" id="rName" name="name" value="${UserDto.name}">
-<!-- 															<input type="button" value="변경" id="address" -->
-<%-- 																onclick="window.open('${pageContext.request.contextPath }/payment/address','배송지','width=445, height=400, left=500, top=100');"> --%>
-<%-- 															<button type="button" class="postBtn" onclick="window.open('${pageContext.request.contextPath }/payment/address','배송지','width=445, height=400, left=500, top=100');">변경</button>	 --%>
-															<!-- 오른쪽으로 옮기기..-->
 														</c:if>
 												</div>
 											</td>
@@ -376,16 +319,16 @@ function address(){
 											<td>
 												<div>
 													<p>주소</p>
-														<c:if test="${empty UserDto.address}">
+														<c:if test="${empty AddDto.address}">
 																	<button type="button" class="postBtn" onclick="address()">변경</button>
 														</c:if>
-														<c:if test="${! empty UserDto.address}">
-																<input type="text" name="zipCode" id="rZipCode" value="${UserDto.zipCode}" readonly>
+														<c:if test="${! empty AddDto.address}">
+																<input type="text" name="zipCode" id="rZipCode" value="${AddDto.zipCode}" readonly>
 																<button type="button" class="postBtn" onclick="address()">변경</button><br>
-																<input type="text" name="address" id="rAddress" value="${UserDto.address}" readonly><br>
+																<input type="text" name="address" id="rAddress" value="${AddDto.address}" readonly><br>
 																<input type="text" name="detail" id="rDetail">
 														</c:if>
-														<c:if test="${! empty UserDto.address}">
+														<c:if test="${! empty AddDto.address}">
 														<p>전화번호</p>
 																<input type="text" name="phone" id="rPhone" value="${UserDto.phone}" readonly>
 														</c:if>
@@ -397,9 +340,10 @@ function address(){
 <%-- 													  <form action="${pageContext.request.contextPath}/payment/addressPro" id="addressForm" method="post"> --%>
 														 <div>
 														 <input type="button"  class="postBtn" name="address" id="addAddress" value="배송지 추가하기" onclick="address()">
-													 	 <input type="button"  class="postBtn" id="addBtn" value="저장" onclick='changeAdd()'>
+													 	 <input type="button"  class="postBtn" id="addBtn" value="저장">
 														 </div>
 														 <input type="hidden" name="idx" value="${projectParam.IDX}">
+														 <input type="hidden" name="name" value="${UserDto.name}">
 														 <input type="hidden" name="userDona" value="${userDona}">
 														 <input type="hidden" name="id" value="${UserDto.id}">
 														 <div id="addr">
@@ -488,18 +432,18 @@ function address(){
 						<path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
 					</svg>
 				</div>
-<%-- 				<form action="${pageContext.request.contextPath}/payment/payment?idx=${projectParam.IDX}" id="payForm" method="post"> --%>
-<%-- 					<input type="hidden" name="idx" value="${pjdto.idx}"> --%>
-<!-- 					<input type="hidden" name="funding_name" value="0" id="userPayment" checked> -->
-<!-- 					<div> -->
-<!-- 						<div> -->
-<!-- 							<input type="text" name="userDona" id="userDona" placeholder="후원금액을 입력해주세요." maxlength="7"><span style="color:#c8cbb6;font-weight:900;">원</span> -->
-<!-- 						</div> -->
-<!-- 						<div> -->
-<!-- 							<button id="payBtn" type="submit">변경하기</button> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</form> -->
+				<form action="${pageContext.request.contextPath}/payment/payment?idx=${projectParam.IDX}" id="payForm" method="post">
+					<input type="hidden" name="idx" value="${projectParam.IDX}">
+					<input type="hidden" name="funding_name" value="0" id="userPayment" checked>
+					<div>
+						<div>
+							<input type="text" name="userDona" id="userDona" placeholder="후원금액을 입력해주세요." maxlength="7"><span style="color:#c8cbb6;font-weight:900;">원</span>
+						</div>
+						<div>
+							<button id="payBtn" type="submit">변경하기</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -507,10 +451,10 @@ function address(){
 	<input type="hidden" name="pjIdx" class="pjIdx" value="${projectParam.IDX}">
 	<input type="hidden" name="id" class="id" value="${UserDto.id}">
 	<input type="hidden" name="userDona" class="userDona" value="${userDona}">
-	<input type="hidden" name="address" class="address" value="${UserDto.address}">
+	<input type="hidden" name="address" class="address" value="${AddDto.address}">
 	<input type="hidden" name="phone" class="phone" value="${UserDto.phone}">
 	<input type="hidden" name="payDate" class="payDate" value="${projectParam.PAYDATE}">
-	<input type="hidden" name="status" class="status" value="PAY00">
+	<input type="hidden" name="status" class="status" value="PAY01">
 	
 <!-- footer 들어갈 부분 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>

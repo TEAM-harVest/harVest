@@ -56,7 +56,7 @@ public class ProjectInfoController {
 	// 연서
 	// 공개예정 페이지
 	@RequestMapping(value = "/project/projectOpen", method = RequestMethod.GET)
-	public String projectOpen(@RequestParam("idx")int idx, Model model, HttpSession session) {
+	public String projectOpen(@RequestParam("idx")String idx, Model model, HttpSession session) {
 		Map<String, String> param = new HashMap<String, String>();
 		
 		String sessionId = (String)session.getAttribute("id");
@@ -64,10 +64,10 @@ public class ProjectInfoController {
 		if(sessionId != null) {
 			param.put("SESSIONID", sessionId);
 		}
-		param.put("IDX", idx + "");
-		
+		param.put("IDX", idx);
+		System.out.println(idx);
 		param = ProjectInfoService.getOpenPjInfo(param);
-		
+		System.out.println(param);
 		model.addAttribute("OpenParam", param);
 		return "projectInfo/projectOpenPage";
 	}

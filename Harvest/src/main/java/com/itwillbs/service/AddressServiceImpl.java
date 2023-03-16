@@ -37,19 +37,8 @@ public class AddressServiceImpl implements AddressService{
 
 	@Override
 	public AddressDTO getAddress(String id) {
-		return null;
+		return addressDAO.getAddress(id);
 	}
-	
-	// 민영
-//	@Override
-//	public void insertAddress(AddressDTO addressDTO) {
-//		addressDAO.insertAddress(addressDTO);
-//	}
-//
-//	@Override
-//	public AddressDTO getAddress(String id) {
-//		return null;
-//	}
 
 	
 

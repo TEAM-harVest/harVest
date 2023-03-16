@@ -133,31 +133,11 @@ public class AjaxController {
 	
 	// 민영
 	@RequestMapping(value="/payment/paySuccessPro", method = RequestMethod.GET)
-	public  ResponseEntity<String> paySuccess(Model model, HttpServletRequest request) throws Exception { 
+	public  ResponseEntity<String> paySuccess(Model model, HttpServletRequest request, PaymentDTO paymentDto) throws Exception { 
 		String result = "성공";
-		PaymentDTO dto = new PaymentDTO();
-		int pjIdx = Integer.parseInt(request.getParameter("pjIdx")); 
-		String id = request.getParameter("id");
-		int amount = Integer.parseInt(request.getParameter("amount"));
-		String address = request.getParameter("address");
-		String phone = request.getParameter("phone");
-		String payDate = request.getParameter("payDate");
-		String status = request.getParameter("status");
-		int userDona = Integer.parseInt(request.getParameter("userDona"));
+
 		
-		dto.setUserDona(userDona);
-		dto.setPjIdx(pjIdx);
-		dto.setId(id);
-		dto.setAmount(amount);
-		dto.setAddress(address);
-		dto.setPhone(phone);
-		dto.setDate((new Timestamp(System.currentTimeMillis())));
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date payDate1 = format.parse(payDate);
-		dto.setPayDate(payDate1);
-		dto.setStatus(status);
-		
-		paymentService.insertPayment(dto);
+		paymentService.insertPayment(paymentDto);
 	
 		 ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
          return entity;

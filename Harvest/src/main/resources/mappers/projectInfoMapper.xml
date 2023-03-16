@@ -36,7 +36,7 @@
 	<select id="getOpenPjInfo" resultType="HashMap">
 	SELECT p.*
          , COUNT(PAY.ID) AS sumUser
-         , SUM(PAY.AMOUNT) AS sumMoney
+         , SUM(PAY.AMOUNT) AS TOTAL_AMT
          , CASE WHEN (SELECT COUNT(*)
 					      FROM alram_tb
 					     WHERE PJ_IDX = P.IDX
@@ -45,13 +45,13 @@
 			   											  END AS ALRAM
 		, CASE WHEN (SELECT COUNT(*)
 				       FROM alram_tb
-				      WHERE PJ_IDX = P.IDX) = 1 THEN (SELECT COUNT(*)
+				      WHERE PJ_IDX = P.IDX) IS NOT NULL THEN (SELECT COUNT(*)
 												        FROM alram_tb
 												       WHERE PJ_IDX = P.IDX)
 			   									ELSE 0
 			   								     END AS COUNT  	
           FROM PROJECT_TB P
-          JOIN PAYMENT_TB PAY
+          LEFT OUTER JOIN PAYMENT_TB PAY
           ON P.IDX = PAY.pj_IDX
         WHERE P.IDX = #{IDX};
 	</select>
@@ -101,10 +101,10 @@
 	</select>
 	
 	<select id="getAlram" resultType="HashMap" parameterType="HashMap">
-		SELECT COUNT(*)  AS CNT
+		SELECT COUNT(*) AS CNT
 	      FROM ALRAM_TB
 	     WHERE PJ_IDX = #{PJ_IDX}
-	       AND USER_ID = #{USER_ID}
+<!-- 	       AND USER_ID = #{USER_ID} -->
 	</select>
 	
 	<insert id="insertAlram" parameterType="HashMap">

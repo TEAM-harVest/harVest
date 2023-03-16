@@ -13,6 +13,7 @@
 <title>productPage.jsp</title>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/harVest_js/jquery-3.6.3.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/harVest_js/projectInfoPage.js"></script>
+<script src="https://cdn.tiny.cloud/1/6d0eescgzo66t0hqfeu0aeu5fyxbu2c0415q0gzufzi1uyaa/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <link href="${pageContext.request.contextPath}/resources/harVest_css/projectInfoPage.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/assets/css/joeblog.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -129,7 +130,7 @@ function like() {
 		  url	: "${pageContext.request.contextPath}/project/likePro", // 요청이 전송될 URL 주소
 		  type	: "POST", // http 요청 방식 (default: ‘GET’)
 		  data  : {'PJ_IDX' : $('#pjIdx').val(),
-			  	   'USER_ID' : '${sessionScope.id}'}, // TODO session 아이디로 바까라 좋은말 할때...
+			  	   'USER_ID' : '${sessionScope.id}'}, 
 		  //processData : true, // 데이터를 컨텐트 타입에 맞게 변환 여부
 		  success : function(data) {
 			  var src = $('#likeBtn').attr('src');
@@ -733,203 +734,203 @@ $(function() {
 					${projectParam.SCHEDULE}
 					</div>
 				</div>
-				<!-- 숙인쿤 -->
-				<div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-					<!-- if문으로 공지 있을 때, 없을 때 구분해주기 -->
-					<div class="notice_wrapper" id="U_list">
-						<c:forEach var="dto" items="${productUpdateList }">
-							<div class="creator_box">
-								<div class="profile_creator">
-									<div>
-										<a href="#" class="profile_img">
-											<!-- 프로필 이미지 넣기 -->
-											<img src="${pageContext.request.contextPath }/resources/upload/${dto.crePro}">
-										</a>
-									</div>
-								</div>
-								<div class="profile_info">
-									<div class="info_name"><a href="#">${dto.creNm}</a></div><!-- 창작자 넣기 -->
-									<div class="info_creator">
-										<span class="point creator">♥ 창작자</span>
-										<span class="write_date"> | ${dto.date} </span><!-- 날짜값 넣기 -->
-									</div>
-								</div>
-								<!-- 창작자 로그인 시 버튼 보이게 해주기 -->
-								<c:if test="${creatorWrite.id eq sessionScope.id}">
-									<div class="write_btn_wrapper">
-										<button type="button" id="uBtn_${dto.idx}" class="update_write_btn" >수정</button>
-										<button type="submit" class="delete_write_btn" onclick="location.href='${pageContext.request.contextPath }/project/delete?idx=${productUpdateDTO.pjIdx}&num=${dto.idx}'">삭제</button>
-									</div>
-								</c:if>
-							</div>
-							<div id="content_${dto.idx}" class="creator_cont">
-								${dto.content}
-							</div>
-								<input type="hidden" name="pjIdx" value="${productUpdateDTO.pjIdx }">
-								<input type="hidden" name="idx" value="${dto.idx }">
-						</c:forEach>
-						
-						<!-- 창작자 로그인 시 보이게 해주기 -->
-							<c:if test="${creatorWrite.id eq sessionScope.id}">
-								<div class="creator_btn" id="onDisplay">
-									<button>글쓰기</button>
-								</div>
-							</c:if>
-					</div>
-					
-					<!-- 창작자 공지 글쓰기창 -->
-					<div class="updateWrite" id="U_write"  style="display: none;">
-						<form action="${pageContext.request.contextPath}/project/productUpdateWritePro" id="updateWriteForm" method="post" enctype="multipart/form-data">
-						<div class="style__ProjectContentsBackground-ky14bp-8 caYfnf">
-							<div class="Container-gci8y7-0 cXaiVs">
-								<div class="style__ProjectContents-ky14bp-9 fbVSPF">
-									<div class="style__ProjectContentsMainColumn-ky14bp-10 jXBJgk">
-										<div class="style__MainColumnInner-ky14bp-12 jBRpgz">
-											<div class="EditorLayout__Wrap-sc-9ka57a-0 cMjFYj">
-												<div class="EditorLayout__Header-sc-9ka57a-1 ibiUSB">
-													<div class="EditHeader__Wrap-zond9x-0 eVdPsY">
-														<button type="button" id="goback" class="SolidButton__Button-sc-1gsinzz-0 icXYZs EditHeader__BackButton-zond9x-1 OAsKY fnt-p1" color="white">
-															<span><div name="arrow3-left" class="Icon__SVGICON-sc-1xkf9cp-0 ccxeYs"><svg viewBox="0 0 48 48"><path fill-rule="evenodd" clip-rule="evenodd" d="M43.7014 21.7189L10.1221 21.7189L25.2128 7.06878C26.1112 6.15946 26.2122 4.64393 25.3127 3.73461C24.4133 2.82529 22.9142 2.72425 22.0148 3.63357L2.72663 22.4262C1.82719 23.3355 1.72725 24.75 2.62669 25.7604H2.72663L22.0148 44.4519C22.9142 45.2602 24.4133 45.1592 25.2128 44.2499C26.0123 43.3405 26.0123 41.926 25.1119 41.0167L10.0221 26.4676L43.7014 26.4676C45.0006 26.4676 46 25.4572 46 24.1438C46 22.8303 45.0006 21.7189 43.7014 21.7189Z"></path></svg>
-																</div>  창작자 공지로 돌아가기</span>
-														</button>
-													</div>
-												</div>
-												<div class="EditorLayout__Body-sc-9ka57a-2 etJmpB">
-													<div class="EditorLayout__LeftSide-sc-9ka57a-3 bKAMOw">
-														<div class="InputWithGuideAndLengthCheck__Wrapper-sc-9nmfrw-0 eCSxwJ">
-															<div>
-																<div id="editor">
- 																	<textarea id="content" class="mceEditor" name="content" class="Textarea__StyledTextArea-sc-1mj6ym2-1 cjoUaQ">프로젝트 공지사항을 적어주세요</textarea>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-													<div class="EditorLayout__RightSide-sc-9ka57a-4 fOriWQ">
-															<input type="hidden" name="id" value="${sessionScope.id }" readonly>
-															<input type="hidden" name="pjIdx" value="${productUpdateDTO.pjIdx}">
-														<div class="BackerEditRightText__NoteText-sc-114yeue-0 fEHuJA">후원하신 프로젝트 창작자에게 응원의 한마디를 남겨주세요. 창작자에게 후원금만큼 큰 힘이 됩니다.</div>
-														<div class="ImportantNotes__ImportantWrap-ssm7kj-0 hzTSWV">
-															<div class="ImportantNotes__Title-ssm7kj-1 jBpBce">
-																<div name="cation" class="Icon__SVGICON-sc-1xkf9cp-0 ccxeYs ImportantNotes__TitleIcon-ssm7kj-2 iEKYpO">
-																	<svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M8.10937 8.0025C8.10937 7.98282 8.12532 7.96687 8.145 7.96687H9.855C9.87467 7.96687 9.89062 7.98282 9.89062 8.0025V12.9187C9.89062 12.9384 9.87467 12.9544 9.855 12.9544H8.145C8.12532 12.9544 8.10937 12.9384 8.10937 12.9187V8.0025Z"
-																			fill="#3D3D3D"></path>
-																		<path d="M7.93125 6.15C7.93125 5.55975 8.40975 5.08125 9 5.08125C9.59025 5.08125 10.0687 5.55975 10.0687 6.15C10.0687 6.74025 9.59025 7.21875 9 7.21875C8.40975 7.21875 7.93125 6.74025 7.93125 6.15Z"
-																			fill="#3D3D3D"></path>
-																		<path fill-rule="evenodd" clip-rule="evenodd" d="M9 14.7C12.148 14.7 14.7 12.148 14.7 9C14.7 5.85198 12.148 3.3 9 3.3C5.85198 3.3 3.3 5.85198 3.3 9C3.3 12.148 5.85198 14.7 9 14.7ZM9 16.125C12.935 16.125 16.125 12.935 16.125 9C16.125 5.06497 12.935 1.875 9 1.875C5.06497 1.875 1.875 5.06497 1.875 9C1.875 12.935 5.06497 16.125 9 16.125Z"
-																			fill="#3D3D3D"></path></svg>
-																</div>
-																유의사항
-															</div>
-															<ul class="ImportantNotes__ContenetLists-ssm7kj-3 gcBHsl">
-																<li class="ImportantNotes__ContentItem-ssm7kj-4 kzewdj">창작자에게 궁금하신 점이 있다면 ‘창작자에게 문의'로 질문해주세요.</li>
-																<li class="ImportantNotes__ContentItem-ssm7kj-4 kzewdj">프로젝트와 무관한 내용이나 광고, 도배, 욕설, 혐오 조장, 외설, 사칭 등은 예고 없이 삭제될 수 있습니다.</li>
-																<li class="ImportantNotes__ContentItem-ssm7kj-4 kzewdj">운영원칙 위반 누적시 텀블벅 이용이 제한될 수 있으며, 타인에 대한 모욕이나 명예훼손 등의 경우 법적 책임이 발생할 수도 있습니다.</li>
-															</ul>
-														</div>
-													</div>
-												</div>
-												<button type="submit" class="SolidButton__Button-sc-1gsinzz-0 hgsFUp EditHeader__SubmitButton-zond9x-2 fZQwzk fnt-p1" onclick = "return UpdateSubmit_btn()"><span>등록</span></button>
-												<input type="hidden" id="text" value="0" name="text"> <!-- idx값 갖고 수정 -->
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</form>
-						</div>
-					<!-- 창작자 공지 글쓰기창 끝-->
-					<!-- if문으로 공지 있을 때, 없을 때 구분해주기 끝 -->
-				</div>
-				<div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-					<!-- 커뮤니티 탭/탭 내용 -->
-					<div class="container">
-				      <ul class="list">
-				        <li class="tab_button tab_active" id="commList1">응원</li>
-				        <li class="tab_button" id="commList2">문의</li>
-				        <li class="tab_button" id="commList3">후기</li>
-				      </ul>
-				      <div class="tab_content tab_show">
-				      	<!-- 댓글창 -->
-				      	<div class="comment_wrapper">
-				      	<!-- 로그인 안됐을때 댓글쓰기창 누르면 로그인 하는 곳으로 보내기 -->
-				      		<c:if test="${empty sessionScope.id }">
-					      		<div class="cmt_write">
-					      			<a href="${pageContext.request.contextPath }/user/login"><textarea id="content_COM1" name="content" placeholder="로그인을 해주세요"  readonly></textarea></a>
-						      	</div>
-					      	</c:if>
-					    <!-- 로그인하고 후원자만 댓글쓰기-->
-				      		<c:if test="${!empty sessionScope.id and projectParam.spon =='Y'}">
-					      		<div class="cmt_write">
-					      			<textarea id="content_COM1" name="content" placeholder="후원자만 글을 쓸 수 있어요."></textarea>
-					      			<div>
-					      				<button type="button" id="COM1" class="cmt_btn">작성하기</button>
-					      			</div>
-					      		</div>
-					      	</c:if>
-					      	
-				      		<!-- if문으로 댓글 돌리기 -->
-				      		<div class="cmt_list" id="table_commList1">
-				      		</div>
-				      	</div>
-				      	<!-- if문으로 댓글 돌리기 끝 -->
-				      	<!-- 댓글창 -->
-				      </div>
-				      <div class="tab_content">
-				        <!-- 댓글창 -->
-				      	<div class="comment_wrapper">
-				      		<!-- 로그인 안됐을때 댓글쓰기창 누르면 로그인 하는 곳으로 보내기 -->
-				      		<c:if test="${empty sessionScope.id }">
-					      		<div class="cmt_write">
-					      			<a href="${pageContext.request.contextPath }/user/login"><textarea id="content_COM2" name="content" placeholder="로그인을 해주세요"  readonly></textarea></a>
-						      	</div>
-					      	</c:if>
-					      	<!-- 로그인하고 후원자만 댓글쓰기-->
-				      		<c:if test="${!empty sessionScope.id and projectParam.spon =='Y'}">
-					      		<div class="cmt_write">
-					      			<textarea id="content_COM2" name="content" placeholder="후원자만 글을 쓸 수 있어요." ></textarea>
-					      			<div>
-					      				<button type="button" id="COM2" class="cmt_btn">작성하기</button>
-					      			</div>
-					      		</div>
-					      	</c:if>
-				      		<!-- if문으로 댓글 돌리기 -->
-				      		<div class="cmt_list" id="table_commList2">
-				      		</div>
-				      	</div>
-				      	<!-- if문으로 댓글 돌리기 끝 -->
-				      	<!-- 댓글창 -->
-				      </div>
-				      <div class="tab_content">
-				        <!-- 댓글창 -->
-				      	<div class="comment_wrapper">
-				      	<!-- 로그인 안됐을때 댓글쓰기창 누르면 로그인 하는 곳으로 보내기 -->
-				      		<c:if test="${empty sessionScope.id }">
-					      		<div class="cmt_write">
-					      			<a href="${pageContext.request.contextPath }/user/login"><textarea id="content_COM3" name="content" placeholder="로그인을 해주세요"  readonly></textarea></a>
-						      	</div>
-					      	</c:if>
-					      	<!-- 로그인하고 후원자만 댓글쓰기-->
-				      		<c:if test="${!empty sessionScope.id and projectParam.spon =='Y'}">
-					      		<div class="cmt_write">
-					      			<input type="hidden" name="id" value="${sessionScope.id}">
-					      			<textarea id="content_COM3" name="content" placeholder="후원자만 글을 쓸 수 있어요." ></textarea>
-					      			<input type="file" id="review_file">
-					      			<div>
-					      				<button type="button" id="COM3" class="cmt_btn">작성하기</button>
-					      			</div>
-					      		</div>
-					      	</c:if>
-				      		<!-- if문으로 댓글 돌리기 -->
-				      		<div class="cmt_list" id="table_commList3">
-				      		</div>
-				      	</div>
-				      	<!-- if문으로 댓글 돌리기 끝 -->
-				      	<!-- 댓글창 -->
-				      </div>
-				    </div>
-				</div>
+				<!-- 숙인쿤 시작 -->
+  			<div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+               <!-- if문으로 공지 있을 때, 없을 때 구분해주기 -->
+               <div class="notice_wrapper" id="U_list">
+                  <c:forEach var="dto" items="${productUpdateList }">
+                     <div class="creator_box">
+                        <div class="profile_creator">
+                           <div>
+                              <a href="#" class="profile_img">
+                                 <!-- 프로필 이미지 넣기 -->
+                                 <img src="${pageContext.request.contextPath }/resources/upload/${dto.crePro}">
+                              </a>
+                           </div>
+                        </div>
+                        <div class="profile_info">
+                           <div class="info_name"><a href="#">${dto.creNm}</a></div><!-- 창작자 넣기 -->
+                           <div class="info_creator">
+                              <span class="point creator">♥ 창작자</span>
+                              <span class="write_date"> | ${dto.date} </span><!-- 날짜값 넣기 -->
+                           </div>
+                        </div>
+                        <!-- 창작자 로그인 시 버튼 보이게 해주기 -->
+                        <c:if test="${projectParam.ID eq sessionScope.id}">
+                           <div class="write_btn_wrapper">
+                              <button type="button" id="uBtn_${dto.idx}" class="update_write_btn" >수정</button>
+                              <button type="submit" class="delete_write_btn" onclick="location.href='${pageContext.request.contextPath }/project/delete?idx=${productUpdateDTO.pjIdx}&num=${dto.idx}'">삭제</button>
+                           </div>
+                        </c:if>
+                     </div>
+                     <div id="content_${dto.idx}" class="creator_cont">
+                        ${dto.content}
+                     </div>
+                        <input type="hidden" name="pjIdx" value="${productUpdateDTO.pjIdx }">
+                        <input type="hidden" name="idx" value="${dto.idx }">
+                  </c:forEach>
+                  
+                  <!-- 창작자 로그인 시 보이게 해주기 -->
+                     <c:if test="${projectParam.ID eq sessionScope.id}">
+                        <div class="creator_btn" id="onDisplay">
+                           <button>글쓰기</button>
+                        </div>
+                     </c:if>
+               </div>
+               
+               <!-- 창작자 공지 글쓰기창 -->
+               <div class="updateWrite" id="U_write"  style="display: none;">
+                  <form action="${pageContext.request.contextPath}/project/productUpdateWritePro" id="updateWriteForm" method="post" enctype="multipart/form-data">
+                  <div class="style__ProjectContentsBackground-ky14bp-8 caYfnf">
+                     <div class="Container-gci8y7-0 cXaiVs">
+                        <div class="style__ProjectContents-ky14bp-9 fbVSPF">
+                           <div class="style__ProjectContentsMainColumn-ky14bp-10 jXBJgk">
+                              <div class="style__MainColumnInner-ky14bp-12 jBRpgz">
+                                 <div class="EditorLayout__Wrap-sc-9ka57a-0 cMjFYj">
+                                    <div class="EditorLayout__Header-sc-9ka57a-1 ibiUSB">
+                                       <div class="EditHeader__Wrap-zond9x-0 eVdPsY">
+                                          <button type="button" id="goback" class="SolidButton__Button-sc-1gsinzz-0 icXYZs EditHeader__BackButton-zond9x-1 OAsKY fnt-p1" color="white" style="width: 30px; margin:4px; border:none; outline: none;">
+                                             <span><div name="arrow3-left" class="Icon__SVGICON-sc-1xkf9cp-0 ccxeYs"><svg viewBox="0 0 48 48"><path fill-rule="evenodd" clip-rule="evenodd" d="M43.7014 21.7189L10.1221 21.7189L25.2128 7.06878C26.1112 6.15946 26.2122 4.64393 25.3127 3.73461C24.4133 2.82529 22.9142 2.72425 22.0148 3.63357L2.72663 22.4262C1.82719 23.3355 1.72725 24.75 2.62669 25.7604H2.72663L22.0148 44.4519C22.9142 45.2602 24.4133 45.1592 25.2128 44.2499C26.0123 43.3405 26.0123 41.926 25.1119 41.0167L10.0221 26.4676L43.7014 26.4676C45.0006 26.4676 46 25.4572 46 24.1438C46 22.8303 45.0006 21.7189 43.7014 21.7189Z"></path></svg>
+<!--                                                 </div>  창작자 공지로 돌아가기</span> -->
+                                          </button>
+                                       </div>
+                                    </div>
+                                    <div class="EditorLayout__Body-sc-9ka57a-2 etJmpB">
+                                       <div class="EditorLayout__LeftSide-sc-9ka57a-3 bKAMOw">
+                                          <div class="InputWithGuideAndLengthCheck__Wrapper-sc-9nmfrw-0 eCSxwJ">
+                                             <div>
+                                                <div id="editor">
+                                                    <textarea id="content" class="mceEditor" name="content" class="Textarea__StyledTextArea-sc-1mj6ym2-1 cjoUaQ">프로젝트 공지사항을 적어주세요</textarea>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                       <div class="EditorLayout__RightSide-sc-9ka57a-4 fOriWQ">
+                                             <input type="hidden" name="id" value="${sessionScope.id }" readonly>
+                                             <input type="hidden" name="pjIdx" value="${productUpdateDTO.pjIdx}">
+                                          <div class="BackerEditRightText__NoteText-sc-114yeue-0 fEHuJA">후원하신 프로젝트 창작자에게 응원의 한마디를 남겨주세요. 창작자에게 후원금만큼 큰 힘이 됩니다.</div>
+                                          <div class="ImportantNotes__ImportantWrap-ssm7kj-0 hzTSWV">
+                                             <div class="ImportantNotes__Title-ssm7kj-1 jBpBce">
+                                                <div name="cation" class="Icon__SVGICON-sc-1xkf9cp-0 ccxeYs ImportantNotes__TitleIcon-ssm7kj-2 iEKYpO">
+                                                   <svg viewBox="0 0 18 18" fill="none" width="16px" height="16px" xmlns="http://www.w3.org/2000/svg">
+                                                      <path d="M8.10937 8.0025C8.10937 7.98282 8.12532 7.96687 8.145 7.96687H9.855C9.87467 7.96687 9.89062 7.98282 9.89062 8.0025V12.9187C9.89062 12.9384 9.87467 12.9544 9.855 12.9544H8.145C8.12532 12.9544 8.10937 12.9384 8.10937 12.9187V8.0025Z"
+                                                         fill="#3D3D3D"></path>
+                                                      <path d="M7.93125 6.15C7.93125 5.55975 8.40975 5.08125 9 5.08125C9.59025 5.08125 10.0687 5.55975 10.0687 6.15C10.0687 6.74025 9.59025 7.21875 9 7.21875C8.40975 7.21875 7.93125 6.74025 7.93125 6.15Z"
+                                                         fill="#3D3D3D"></path>
+                                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9 14.7C12.148 14.7 14.7 12.148 14.7 9C14.7 5.85198 12.148 3.3 9 3.3C5.85198 3.3 3.3 5.85198 3.3 9C3.3 12.148 5.85198 14.7 9 14.7ZM9 16.125C12.935 16.125 16.125 12.935 16.125 9C16.125 5.06497 12.935 1.875 9 1.875C5.06497 1.875 1.875 5.06497 1.875 9C1.875 12.935 5.06497 16.125 9 16.125Z"
+                                                         fill="#3D3D3D"></path></svg>
+                                                </div>
+                                                유의사항
+                                             </div>
+                                             <ul class="ImportantNotes__ContenetLists-ssm7kj-3 gcBHsl">
+                                                <li class="ImportantNotes__ContentItem-ssm7kj-4 kzewdj">창작자에게 궁금하신 점이 있다면 ‘창작자에게 문의'로 질문해주세요.</li>
+                                                <li class="ImportantNotes__ContentItem-ssm7kj-4 kzewdj">프로젝트와 무관한 내용이나 광고, 도배, 욕설, 혐오 조장, 외설, 사칭 등은 예고 없이 삭제될 수 있습니다.</li>
+                                                <li class="ImportantNotes__ContentItem-ssm7kj-4 kzewdj">운영원칙 위반 누적시 텀블벅 이용이 제한될 수 있으며, 타인에 대한 모욕이나 명예훼손 등의 경우 법적 책임이 발생할 수도 있습니다.</li>
+                                             </ul>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <button type="submit" class="SolidButton__Button-sc-1gsinzz-0 hgsFUp EditHeader__SubmitButton-zond9x-2 fZQwzk fnt-p1" onclick = "return UpdateSubmit_btn()"><span>등록</span></button>
+                                    <input type="hidden" id="text" value="0" name="text"> <!-- idx값 갖고 수정 -->
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+                  </div>
+               <!-- 창작자 공지 글쓰기창 끝-->
+               <!-- if문으로 공지 있을 때, 없을 때 구분해주기 끝 -->
+            </div>
+            <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+               <!-- 커뮤니티 탭/탭 내용 -->
+               <div class="container">
+                  <ul class="list">
+                    <li class="tab_button tab_active" id="commList1">응원</li>
+                    <li class="tab_button" id="commList2">문의</li>
+                    <li class="tab_button" id="commList3">후기</li>
+                  </ul>
+                  <div class="tab_content tab_show">
+                     <!-- 댓글창 -->
+                     <div class="comment_wrapper">
+                     <!-- 로그인 안됐을때 댓글쓰기창 누르면 로그인 하는 곳으로 보내기 -->
+                        <c:if test="${empty sessionScope.id }">
+                           <div class="cmt_write">
+                              <a href="${pageContext.request.contextPath }/user/login"><textarea id="content_COM1" name="content" placeholder="로그인을 해주세요"  readonly></textarea></a>
+                           </div>
+                        </c:if>
+                   <!-- 로그인하고 후원자만 댓글쓰기-->
+                        <c:if test="${!empty sessionScope.id and projectParam.SPON =='Y'}">
+                           <div class="cmt_write">
+                              <textarea id="content_COM1" name="content" placeholder="후원자만 글을 쓸 수 있어요."></textarea>
+                              <div>
+                                 <button type="button" id="COM1" class="cmt_btn">작성하기</button>
+                              </div>
+                           </div>
+                        </c:if>
+                        
+                        <!-- if문으로 댓글 돌리기 -->
+                        <div class="cmt_list" id="table_commList1">
+                        </div>
+                     </div>
+                     <!-- if문으로 댓글 돌리기 끝 -->
+                     <!-- 댓글창 -->
+                  </div>
+                  <div class="tab_content">
+                    <!-- 댓글창 -->
+                     <div class="comment_wrapper">
+                        <!-- 로그인 안됐을때 댓글쓰기창 누르면 로그인 하는 곳으로 보내기 -->
+                        <c:if test="${empty sessionScope.id }">
+                           <div class="cmt_write">
+                              <a href="${pageContext.request.contextPath }/user/login"><textarea id="content_COM2" name="content" placeholder="로그인을 해주세요"  readonly></textarea></a>
+                           </div>
+                        </c:if>
+                        <!-- 로그인하고 후원자만 댓글쓰기-->
+                        <c:if test="${!empty sessionScope.id and projectParam.SPON =='Y'}">
+                           <div class="cmt_write">
+                              <textarea id="content_COM2" name="content" placeholder="후원자만 글을 쓸 수 있어요." ></textarea>
+                              <div>
+                                 <button type="button" id="COM2" class="cmt_btn">작성하기</button>
+                              </div>
+                           </div>
+                        </c:if>
+                        <!-- if문으로 댓글 돌리기 -->
+                        <div class="cmt_list" id="table_commList2">
+                        </div>
+                     </div>
+                     <!-- if문으로 댓글 돌리기 끝 -->
+                     <!-- 댓글창 -->
+                  </div>
+                  <div class="tab_content">
+                    <!-- 댓글창 -->
+                     <div class="comment_wrapper">
+                     <!-- 로그인 안됐을때 댓글쓰기창 누르면 로그인 하는 곳으로 보내기 -->
+                        <c:if test="${empty sessionScope.id }">
+                           <div class="cmt_write">
+                              <a href="${pageContext.request.contextPath }/user/login"><textarea id="content_COM3" name="content" placeholder="로그인을 해주세요"  readonly></textarea></a>
+                           </div>
+                        </c:if>
+                        <!-- 로그인하고 후원자만 댓글쓰기-->
+                        <c:if test="${!empty sessionScope.id and projectParam.SPON =='Y'}">
+                           <div class="cmt_write">
+                              <input type="hidden" name="id" value="${sessionScope.id}">
+                              <textarea id="content_COM3" name="content" placeholder="후원자만 글을 쓸 수 있어요." ></textarea>
+                              <div>
+                                 <button type="button" id="COM3" class="cmt_btn">작성하기</button>
+                              </div>
+                           </div>
+                        </c:if>
+                        <!-- if문으로 댓글 돌리기 -->
+                        <div class="cmt_list" id="table_commList3">
+                        </div>
+                     </div>
+                     <!-- if문으로 댓글 돌리기 끝 -->
+                     <!-- 댓글창 -->
+                  </div>
+                </div>
+            </div>
+			<!-- 숙인 끝 -->
 			</div>
 			<div class="project_info_box" id="fundingDo">
 				<span class="info_x">

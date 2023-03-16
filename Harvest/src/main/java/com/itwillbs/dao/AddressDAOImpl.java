@@ -16,7 +16,6 @@ public class AddressDAOImpl implements AddressDAO  {
 	private SqlSession sqlSession;
 	private static final String namespace = "com.itwillbs.mappers.AddressMapper";
 	
-	// 지현
 	@Override
 	public List<AddressDTO> getAddressList(String id) {
 		return sqlSession.selectList(namespace+".getAddressList", id);
@@ -42,14 +41,9 @@ public class AddressDAOImpl implements AddressDAO  {
 		return sqlSession.selectOne(namespace+".getAddressCount",id);
 	}
 	
-	// 민영
-//	@Override
-//	public void insertAddress(AddressDTO addressDTO) {
-//		sqlSession.insert(namespace+".insertAddress", addressDTO);
-//		
-//	}
-	
-	
-	
+	@Override
+	public AddressDTO getAddress(String id) {
+		return sqlSession.selectOne(namespace+".getAddress",id);
+	}
 
 }

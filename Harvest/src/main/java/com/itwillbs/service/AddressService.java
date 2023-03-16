@@ -14,7 +14,4 @@ public interface AddressService {
 
 	public AddressDTO getAddress(String id); 
 	
-	// 민영
-//	publicㅊ AddressDTO getAddress(String id); 
-
 }

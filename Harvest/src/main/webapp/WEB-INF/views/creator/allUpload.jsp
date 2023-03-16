@@ -579,7 +579,7 @@ $(document).ready(function() {
 											</div>
 											<div id="payDate">
 												<c:if test="${not empty startDate}">
-													${projectMap.payDate }
+													${projectMap.PAYDATE }
 												</c:if>
 												<c:if test="${empty startDate}">
 													종료일 다음 날부터 7일
@@ -603,7 +603,7 @@ $(document).ready(function() {
 											</div>
 											<div id="adjDate">
 												<c:if test="${not empty startDate}">
-													${projectMap.adjDate }
+													${projectMap.ADJDATE }
 												</c:if>
 												<c:if test="${empty startDate}">
 													후원자 결제 종료 다음 날부터 7영업일
@@ -665,7 +665,7 @@ $(document).ready(function() {
 									<li><p class="itemName"><b>계좌 번호</b></p>
 									<div class="wrap">
 										<span class="input_wrap guide">
-											
+											<input type="text" class="none p_accountNum" id="p_accountNum" value=""  placeholder="인증을 진행해주세요."  readonly>
 										</span>
 									</div>
 									<div class="notiArea">

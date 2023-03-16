@@ -93,25 +93,6 @@ public class CreateController {
 		
 		if(!idx.equals("0")) {	// idx = 0 : 프로젝트 새로 만들기
 			projectMap = createService.getProject(Integer.parseInt(idx));
-			
-			// 날짜 더하기, 변환
-			String endDate = String.valueOf(projectMap.get("END"));
-			SimpleDateFormat sdfYMD = new SimpleDateFormat("yyyy-MM-dd");
-			Date date = sdfYMD.parse(endDate);
-			
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(date);
-			
-			// 정산일 계산
-			cal.add(Calendar.DATE, 7);
-			String payDate = sdfYMD.format(cal.getTime());
-			projectMap.put("payDate", payDate);
-			
-			// 결제일 계산
-			cal.add(Calendar.DATE, 9);
-			String adjDate = sdfYMD.format(cal.getTime());
-			projectMap.put("adjDate", adjDate);
-			
 			model.addAttribute("projectMap", projectMap);
 		}
 		
@@ -139,7 +120,7 @@ public class CreateController {
 			String multiImg = "";
 			
 			for(MultipartFile file : mtfRequest.getFiles("images")) {
-				multiImg += UploadFile.fileUpload(file, uploadPath, Path) + "*";
+				multiImg += UploadFile.fileUpload(file, uploadPath, Path) + "&";
 			}
 			projectDto.setImg1(multiImg);
 		}
@@ -166,7 +147,7 @@ public class CreateController {
 		accountRequestDTO.setSort_order("D");
 		
 		AccountResponseDTO accountResponseDTO = openBankingService.findAccount(accountRequestDTO);
-
+		System.out.println(accountResponseDTO);
 		model.addAttribute("access_token", accountRequestDTO.getAccess_token());
 		model.addAttribute("accountResponseDTO", accountResponseDTO);
 

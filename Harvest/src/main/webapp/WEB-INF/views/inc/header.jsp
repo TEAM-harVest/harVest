@@ -11,7 +11,7 @@
             <c:if test="${empty sessionScope.id}">
                 <a href="${pageContext.request.contextPath }/user/login">로그인</a>
             </c:if>
-            <c:if test="${! empty sessionScope.id}">
+            <c:if test="${!empty sessionScope.id}">
            		<a href="${pageContext.request.contextPath }/creator/start" style="text-decoration: none;">프로젝트 올리기</a>
                 <a href="${pageContext.request.contextPath }/user/logout" style="text-decoration: none;">로그아웃</a>
                 <a href="${pageContext.request.contextPath }/myPage/mySettingPage">
