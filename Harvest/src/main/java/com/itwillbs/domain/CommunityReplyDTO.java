@@ -13,6 +13,7 @@ public class CommunityReplyDTO {
 	private String content;
 	private Timestamp date;
 	private String contentLabel;
+	private String codeNm;
 	// 스폰 여부 추가로 조회했음
 	private String spon;
 	
@@ -75,6 +76,12 @@ public class CommunityReplyDTO {
 	}
 	public void setSpon(String spon) {
 		this.spon = spon;
+	}
+	public String getCodeNm() {
+		return codeNm;
+	}
+	public void setCodeNm(String codeNm) {
+		this.codeNm = codeNm;
 	}
 	
 	

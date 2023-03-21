@@ -42,7 +42,7 @@
 
 $(document).ready(function(){
 // 	$(".comm").on("click", commSubmit()); // class="comm"이 적힌 버튼을 클릭하면 commSubmit이 작동됨
-// $(".comm").on('click',  function(){ commSubmit(); });
+// $(".comm").on('click',  functiom(){ commSubmit(); });
 // $(".comm").on('click',  () => { commSubmit();  });
 
 	// event start
@@ -264,9 +264,22 @@ function commSubmit(){
 																	<textarea name="content" placeholder="프로젝트 및 창작자님에 대해 어떤 이야기가 하고 싶으신가요?" class="Textarea__StyledTextArea-sc-1mj6ym2-1 cjoUaQ"></textarea>
 																</div>
 															</div>
+<!-- 															<div class="InputWithGuideAndLengthCheck__NoticeArea-sc-9nmfrw-4 ciHGYP"> -->
+<!-- 																<p class="InputWithGuideAndLengthCheck__GuideMessage-sc-9nmfrw-5 fduvas"></p> -->
+<!-- 																<span class="InputWithGuideAndLengthCheck__CountLength-sc-9nmfrw-6 kEJJPl">0/1000</span> -->
+<!-- 															</div> -->
 														</div>
+														<div></div><input type="file" name="file" multiple="multiple"></div>
 													</div>
 													<div class="EditorLayout__RightSide-sc-9ka57a-4 fOriWQ">
+<!-- 														<div class="NewEditor__TabWrap-sh4rcq-0 kWiCpg"> -->
+<!-- 															<div class="NewEditor__ContentTitle-sh4rcq-1 fBVKgb">어떤 내용의 글인가요?</div> -->
+<!-- 															<div style="padding: 0" -->
+<!-- 																class="style__Tabs-sc-3a505r-0 kTjmVr"> -->
+<!-- 																<div class="style__Tab-sc-3a505r-1 blqBuO">응원글</div> -->
+<!-- 																<div class="style__Tab-sc-3a505r-1 gygqOn">의견</div> -->
+<!-- 															</div> -->
+<!-- 														</div> -->
 															<input type="hidden" name="id" value="${sessionScope.id }" readonly>
 															<input type="hidden" name="pjIdx" value="${productUpdateDTO.pjIdx}">
 														<div class="BackerEditRightText__NoteText-sc-114yeue-0 fEHuJA">후원하신 프로젝트 창작자에게 응원의 한마디를 남겨주세요. 창작자에게 후원금만큼 큰 힘이 됩니다.</div>

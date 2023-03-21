@@ -10,51 +10,30 @@ public class ProjectDTO {
 	private String creIntro;
 	private String category;
 	private String title;
-	private String present;
+	private String productNm;
 	private String img1;
-	private String img2;
-	private String img3;
 	private String intro;
 	private String budget;
 	private String schedule;
-	private int minDona;
-	private int targetAmt;
+	private String minDona;
+	private String targetAmt;
 	private Date start;
 	private Date end;
 	private String status;
-	// 스폰 여부 추가로 조회했음
-	private String spon;
+    private String spon;
+
+    private int sumMoney;
+    private int sumUser;
+    private String heart;
+    private String codeNm;
 	
-	private int sumMoney;
-	private int sumUser;
-	
-	private String heart;
-	
-	
+    
+    
 	public String getSpon() {
 		return spon;
 	}
 	public void setSpon(String spon) {
 		this.spon = spon;
-	}
-	
-	public String getHeart() {
-		return heart;
-	}
-	public void setHeart(String heart) {
-		this.heart = heart;
-	}
-	public int getSumMoney() {
-		return sumMoney;
-	}
-	public void setSumMoney(int sumMoney) {
-		this.sumMoney = sumMoney;
-	}
-	public int getSumUser() {
-		return sumUser;
-	}
-	public void setSumUser(int sumUser) {
-		this.sumUser = sumUser;
 	}
 	public int getIdx() {
 		return idx;
@@ -98,29 +77,17 @@ public class ProjectDTO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getPresent() {
-		return present;
+	String getProductNm() {
+		return productNm;
 	}
-	public void setPresent(String present) {
-		this.present = present;
+	void setProductNm(String productNm) {
+		this.productNm = productNm;
 	}
 	public String getImg1() {
 		return img1;
 	}
 	public void setImg1(String img1) {
 		this.img1 = img1;
-	}
-	public String getImg2() {
-		return img2;
-	}
-	public void setImg2(String img2) {
-		this.img2 = img2;
-	}
-	public String getImg3() {
-		return img3;
-	}
-	public void setImg3(String img3) {
-		this.img3 = img3;
 	}
 	public String getIntro() {
 		return intro;
@@ -140,16 +107,16 @@ public class ProjectDTO {
 	public void setSchedule(String schedule) {
 		this.schedule = schedule;
 	}
-	public int getMinDona() {
+	public String getMinDona() {
 		return minDona;
 	}
-	public void setMinDona(int minDona) {
+	public void setMinDona(String minDona) {
 		this.minDona = minDona;
 	}
-	public int getTargetAmt() {
+	public String getTargetAmt() {
 		return targetAmt;
 	}
-	public void setTargetAmt(int targetAmt) {
+	public void setTargetAmt(String targetAmt) {
 		this.targetAmt = targetAmt;
 	}
 	public Date getStart() {
@@ -170,16 +137,41 @@ public class ProjectDTO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public int getSumMoney() {
+		return sumMoney;
+	}
+	public void setSumMoney(int sumMoney) {
+		this.sumMoney = sumMoney;
+	}
+	public int getSumUser() {
+		return sumUser;
+	}
+	public void setSumUser(int sumUser) {
+		this.sumUser = sumUser;
+	}
+	public String getHeart() {
+		return heart;
+	}
+	public void setHeart(String heart) {
+		this.heart = heart;
+	}
+	public String getCodeNm() {
+		return codeNm;
+	}
+	public void setCodeNm(String codeNm) {
+		this.codeNm = codeNm;
+	}
 	@Override
 	public String toString() {
 		return "ProjectDTO [idx=" + idx + ", id=" + id + ", creNm=" + creNm + ", crePro=" + crePro + ", creIntro="
-				+ creIntro + ", category=" + category + ", title=" + title + ", present=" + present + ", img1=" + img1
-				+ ", img2=" + img2 + ", img3=" + img3 + ", intro=" + intro + ", budget=" + budget + ", schedule="
-				+ schedule + ", minDona=" + minDona + ", targetAmt=" + targetAmt + ", start=" + start + ", end=" + end
-				+ ", status=" + status + ", spon=" + spon + ", sumMoney=" + sumMoney + ", sumUser=" + sumUser
-				+ ", heart=" + heart + "]";
+				+ creIntro + ", category=" + category + ", title=" + title + ", productNm=" + productNm + ", img1="
+				+ img1 + ", intro=" + intro + ", budget=" + budget + ", schedule=" + schedule + ", minDona=" + minDona
+				+ ", targetAmt=" + targetAmt + ", start=" + start + ", end=" + end + ", status=" + status
+				+ ", sumMoney=" + sumMoney + ", sumUser=" + sumUser + ", heart=" + heart + ", codeNm=" + codeNm + "]";
 	}
+
 	
-	
+
+
 	
 }

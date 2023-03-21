@@ -34,6 +34,7 @@
 				<c:forEach var="getPopList" items="${getPopList }">
 					<div class="col-md-3 col-sm-6">
 						<div class="card text-left">
+							<c:if test="${getPopList.STATUS == 'PJT01'}">
 							<div class="card-header p-0">
 								<!-- 찜버튼 -->
 								<div class="blog-media">
@@ -45,13 +46,14 @@
 										</c:if>
 								</div>
 							</div>
+							
 							<div class="card-body px-0">
 								<p class="my-2">${getPopList.CATEGORY } | ${getPopList.CRE_NM }</p>
 								<input type="hidden" id="pjIdx_${getPopList.IDX }" value="${getPopList.IDX }">
 								<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${getPopList.IDX }">
 									<h5 class="card-title mb-2">${getPopList.TITLE }</h5>
 								</a>	
-								<span class="text-danger">${getPopList.PERCENT}%</span> <small><fmt:formatNumber value="${getPopList.TOTAL_AMT}" pattern="#,###"/>원</small>
+								<span class="text-danger"> <fmt:formatNumber type="number" maxFractionDigits="0"  value="${getPopList.PERCENT }" />%</span> <small><fmt:formatNumber value="${getPopList.TOTAL_AMT}" pattern="#,###"/>원</small>
 								<div class="progress mt-2 mb-3">
 									<div class="progress-bar bg-danger" role="progressbar" style="width: ${getPopList.PERCENT}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
 										<jsp:useBean id="javaDate" class="java.util.Date" />
@@ -68,6 +70,63 @@
 									</div>
 								</div>
 							</div>
+							</c:if>
+							
+							<c:if test="${getPopList.STATUS == 'FD00'}">
+							<div class="card-header p-0">
+								<!-- 찜버튼 -->
+								<div class="blog-media">
+									<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${getPopList.IDX }">
+										<img style="filter:grayscale(1);" src="${pageContext.request.contextPath }/resources/upload/${fn:split(getPopList.IMG1,'&')[0]}" alt="" class="w-100">
+									</a>
+                                   		<c:if test="${empty sesssionScope.id}">
+										<img style="position:absolute; top:5px;right:5px;z-index:10;cursor:pointer;" width="20" height="20" id="likeBtn_${getPopList.IDX }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${getPopList.HEART}">
+										</c:if>
+								</div>
+							</div>
+							
+							<div class="card-body px-0">
+								<p class="my-2">${getPopList.CATEGORY } | ${getPopList.CRE_NM }</p>
+								<input type="hidden" id="pjIdx_${getPopList.IDX }" value="${getPopList.IDX }">
+								<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${getPopList.IDX }">
+									<h5 class="card-title mb-2">${getPopList.TITLE }</h5>
+								</a>	
+								<span class="text-danger"> <fmt:formatNumber type="number" maxFractionDigits="0"  value="${getPopList.PERCENT }" />%</span> <small><fmt:formatNumber value="${getPopList.TOTAL_AMT}" pattern="#,###"/>원</small>
+								<div class="progress mt-2 mb-3">
+									<div class="progress-bar bg-dark" role="progressbar" style="width: ${getPopList.PERCENT}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+										<span>펀딩 실패</span>
+									</div>
+								</div>
+							</div>
+							</c:if>
+							
+							<c:if test="${getPopList.STATUS == 'FD01'}">
+							<div class="card-header p-0">
+								<!-- 찜버튼 -->
+								<div class="blog-media">
+									<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${getPopList.IDX }">
+										<img style="filter:grayscale(1);" src="${pageContext.request.contextPath }/resources/upload/${fn:split(getPopList.IMG1,'&')[0]}" alt="" class="w-100">
+									</a>
+                                   		<c:if test="${empty sesssionScope.id}">
+										<img style="position:absolute; top:5px;right:5px;z-index:10;cursor:pointer;" width="20" height="20" id="likeBtn_${getPopList.IDX }" class="heart" src="${pageContext.request.contextPath}/resources/harVest_img/${getPopList.HEART}">
+										</c:if>
+								</div>
+							</div>
+							
+							<div class="card-body px-0">
+								<p class="my-2">${getPopList.CATEGORY } | ${getPopList.CRE_NM }</p>
+								<input type="hidden" id="pjIdx_${getPopList.IDX }" value="${getPopList.IDX }">
+								<a href="${pageContext.request.contextPath }/project/projectInfo?idx=${getPopList.IDX }">
+									<h5 class="card-title mb-2">${getPopList.TITLE }</h5>
+								</a>	
+								<span class="text-danger"> <fmt:formatNumber type="number" maxFractionDigits="0"  value="${getPopList.PERCENT }" />%</span> <small><fmt:formatNumber value="${getPopList.TOTAL_AMT}" pattern="#,###"/>원</small>
+								<div class="progress mt-2 mb-3">
+									<div class="progress-bar bg-dark" role="progressbar" style="width: ${getPopList.PERCENT}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+										<span>펀딩 성공</span>
+									</div>
+								</div>
+							</div>
+							</c:if>
 						</div>
 					</div>
 				</c:forEach>
@@ -92,7 +151,7 @@
 		$(".heart").click(like)
 	})
 	
-	function like() {
+	function like() { // 비로그인시 로그인 알람
 		let pjIdx = this.id.split('_')[1];
 		if(${empty sessionScope.id}){
 			alert('로그인 후 이용해주세요');
@@ -103,7 +162,7 @@
 			  url	: "${pageContext.request.contextPath}/project/likePro", // 요청이 전송될 URL 주소
 			  type	: "POST", // http 요청 방식 (default: ‘GET’)
 			  data  : {'PJ_IDX' : pjIdx,
-				  	   'USER_ID' : '${sessionScope.id}'}, // TODO session 아이디로 바까라 좋은말 할때...
+				  	   'USER_ID' : '${sessionScope.id}'}, // user_id 별로 저장
 			  //processData : true, // 데이터를 컨텐트 타입에 맞게 변환 여부
 			  success : function(data) {
 				  alert("성공");
@@ -113,7 +172,6 @@
 			  }
 			})
 	}
-	
 	</script>
 
 </body>

@@ -24,13 +24,20 @@ public class ProjectInfoDAOImpl implements ProjectInfoDAO {
 	}
 
 	@Override
-	public ProjectDTO getProjectInfo(Map<String, String> param) {
+	public Map<String, String> getProjectInfo(Map<String, String> param) {
 		return sqlSession.selectOne(namespace + ".getProjectInfo", param);
+	}
+	
+	@Override
+	public Map<String, String> getOpenPjInfo(Map<String, String> param) {
+		return sqlSession.selectOne(namespace + ".getOpenPjInfo", param);
 	}
 
 	@Override
 	public String getLike(Map<String, String> param) {
 		List<Map<String, String>> map = sqlSession.selectList(namespace + ".getLike", param);
+		
+		
 		return String.valueOf(map.get(0).get("CNT"));
 	}
 	

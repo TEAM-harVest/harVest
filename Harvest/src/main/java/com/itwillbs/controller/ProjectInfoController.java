@@ -1,8 +1,10 @@
 package com.itwillbs.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,11 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +28,6 @@ import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.CommunityDTO;
 import com.itwillbs.domain.PaymentDTO;
 import com.itwillbs.domain.ProductUpdateDTO;
@@ -41,10 +41,10 @@ import com.itwillbs.service.ProjectInfoService;
 public class ProjectInfoController {
 	
 	@Inject
-	private ProjectInfoService projectInfoService;
+	private ProjectInfoService ProjectInfoService;
 	
 //	@Inject
-	private CommunityService communityService;
+//	private CommunityService communityService;
 	
 	@Inject
 	private ProductUpdateService productUpdateService;
@@ -52,18 +52,13 @@ public class ProjectInfoController {
 	// xml 업로드 경로(자원이름) => 변수 저장
 //	@Resource(name = "uploadPath") // servlet-context.xml에 있는 id
 //	private String uploadPath;
-		
-	@RequestMapping(value = "/main/mainList", method = RequestMethod.GET)
-	public String mainList(HttpServletRequest request, Model model) {
-		List<ProjectDTO> projectList = projectInfoService.getProjectList();
-		model.addAttribute("projectList", projectList);
-		return "main/list";
-	}
 	
-	@RequestMapping(value = "/project/projectInfo", method = RequestMethod.GET)
-	public String projectInfo(@RequestParam("idx")int idx, Model model, HttpSession session, CommunityDTO communityDTO, ProductUpdateDTO productUpdateDTO, HttpServletRequest request) {
-		
+	// 연서
+	// 공개예정 페이지
+	@RequestMapping(value = "/project/projectOpen", method = RequestMethod.GET)
+	public String projectOpen(@RequestParam("idx")int idx, Model model, HttpSession session) {
 		Map<String, String> param = new HashMap<String, String>();
+		
 		String sessionId = (String)session.getAttribute("id");
 		
 		if(sessionId != null) {
@@ -71,22 +66,37 @@ public class ProjectInfoController {
 		}
 		param.put("IDX", idx + "");
 		
-		ProjectDTO projectDTO = projectInfoService.getProjectInfo(param);
+		param = ProjectInfoService.getOpenPjInfo(param);
 		
-		model.addAttribute("projectDTO", projectDTO);
-
-		// 숙
+		model.addAttribute("OpenParam", param);
+		return "projectInfo/projectOpenPage";
+	}
+	// 연 & 쑥
+	@RequestMapping(value = "/project/projectInfo", method = RequestMethod.GET)
+	public String projectInfo( @RequestParam("idx")int idx
+							 , Model model, HttpSession session
+							 , CommunityDTO communityDTO
+							 , ProductUpdateDTO productUpdateDTO
+							 , HttpServletRequest request) throws ParseException {
+		Map<String, String> param = new HashMap<String, String>();
+		String sessionId = (String)session.getAttribute("id");
+		if(sessionId != null) {
+			param.put("SESSIONID", sessionId);
+		}
+		param.put("IDX", idx + "");
+		
+		param = ProjectInfoService.getProjectInfo(param);
+		
+		model.addAttribute("projectParam", param);
+		
+		// 쑥
 		List<ProductUpdateDTO> productUpdateList = productUpdateService.getUpdateList(productUpdateDTO);
 		
 		model.addAttribute("productUpdateList", productUpdateList);
 		
 		productUpdateDTO.setPjIdx(Integer.parseInt(request.getParameter("idx")));
-//		model.addAttribute("productUpdateDTO", productUpdateDTO);
-//		model.addAttribute("communityDTO", communityDTO);
-		
-		// 프로젝트 창작자만 '창작자 공지탭' 글쓰기/수정/삭제 하기위해 id 가져오기
-		ProjectDTO creatorWrite = productUpdateService.getCreatorWrite(idx);
-		model.addAttribute("creatorWrite", creatorWrite);
+		model.addAttribute("productUpdateDTO", productUpdateDTO);
+		model.addAttribute("communityDTO", communityDTO);
 		
 		return "projectInfo/projectInfoPage";
 	}

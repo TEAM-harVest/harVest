@@ -4,30 +4,56 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.itwillbs.mappers.projectInfoMapper">
-<!-- 	<select id="getProjectList" resultType="com.itwillbs.domain.ProjectDTO"> -->
-<!-- 	SELECT * -->
-<!-- 	  FROM PROJECT_TB -->
-<!-- 	</select> -->
-	<select id="getProjectInfo" resultType="com.itwillbs.domain.ProjectDTO">
-		SELECT p.*
-		     , case when (SELECT COUNT(*) AS HEARTFILL
-		                    FROM LIKE_TB
-		                   WHERE PJ_IDX = P.IDX
-		                	 AND USER_ID = #{SESSIONID}) = 1 THEN 'heart_fill.svg'
-		                                          			 ELSE 'heart.svg' END AS HEART
-		     , COALESCE(COUNT(PAY.ID), 0) AS sumUser
-		     , COALESCE(SUM(PAY.AMOUNT), 0) AS sumMoney
-		     , case when EXISTS(SELECT *
-											  FROM PAYMENT_TB
-											 WHERE PJ_IDX = #{IDX}
-							                   AND ID = #{SESSIONID}
-											   AND STATUS = 'PAY01') THEN 'Y'
-																	 ELSE 'N' END AS SPON
-		  FROM PROJECT_TB P
-		  LEFT JOIN PAYMENT_TB PAY
-		    ON P.IDX = PAY.pj_IDX
-		 WHERE P.IDX = #{IDX}
-		 GROUP BY p.IDX
+	<select id="getProjectList" resultType="com.itwillbs.domain.ProjectDTO">
+	SELECT *
+	  FROM PROJECT_TB
+	</select>
+	<select id="getProjectInfo" resultType="HashMap">
+	SELECT p.*
+		  , FORMAT(p.TARGET_AMT, 0) AS formatAMT
+          , CASE WHEN (SELECT COUNT(*) AS HEARTFILL
+                         FROM LIKE_TB
+                        WHERE PJ_IDX = P.IDX
+                          AND USER_ID = #{SESSIONID}) = 1 THEN 'heart_fill.svg'
+                                                 ELSE 'heart.svg' END AS HEART
+          , COUNT(PAY.ID) AS sumUser
+          , SUM(PAY.AMOUNT) AS sumMoney
+          , FORMAT((IFNULL(SUM(PAY.AMOUNT), 0) / TARGET_AMT * 100), 0) AS PERCENT
+          , DATEDIFF(END, START) + 1 AS DATEDIFF
+          , DATE_ADD(END, INTERVAL 1 DAY) AS PAYDATE
+          , CASE WHEN EXISTS(SELECT *
+                                   FROM PAYMENT_TB
+                                  WHERE PJ_IDX = #{IDX}
+                                        AND ID = #{SESSIONID}
+                                    AND STATUS = 'PAY01') THEN 'Y'
+                                                    ELSE 'N' END AS SPON
+     FROM PROJECT_TB P
+     LEFT OUTER JOIN PAYMENT_TB PAY
+          ON P.IDX = PAY.pj_IDX
+        WHERE P.IDX = #{IDX};
+	</select>
+	
+	<select id="getOpenPjInfo" resultType="HashMap">
+	SELECT p.*
+         , COUNT(PAY.ID) AS sumUser
+         , SUM(PAY.AMOUNT) AS sumMoney
+         , CASE WHEN (SELECT COUNT(*)
+					      FROM alram_tb
+					     WHERE PJ_IDX = P.IDX
+						  AND USER_ID = #{SESSIONID}) = 1 THEN 'alram_fill.svg'
+			   											  ELSE 'alram.svg'
+			   											  END AS ALRAM
+		, CASE WHEN (SELECT COUNT(*)
+				       FROM alram_tb
+				      WHERE PJ_IDX = P.IDX) = 1 THEN (SELECT COUNT(*)
+												        FROM alram_tb
+												       WHERE PJ_IDX = P.IDX)
+			   									ELSE 0
+			   								     END AS COUNT  	
+          FROM PROJECT_TB P
+          JOIN PAYMENT_TB PAY
+          ON P.IDX = PAY.pj_IDX
+        WHERE P.IDX = #{IDX};
 	</select>
 	
 	<!-- 프로젝트에 대한 총 좋아요 수 -->
@@ -57,7 +83,8 @@
 	     WHERE PJ_IDX = #{PJ_IDX}
 	       AND USER_ID = #{USER_ID}
 	</delete>
-		<delete id="deleteAlram2">
+	
+	<delete id="deleteAlram2">
 		<![CDATA[ DELETE A FROM ALRAM_TB AS A
 					LEFT JOIN PROJECT_TB AS P
 					ON A.pj_IDX = P.IDX
@@ -72,4 +99,34 @@
 		  ON A.PJ_IDX = P.IDX
 		 WHERE START = CURDATE()
 	</select>
+	
+	<select id="getAlram" resultType="HashMap" parameterType="HashMap">
+		SELECT COUNT(*)  AS CNT
+	      FROM ALRAM_TB
+	     WHERE PJ_IDX = #{PJ_IDX}
+	       AND USER_ID = #{USER_ID}
+	</select>
+	
+	<insert id="insertAlram" parameterType="HashMap">
+		INSERT INTO ALRAM_TB
+			 ( IDX
+			 , PJ_IDX
+			 , USER_ID
+			 , CODE)
+		     VALUES (
+		     (SELECT NUM
+			    FROM (SELECT IFNULL(MAX(IDX), 0) + 1 AS NUM
+					    FROM ALRAM_TB) A)
+			 , #{PJ_IDX}
+		     , #{USER_ID}
+		     , 'ALM2'
+		     )
+	</insert>
+	
+	<delete id="delAlram" parameterType="HashMap">
+		DELETE FROM ALRAM_TB
+	     WHERE PJ_IDX = #{PJ_IDX}
+	       AND USER_ID = #{USER_ID}
+	</delete>
+	
 </mapper>

@@ -24,7 +24,24 @@
 	</insert>
 
 	<select id="getCommunityReplyList" resultType = "com.itwillbs.domain.CommunityReplyDTO">
-		SELECT C.IDX
+<!-- 		SELECT C.IDX -->
+<!-- 					 , C.COMM_IDX -->
+<!-- 					 , C.PJ_IDX -->
+<!-- 					 , C.ID -->
+<!-- 				     , UR.NAME -->
+<!-- 				   	 , UR.PROFILE -->
+<!-- 				     , C.CONTENT_LABEL -->
+<!-- 				     , C.CONTENT -->
+<!-- 				     , C.DATE -->
+<!-- 		  FROM COMMUNITY_REPLY C -->
+<!-- 		  JOIN USER_TB UR -->
+<!-- 		    ON UR.ID = C.ID -->
+<!-- 		 WHERE CONTENT_LABEL = #{contentLabel} -->
+<!-- 		  AND COMM_IDX = #{commIdx} -->
+<!-- 		   AND PJ_IDX = #{pjIdx} -->
+<!-- 		   ORDER BY DATE DESC -->
+		   
+		         		SELECT C.IDX
 					 , C.COMM_IDX
 					 , C.PJ_IDX
 					 , C.ID
@@ -33,13 +50,22 @@
 				     , C.CONTENT_LABEL
 				     , C.CONTENT
 				     , C.DATE
+					, CASE WHEN EXISTS ( SELECT *
+										   FROM PROJECT_TB
+									      WHERE PJ_IDX = #{pjIdx}
+										    AND ID = C.ID
+									    ) THEN '★창작자★' ELSE '' END AS codeNm
 		  FROM COMMUNITY_REPLY C
 		  JOIN USER_TB UR
 		    ON UR.ID = C.ID
+            JOIN CODE_TB D
+           ON D.CODE = C.CONTENT_LABEL
 		 WHERE CONTENT_LABEL = #{contentLabel}
 		  AND COMM_IDX = #{commIdx}
 		   AND PJ_IDX = #{pjIdx}
 		   ORDER BY DATE DESC
+		   
+		   
 	</select>
 	
 	<select id="getMaxNum2" resultType="java.lang.Integer"> 

@@ -12,9 +12,11 @@
                 <a href="${pageContext.request.contextPath }/user/login">로그인</a>
             </c:if>
             <c:if test="${! empty sessionScope.id}">
-           		<a href="${pageContext.request.contextPath }/creator/start">프로젝트 올리기</a>
-                <a href="${pageContext.request.contextPath }/user/logout">로그아웃</a>
-                <img src="${pageContext.request.contextPath }/resources/assets/imgs/avatar-1.jpg" class="thumb-sm img-thumbnail rounded-circle" alt="...">
+           		<a href="${pageContext.request.contextPath }/creator/start" style="text-decoration: none;">프로젝트 올리기</a>
+                <a href="${pageContext.request.contextPath }/user/logout" style="text-decoration: none;">로그아웃</a>
+                <a href="${pageContext.request.contextPath }/myPage/mySettingPage">
+                	<img src="${pageContext.request.contextPath }/resources/upload/${sessionScope.profile}" style="width:40px; height:40px;" class="thumb-sm rounded-circle" alt="...">
+                </a>
             </c:if>
             </div>
         </div>
@@ -35,9 +37,12 @@
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       	  <a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/search?search="><img src="${pageContext.request.contextPath }/resources/assets/imgs/border-all.svg"/> 전체</a>
-                          <a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/category?category=book"><img src="${pageContext.request.contextPath }/resources/assets/imgs/book.svg"/> 출판</a>
-                          <a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/category?category=game"><img src="${pageContext.request.contextPath }/resources/assets/imgs/nintendo-switch.svg"/> 게임</a>
-                          <a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/category?category=music"><img src="${pageContext.request.contextPath }/resources/assets/imgs/music-note-list.svg"/> 음악</a>
+                          <a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/category?category=BOOK"><img src="${pageContext.request.contextPath }/resources/assets/imgs/book.svg"/> 출판</a>
+                          <a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/category?category=GAME"><img src="${pageContext.request.contextPath }/resources/assets/imgs/nintendo-switch.svg"/> 게임</a>
+                          <a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/category?category=MEDIA"><img src="${pageContext.request.contextPath }/resources/assets/imgs/music-note-list.svg"/> 음악</a>
+                          <a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/category?category=DESIGN"><img src="${pageContext.request.contextPath }/resources/assets/imgs/easel2.svg"/> 디자인</a>
+                          <a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/category?category=ACC"><img src="${pageContext.request.contextPath }/resources/assets/imgs/handbag.svg"/> 잡화</a>
+                          <a class="dropdown-item" href="${pageContext.request.contextPath }/projectList/category?category=SPORTS"><img src="${pageContext.request.contextPath }/resources/assets/imgs/bicycle.svg"/> 스포츠</a>
                       </div>
                     </li>
                     <li class="nav-item">
